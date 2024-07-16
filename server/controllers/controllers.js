@@ -9,7 +9,6 @@ import stripe from 'stripe'
 import { PaymentModel } from "../models/PaymentModel.js";
 import paypal from 'paypal-rest-sdk'
 import paypal1 from '@paypal/payouts-sdk'
-import axios from 'axios'
 
 
 const stripek = stripe('9393-393-3838')
