@@ -6,57 +6,59 @@ import axios from 'axios';
 
 function Accept() {
   const navigate = useNavigate();
-  const [permission, setPermission] = useState(false) 
-  let token; 
-  const tokenString = localStorage.getItem('clientToken') 
-  const tokenObject = JSON.parse(tokenString) 
-  token = tokenObject.token 
-  if(!token){ 
-    token = tokenObject 
-  } 
-  console.log('token from mainHome => '+ token) 
-
-   
-   
-   
-    useEffect(() => { 
-      const fetchPermission = async() => { 
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
-          { 
-           Authorization:  
-             `Bearer ${token}` 
-            
-          } 
-          } 
-         
-          ) 
-        console.log(response.data.permission) 
-        setPermission(response.data.permission) 
-    
-      } 
-  fetchPermission(); 
-    }, []) 
-   
-   
-  const navigateSignUpIn = () => { 
-    navigate('/auth') 
+  const [permission, setPermission] = useState(false);
+  let token;
+  const tokenString = localStorage.getItem('clientToken');
+  const tokenObject = JSON.parse(tokenString);
+  token = tokenObject.token;
+  if (!token) {
+    token = tokenObject;
   }
+  console.log('token from mainHome => ' + token);
+
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data.permission);
+      setPermission(response.data.permission);
+    };
+    fetchPermission();
+  }, [token]);
+
+  const navigateSignUpIn = () => {
+    navigate('/auth');
+  };
+
   return (
-    <div className="accept-container">
-      {
-        permission ? (      <Container>
-          <Card className="accept-card">
+    <div className="accept-container" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#007bff' }}>
+      {permission ? (
+        <Container className="text-center">
+          <Card className="p-4" style={{ backgroundColor: '#000', color: '#fff', borderRadius: '20px', maxWidth: '600px', margin: 'auto' }}>
             <Card.Body>
-              You have accepted the proposal.
+              <Card.Title className="mb-4">Proposal Accepted</Card.Title>
+              <Card.Text>You have accepted the proposal.</Card.Text>
+              <Button className="accept-button" onClick={() => navigate('/choose-method')} variant="primary" style={{ width: '100%' }}>
+                Go to Payment $
+              </Button>
             </Card.Body>
-            <Button className="accept-button" onClick={() => navigate("/choose-method")}>
-              Go to Payment $
-            </Button>
           </Card>
-        </Container>): (<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}> 
-          <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card> 
-        </div>)
-      }
+        </Container>
+      ) : (
+        <Container className="text-center">
+          <Card className="p-4" style={{ backgroundColor: '#000', color: '#fff', borderRadius: '20px', maxWidth: '600px', margin: 'auto' }}>
+            <Card.Body>
+              <Card.Title className="mb-4">Access Restricted</Card.Title>
+              <Button onClick={navigateSignUpIn} variant="primary" style={{ width: '100%' }}>
+                Sign Up / Sign In
+              </Button>
+            </Card.Body>
+          </Card>
+        </Container>
+      )}
     </div>
   );
 }

@@ -1,89 +1,131 @@
-import React, { useEffect, useState } from 'react'
-import {Button, Alert, Breadcrumb, Card, Form, Container, Col,Row} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios'
-import { Buffer } from 'buffer'
-
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Alert } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import { Buffer } from 'buffer';
+import styled from 'styled-components';
 
 function TopBar() {
-  const [checkNewMessages, setCheckNewMessages] = useState(false)
-  const [newProposals, setNewProposals] = useState(false)
-  const [profilePictureSrc, setProfilePictureSrc] = useState('')
-  const [name, setName] = useState('')
+  const [checkNewMessages, setCheckNewMessages] = useState(false);
+  const [newProposals, setNewProposals] = useState(false);
+  const [profilePictureSrc, setProfilePictureSrc] = useState('');
+  const [name, setName] = useState('');
+
   useEffect(() => {
-    const fetchCheckClientNewMessage = async() => {
-      const checkClientNewMessage = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkClientNewMessage')
-      console.log('result of checking the new message ==> '+checkClientNewMessage.data)
-      setCheckNewMessages(checkClientNewMessage.data)
-    }
+    const fetchCheckClientNewMessage = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkClientNewMessage');
+      setCheckNewMessages(response.data);
+    };
     fetchCheckClientNewMessage();
-  },[])
+  }, []);
 
   useEffect(() => {
-    const checkNewProposal = async() => {
-      const checkNewProposalResult = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkClientNewProposals')
-      setNewProposals(checkNewProposalResult.data)
-    }
+    const checkNewProposal = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkClientNewProposals');
+      setNewProposals(response.data);
+    };
     checkNewProposal();
-  }, [])
+  }, []);
 
   useEffect(() => {
-    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getClientProfileData').then(
-      response => response.json()
-    ).then(
-      result => setName(JSON.stringify(result.name).replace(/"/g, ""))
-    )
-  }, [])
-  
+    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getClientProfileData')
+      .then(response => response.json())
+      .then(result => setName(result.name));
+  }, []);
+
   useEffect(() => {
-    const fetchImage = async() => {
-      try{
+    const fetchImage = async () => {
+      try {
         const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getClientProfilePicture', {
           responseType: 'arraybuffer'
         });
 
-        const base64 = Buffer.from(response.data, 'binary').toString('base64')
+        const base64 = Buffer.from(response.data, 'binary').toString('base64');
         const mimeType = response.headers['content-type'];
-        setProfilePictureSrc(`data:${mimeType};base64,${base64}`)
-
-      }catch(error){
-        console.log(error.message)
+        setProfilePictureSrc(`data:${mimeType};base64,${base64}`);
+      } catch (error) {
+        console.log(error.message);
       }
-    }
+    };
     fetchImage();
-  
-  
-  }, [name])
+  }, [name]);
+
   return (
+    <TopBarContainer>
+      {checkNewMessages && <Alert variant="danger">You have new messages!</Alert>}
+      {newProposals && <Alert variant="danger">New proposal available!</Alert>}
 
-    <div>
-      {
-        checkNewMessages && <div style={{'backgroundColor':'red'}}>iuuuuuuuuuuuu</div>
-      }
- 
- {
-  newProposals &&  <div style={{'backgroundColor':'red'}}>new proposal new proposal new proposal</div>
-}
- 
-    <a href="/report" style={{'position':'relative', 'left': '120px', 'top':'40px', 'color': 'black'}}>Make report</a>
-    <a href="/notifications" style={{'position':'relative', 'left': '140px', 'top':'40px', 'color': 'black'}}>Notifications and providers</a>
-    <a href="/client-received-messages" style={{'position':'relative' , 'top':'40px', 'left':'170px', 'color':'black'}}>messages</a>
-    <a href="/client-posts" style={{'position':'relative' , 'top':'40px', 'left':'200px', 'color':'black'}}>My posts</a>
-    <Card style={{'position': 'relative','left': '1100px',  'width': '200px'}}>
-      <Card.Title style={{'position': 'relative', 'left': '70px', 'top':'25px'}}>
-          {
-            name
-          }
-      </Card.Title>
-      {
-        profilePictureSrc.data ? 
-        <img src={profilePictureSrc} style={{'width': '50px', 'height': '50px', 'borderRadius': '90px', 'position':'relative', 'top': '-13px'}}/> :<img src="/images/NormalProfile.jpg" style={{'height':'40px', 'width':'30px'}}/>
-      }
+      <NavLinks>
+        <NavLink href="/report">Make Report</NavLink>
+        <NavLink href="/notifications">Notifications & Providers</NavLink>
+        <NavLink href="/client-received-messages">Messages</NavLink>
+        <NavLink href="/client-posts">My Posts</NavLink>
+      </NavLinks>
 
-    </Card>
-    
-  </div>
-  )
+      <ProfileCard>
+        <Card.Title>{name}</Card.Title>
+        <ProfileImage src={profilePictureSrc || "/images/NormalProfile.jpg"} />
+      </ProfileCard>
+    </TopBarContainer>
+  );
 }
 
-export default TopBar
+export default TopBar;
+
+// Styled Components
+const TopBarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
+  padding: 20px;
+  color: white;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
+`;
+
+const NavLinks = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+const NavLink = styled.a`
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const ProfileCard = styled(Card)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  margin-left: auto;
+
+  @media (max-width: 768px) {
+    width: 150px;
+  }
+`;
+
+const ProfileImage = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 10px;
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+  }
+`;

@@ -1,63 +1,78 @@
-import React, { useEffect, useState } from 'react'
-import { Card,Button, Form } from 'react-bootstrap'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-
+import React, { useEffect, useState } from 'react';
+import { Card, Button, Form, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProviderProposal() {
-    const [proposal, setProposal] = useState('')
-    const handleProposalSubmit = async() => {
-        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/submitProposal', proposal)
-    }
+  const [proposal, setProposal] = useState('');
+  const handleProposalSubmit = async () => {
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/submitProposal', { proposal });
+  };
 
-    const [permission, setPermission] = useState(false)  
-let token;  
-const tokenString = localStorage.getItem('providerToken')  
-const tokenObject = JSON.parse(tokenString)  
-token = tokenObject.token  
-if(!token){  
-  token = tokenObject  
-}  
-console.log('token from mainHome => '+ token)  
-const navigate = useNavigate()  
-  
-  
-  
-  useEffect(() => {  
-    const fetchPermission = async() => {  
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider',{headers:  
-        {  
-         Authorization:   
-           `Bearer ${token}`
-           
-        }  
-        }  
-        
-        )  
-      console.log(response.data.permission)  
-      setPermission(response.data.permission)  
-   
-    }  
-fetchPermission();  
-  }, [])  
-  
-  
-const navigateSignUpIn = () => {  
-  navigate('/auth')  
-}
+  const [permission, setPermission] = useState(false);
+  let token;
+  const tokenString = localStorage.getItem('providerToken');
+  const tokenObject = JSON.parse(tokenString);
+  token = tokenObject.token;
+  if (!token) {
+    token = tokenObject;
+  }
+  console.log('token from mainHome => ' + token);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.data.permission);
+      setPermission(response.data.permission);
+    };
+    fetchPermission();
+  }, [token]);
+
+  const navigateSignUpIn = () => {
+    navigate('/auth');
+  };
+
   return (
-    <div>
-      {
-        permission ? (<>
-                <Form>
-            <Form.Control placeholder='enter your proposal' onChange={(e)=> setProposal(e.target.value)}/>
-        </Form>
-        <Button onClick={handleProposalSubmit}>Submit</Button></>):(<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}>  
-          <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card>  
-        </div>)
-      }
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#007bff' }}>
+      <Container className="text-center">
+        {permission ? (
+          <>
+            <Card className="p-4" style={{ backgroundColor: '#000', color: '#fff', borderRadius: '20px', maxWidth: '600px', margin: 'auto' }}>
+              <Card.Title className="mb-4">Submit Your Proposal</Card.Title>
+              <Form>
+                <Form.Group controlId="formProposal">
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter your proposal"
+                    onChange={(e) => setProposal(e.target.value)}
+                    style={{ marginBottom: '10px' }}
+                  />
+                </Form.Group>
+                <Button onClick={handleProposalSubmit} variant="primary" style={{ width: '100%' }}>
+                  Submit
+                </Button>
+              </Form>
+            </Card>
+          </>
+        ) : (
+          <div className="d-flex justify-content-center" style={{ height: '200px' }}>
+            <Card className="p-4" style={{ backgroundColor: '#000', color: '#fff', borderRadius: '20px' }}>
+              <Card.Title className="mb-3">Access Restricted</Card.Title>
+              <Button onClick={navigateSignUpIn} variant="primary" style={{ width: '100%' }}>
+                Sign Up / Sign In
+              </Button>
+            </Card>
+          </div>
+        )}
+      </Container>
     </div>
-  )
+  );
 }
 
-export default ProviderProposal
+export default ProviderProposal;

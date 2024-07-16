@@ -5,72 +5,81 @@ import ImgSlider from './ImgSlider';
 import RelatedTeachers from './RelatedTeachers';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {Card, Button } from 'react-bootstrap';
-
+import { Card, Button as BootstrapButton } from 'react-bootstrap';
+import styled from 'styled-components';
 
 function MainHome() {
-const [permission, setPermission] = useState(false)
-let token;
-const tokenString = localStorage.getItem('clientToken')
-const tokenObject = JSON.parse(tokenString)
-token = tokenObject.token
-if(!token){
-  token = tokenObject
-}
-console.log('token from mainHome => '+ token)
-const navigate = useNavigate()
+  const [permission, setPermission] = useState(false);
+  let token;
+  const tokenString = localStorage.getItem('clientToken');
+  const tokenObject = JSON.parse(tokenString);
+  token = tokenObject.token || tokenObject;
 
-
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPermission = async() => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers:
-        {
-         Authorization: 
-           `Bearer ${token}`
-         
+    const fetchPermission = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-        }
-      
-        )
-      console.log('data from back =====>  ',response)
-      setPermission(response.data.permission)
- 
-    }
-fetchPermission();
-  }, [])
+      });
+      setPermission(response.data.permission);
+    };
+    fetchPermission();
+  }, [token]);
 
-
-const navigateSignUpIn = () => {
-  navigate('/auth')
-}
-
-
+  const navigateSignUpIn = () => {
+    navigate('/auth');
+  };
 
   return (
-    
-   
-    <div style={{'backgroundColor': 'blue', 'min-height': '100vh', 'padding-bottom':'360px'}}>
-      {
-        permission ? (<>
-                <TopBar/>
-        <ImgSlider/>
-     <CallInviteBlocks/>
-        <RelatedTeachers/> 
-        </>): (<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}>
-          <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card>
-        </div>)
-
-      }
-
-   
-     
-
-    </div>
-  
-
+    <MainContainer>
+      {permission ? (
+        <>
+          <TopBar />
+          <ImgSlider />
+          <CallInviteBlocks />
+          <RelatedTeachers />
+        </>
+      ) : (
+        <SignUpContainer>
+          <Card className="sign-up-card">
+            <BootstrapButton onClick={navigateSignUpIn}>Sign Up/In</BootstrapButton>
+          </Card>
+        </SignUpContainer>
+      )}
+    </MainContainer>
   );
 }
 
 export default MainHome;
 
+const MainContainer = styled.div`
+  background-color: blue;
+  min-height: 100vh;
+  padding-bottom: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SignUpContainer = styled.div`
+  position: relative;
+  top: 170px;
+  background-color: black;
+  height: 200px;
+  width: 80%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+  .sign-up-card {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+`;
