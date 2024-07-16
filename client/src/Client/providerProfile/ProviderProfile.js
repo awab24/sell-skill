@@ -107,7 +107,7 @@ const navigate = useNavigate()
   
   useEffect(() => {
     const fetchReports = async() => {
-      const response = await axios.get('http://localhost:5000/api/endpoints/getReport')
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getReport')
       setReports(response.data)
       console.log('reports ===> '+response.data)
     }
@@ -120,7 +120,7 @@ const navigate = useNavigate()
  
   useEffect(() => { 
     const fetchPermission = async() => { 
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
         { 
          Authorization:  
            `Bearer ${token}`
@@ -144,7 +144,7 @@ const navigateSignUpIn = () => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getProfileIMAGE', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileIMAGE', {
           responseType: 'arraybuffer'
         });
 
@@ -161,7 +161,7 @@ const navigateSignUpIn = () => {
   useEffect(() => {
     const fetchPdf = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getProfilePDF', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePDF', {
           responseType: 'arraybuffer'
         });
 
@@ -178,7 +178,7 @@ const navigateSignUpIn = () => {
   useEffect(() => {
     const fetchExperiencePdf = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getExperiencePDF', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperiencePDF', {
           responseType: 'arraybuffer'
         });
 
@@ -195,7 +195,7 @@ const navigateSignUpIn = () => {
   useEffect(() => {
     const fetchExperienceImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getExperienceIMAGE', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperienceIMAGE', {
           responseType: 'arraybuffer'
         });
 
@@ -212,7 +212,7 @@ const navigateSignUpIn = () => {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getIntro', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getIntro', {
           responseType: 'arraybuffer'
         });
 
@@ -228,7 +228,7 @@ const navigateSignUpIn = () => {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/endpoints/getProfileData').then(
+    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileData').then(
       response => response.json()
     ).then(
       result => setName(JSON.stringify(result.name).replace(/"/g, ""))
@@ -238,7 +238,7 @@ const navigateSignUpIn = () => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getProfilePicture', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePicture', {
           responseType: 'arraybuffer'
         });
 

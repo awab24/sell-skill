@@ -17,7 +17,7 @@ const handleNextClick = () => {
           const formData = new FormData();
           formData.append('picture', picture)
           formData.append('name', 'img/png')
-            await axios.post('http://localhost:5000/api/endpoints/insertClientPicture', formData)
+            await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertClientPicture', formData)
  })
   return (
     <div  style={{'height':'630px','backgroundColor': 'blue'}}>

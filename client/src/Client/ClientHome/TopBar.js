@@ -12,7 +12,7 @@ function TopBar() {
   const [name, setName] = useState('')
   useEffect(() => {
     const fetchCheckClientNewMessage = async() => {
-      const checkClientNewMessage = await axios.get('http://localhost:5000/api/endpoints/checkClientNewMessage')
+      const checkClientNewMessage = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkClientNewMessage')
       console.log('result of checking the new message ==> '+checkClientNewMessage.data)
       setCheckNewMessages(checkClientNewMessage.data)
     }
@@ -21,14 +21,14 @@ function TopBar() {
 
   useEffect(() => {
     const checkNewProposal = async() => {
-      const checkNewProposalResult = await axios.get('http://localhost:5000/api/endpoints/checkClientNewProposals')
+      const checkNewProposalResult = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkClientNewProposals')
       setNewProposals(checkNewProposalResult.data)
     }
     checkNewProposal();
   }, [])
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/endpoints/getClientProfileData').then(
+    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getClientProfileData').then(
       response => response.json()
     ).then(
       result => setName(JSON.stringify(result.name).replace(/"/g, ""))
@@ -38,7 +38,7 @@ function TopBar() {
   useEffect(() => {
     const fetchImage = async() => {
       try{
-        const response = await axios.get('http://localhost:5000/api/endpoints/getClientProfilePicture', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getClientProfilePicture', {
           responseType: 'arraybuffer'
         });
 

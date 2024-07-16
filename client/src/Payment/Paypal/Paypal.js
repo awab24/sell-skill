@@ -34,7 +34,7 @@ const navigate = useNavigate()
  
   useEffect(() => { 
     const fetchPermission = async() => { 
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
         { 
          Authorization:  
            `Bearer ${token}` 
@@ -78,7 +78,7 @@ onApprove={(data, actions) => {
   return actions.order.capture().then(async(details) => {
     setPaid(true);
     setCompleted(true);
-    axios.post('http://localhost:5000/api/endpoints/payProvider', {providerAmount: (amount * 70)/100})
+    axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/payProvider', {providerAmount: (amount * 70)/100})
     onSuccess(details);
    
   }

@@ -16,7 +16,7 @@ function ClientSignUp() {
   const [clientSignUpData, setClientSignUpData] = useState({_id: uuidv4(),name: '', surname:'', email: '', password: '', confirmPassword: ''})
   const [alreadyClientExist, setAlreadyClientExist] = useState(false)
   const handleClientSignUp = async() => {
-    responseClient = await  axios.post('http://localhost:5000/api/endpoints/clientSignUp',clientSignUpData)
+    responseClient = await  axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientSignUp',clientSignUpData)
     clientToken  = responseClient.data;
     if(!clientToken){
       setAlreadyClientExist(true)

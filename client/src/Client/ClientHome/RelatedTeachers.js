@@ -8,7 +8,7 @@ function RelatedTeachers() {
     const [relatedProviders, setRelatedProviders] = useState([])
     useEffect(() => {
         const fetchRelatedProviders = async () => {
-            const fetchRelatedProvidersResponse = await axios.get('http://localhost:5000/api/endPoints/getRelatedProviders')
+            const fetchRelatedProvidersResponse = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders')
             console.log('related providers ===> ', fetchRelatedProvidersResponse.data)
             setRelatedProviders(fetchRelatedProvidersResponse.data)
         }

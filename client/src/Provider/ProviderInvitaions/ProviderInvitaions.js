@@ -9,7 +9,7 @@ function ProviderInvitaions() {
   const navigate = useNavigate()
   useEffect(() => {
     const getInvitations = async() => {
-      const response = await axios.get('http://localhost:5000/api/endpoints/getInvitations')
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getInvitations')
       setInvitations(response.data)
 
 
@@ -21,11 +21,11 @@ function ProviderInvitaions() {
   const goToChoosenInvitation = async(e) => {
 
     navigate('/choosen-invitation')
-    await axios.post('http://localhost:5000/api/endpoints/sendChoosenId/'+e)
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendChoosenId/'+e)
   }
   useEffect(() => {
     const killInviteNotification = async() => {
-      await axios.patch('http://localhost:5000/api/endpoints/cancelProviderNewInvites')
+      await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/cancelProviderNewInvites')
     }
     killInviteNotification();
     }, [])

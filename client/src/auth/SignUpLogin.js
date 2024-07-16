@@ -29,7 +29,7 @@ function SignUpLogin() {
     console.log('email => '+email)
   
     try {
-      responseClient = await axios.post('http://localhost:5000/api/endpoints/clientSignIn', {email:email, password: ''});
+      responseClient = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientSignIn', {email:email, password: ''});
       clientToken  = responseClient.data;
       
       localStorage.setItem('clientToken', JSON.stringify(clientToken));
@@ -38,7 +38,7 @@ function SignUpLogin() {
     } catch (error) {
       setClientResult(false)
       try {
-        responseProvider = await axios.post('http://localhost:5000/api/endpoints/providerSignIn', {email:email, password: ''});
+        responseProvider = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignIn', {email:email, password: ''});
         providerToken  = responseProvider.data;
         localStorage.setItem('providerToken', JSON.stringify(providerToken));
           responseProvider && navigate('/provider');
@@ -64,7 +64,7 @@ function SignUpLogin() {
       } catch (error) {
         setClientResult(false)
         try {
-          responseProvider = await axios.post('http://localhost:5000/api/endpoints/providerSignIn', signInData);
+          responseProvider = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignIn', signInData);
           providerToken  = responseProvider.data;
           console.log('token ======================================================> '+providerToken)
           localStorage.setItem('providerToken', JSON.stringify(providerToken));
@@ -89,7 +89,7 @@ function SignUpLogin() {
       console.log('responseClient ====================================>>>>>>>>>> '+responseClient)
       responseProvider && navigate('/provider')
       if(responseClient || responseProvider){
-        const responseProviderOrClientId = await axios.get('http://localhost:5000/api/endpoints/providerOrClientId')
+        const responseProviderOrClientId = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerOrClientId')
         console.log(dispatch(setProviderOrClientId(responseProviderOrClientId.data)))
       }
 

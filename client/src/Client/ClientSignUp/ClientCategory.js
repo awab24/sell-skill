@@ -12,7 +12,7 @@ function TypeOfWork() {
   const handleNextClick = async () => {
     navigate("/client")
     console.log('categories ===> ' + category)
-    await axios.post('http://localhost:5000/api/endpoints/clientCategory', category)
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientCategory', category)
   }
 
   const handleCategoryClick = (cat) => {

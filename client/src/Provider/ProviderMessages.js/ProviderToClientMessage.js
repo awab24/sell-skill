@@ -14,12 +14,12 @@ function ProviderToClientMessage() {
     const navigate = useNavigate()
     const [messages, setMessages] = useState([])
     const handleProviderToClientMessage = async() => {
-      await axios.post(`http://localhost:5000/api/endpoints/sendProviderToClientMessage/${clientID}`,{_id: uuidv4(), message: messageContent})
+      await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderToClientMessage/${clientID}`,{_id: uuidv4(), message: messageContent})
     }
     useEffect(() => {
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://localhost:5000/api/endpoints/getMessagesFromClientIntoProvider');
+            const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
@@ -48,7 +48,7 @@ console.log('token from mainHome => '+ token)
   
   useEffect(() => {  
     const fetchPermission = async() => {  
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyProvider',{headers:  
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider',{headers:  
         {  
          Authorization:   
            `Bearer ${token}` 
@@ -71,7 +71,7 @@ const navigateSignUpIn = () => {
 
 const deleteProviderMessage = async(e) => {
   console.log(e)
-  await axios.delete('http://localhost:5000/api/endpoints/deleteProviderMessage/'+e)
+  await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteProviderMessage/'+e)
 }
   return (
     <div>

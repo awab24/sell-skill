@@ -20,7 +20,7 @@ let responseProviderId;
     useEffect(() => {
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://localhost:5000/api/endpoints/getMessagesFromClientIntoProvider');
+            const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
@@ -32,7 +32,7 @@ let responseProviderId;
             console.error('Failed to fetch posts:', error);
           }
           try{
-            responseProviderId =  await axios.post('http://localhost:5000/api/endpoints/sendProviderIdToFront')
+            responseProviderId =  await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront')
             responseProviderId = await responseProviderId.data;
             setProviderId(responseProviderId)
           }catch(error){
@@ -47,7 +47,7 @@ let responseProviderId;
       const fetchProviderId = async () => {
 
         try{
-          responseProviderId =  await axios.post('http://localhost:5000/api/endpoints/sendProviderIdToFront')
+          responseProviderId =  await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront')
           responseProviderId = await responseProviderId.data;
           console.log('responseProviderId => => => => '+responseProviderId)
         }catch(error){
@@ -75,7 +75,7 @@ console.log('token from mainHome => '+ token)
   
   useEffect(() => {  
     const fetchPermission = async() => {  
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyProvider',{headers:  
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider',{headers:  
         {  
          Authorization:   
            `Bearer ${token}`
@@ -86,7 +86,7 @@ console.log('token from mainHome => '+ token)
         )  
       console.log(response.data.permission)  
       setPermission(response.data.permission)  
-      await axios.patch('http://localhost:5000/api/endpoints/cancelProviderNewMessages')
+      await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/cancelProviderNewMessages')
     }  
 fetchPermission();  
   }, [])  

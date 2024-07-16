@@ -26,7 +26,7 @@ function TeacherAuth() {
     console.log('email => '+email)
     console.log('last name => ' + family_name)
     try {
-      responseProvider = await  axios.post('http://localhost:5000/api/endpoints/providerSignUpData', {_id: uuidv4(), name: name,surname: family_name, email: email, password: '',confirmPassword: '' })
+      responseProvider = await  axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData', {_id: uuidv4(), name: name,surname: family_name, email: email, password: '',confirmPassword: '' })
       providerToken  = responseProvider.data;
       console.log(JSON.stringify(providerToken))
       localStorage.setItem('providerToken', JSON.stringify(providerToken));
@@ -44,7 +44,7 @@ function TeacherAuth() {
   const handleProviderSignUp = async() => {
     
     try {
-      responseProvider = await  axios.post('http://localhost:5000/api/endpoints/providerSignUpData',providerSignUpData)
+      responseProvider = await  axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData',providerSignUpData)
       providerToken  = responseProvider.data;
       if(!providerToken){
         setAlreadyProviderExist(true)

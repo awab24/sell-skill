@@ -9,7 +9,7 @@ function MakeReport() {
     const navigate = useNavigate()
     const handleUploadReport = async() => {
       navigate('/client')
-        await axios.post('http://localhost:5000/api/endpoints/insertReport', {providerEmail: providerEmail, report: report})
+        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertReport', {providerEmail: providerEmail, report: report})
 
     }
   return (

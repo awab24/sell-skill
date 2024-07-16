@@ -17,7 +17,7 @@ function TopBar() {
 
   useEffect(() => {
     const fetchCheckProviderNewMessages= async() => {
-      const providerNewMessagesResult = await axios.get('http://localhost:5000/api/endpoints/checkProviderNewMessages')
+      const providerNewMessagesResult = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkProviderNewMessages')
       setNewMessages(providerNewMessagesResult.data)
   
     }
@@ -26,7 +26,7 @@ function TopBar() {
 
   useEffect(() => {
     const fetchCheckProviderNewInvites= async() => {
-      const providerNewInvitesResult = await axios.get('http://localhost:5000/api/endpoints/checkProviderNewInvites')
+      const providerNewInvitesResult = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkProviderNewInvites')
       setNewInvites(providerNewInvitesResult.data)
   
     }
@@ -35,7 +35,7 @@ function TopBar() {
 
 
 useEffect(() => {
-  fetch('http://localhost:5000/api/endpoints/getProfileData').then(
+  fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileData').then(
     response => response.json()
   ).then(
     result => setName(JSON.stringify(result.name).replace(/"/g, ""))
@@ -45,7 +45,7 @@ useEffect(() => {
 useEffect(() => {
   const fetchImage = async() => {
     try{
-      const response = await axios.get('http://localhost:5000/api/endpoints/getProfilePicture', {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePicture', {
         responseType: 'arraybuffer'
       });
       

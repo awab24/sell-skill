@@ -17,7 +17,7 @@ function ProposalAtClient() {
   }
   const handleSeeProfile = async()=>{
     navigate("/provider-profile")
-    await axios.post('http://localhost:5000/api/endpoints/proposalId/'+proposalId)
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/proposalId/'+proposalId)
   
     
   }
@@ -25,7 +25,7 @@ function ProposalAtClient() {
   useEffect(() => {
     const fetchProposals = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/endpoints/getProposals');
+        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProposals');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -60,7 +60,7 @@ console.log('token from mainHome => '+ token)
  
   useEffect(() => { 
     const fetchPermission = async() => { 
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
         { 
          Authorization:  
            `Bearer ${token}`

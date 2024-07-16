@@ -18,7 +18,7 @@ function Certifications() {
     formData.append('pdf', e);
     formData.append('name', 'application/pdf');
     formData.append('id', uuidv4())
-      await axios.post('http://localhost:5000/api/endpoints/insertPdfCertificate', formData)
+      await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfCertificate', formData)
   })
   const handleIMAGE = (async(e) => {
 
@@ -27,7 +27,7 @@ function Certifications() {
     formData.append('image', e);
     formData.append('id', uuidv4())
 
-   await axios.post('http://localhost:5000/api/endpoints/insertImageCertificate', formData )
+   await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageCertificate', formData )
   })
 
 

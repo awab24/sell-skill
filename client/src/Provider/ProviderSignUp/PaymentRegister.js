@@ -8,7 +8,7 @@ function PaymentRegister() {
     const navigate = useNavigate()
     const handleNext = async() => {
         navigate("/provider")
-        await axios.post('http://localhost:5000/api/endpoints/insertPaypalEmail', {paypalEmail: paypalEmail})
+        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPaypalEmail', {paypalEmail: paypalEmail})
     }
   return (
     <div>

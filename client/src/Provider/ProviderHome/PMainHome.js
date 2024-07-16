@@ -17,7 +17,7 @@ const navigate = useNavigate()
 
     useEffect(() => {
       const fetchPermission = async() => {
-        const response = await axios.get('http://localhost:5000/api/endpoints/verifyProvider',{headers:
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider',{headers:
           {
           Authorization: 
             `Bearer ${token}`

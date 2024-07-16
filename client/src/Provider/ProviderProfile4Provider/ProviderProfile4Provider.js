@@ -107,7 +107,7 @@ function ProviderProfile4Provider() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyProvider', {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,7 +125,7 @@ function ProviderProfile4Provider() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getProfileIMAGE');
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileIMAGE');
         const imagesData = response.data.map((image) => {
           console.log('image certification id ====> '+ image.imageCertificationId)
           return {imageSrc: `data:${image.contentType};base64,${image.data}`, imageId: image.imageCertificationId};
@@ -142,7 +142,7 @@ function ProviderProfile4Provider() {
   useEffect(() => {
     const fetchPdf = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getProfilePDF');
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePDF');
         const certificatePdfs = response.data.map((certificatePdf) => {
           return {certificatePdfSrc: `data:${certificatePdf.contentType};base64,${certificatePdf.data}`, certificatePdfId: certificatePdf.id};
         });
@@ -157,7 +157,7 @@ function ProviderProfile4Provider() {
   useEffect(() => {
     const fetchExperiencePdf = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getExperiencePDF');
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperiencePDF');
         const pdfExperiences = response.data.map((pdfExperience) => {
           return {src: `data:${pdfExperience.contentType};base64,${pdfExperience.data}`, id: pdfExperience.id};
         });
@@ -172,7 +172,7 @@ function ProviderProfile4Provider() {
   useEffect(() => {
     const fetchExperienceImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getExperienceIMAGE');
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperienceIMAGE');
         const imageExperiences = response.data.map((imageExperience) => {
           return {src: `data:${imageExperience.contentType};base64,${imageExperience.data}`, id: imageExperience.id}
         });
@@ -187,7 +187,7 @@ function ProviderProfile4Provider() {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getBlog', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getBlog', {
           responseType: 'arraybuffer',
         });
         
@@ -204,7 +204,7 @@ function ProviderProfile4Provider() {
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/endpoints/getProfileData')
+    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileData')
       .then((response) => response.json())
       .then((result) => setName(JSON.stringify(result.name).replace(/"/g, '')));
   }, []);
@@ -212,7 +212,7 @@ function ProviderProfile4Provider() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/endpoints/getProfilePicture', {
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePicture', {
           responseType: 'arraybuffer',
         });
 
@@ -227,14 +227,14 @@ function ProviderProfile4Provider() {
   }, [name]);
 
   const handleChangePaypalEmail = async() => {
-    await axios.post('http://localhost:5000/api/endpoints/insertPaypalEmail', {paypalEmail:paypalEmail})
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPaypalEmail', {paypalEmail:paypalEmail})
   }
 
   const handleImageCertification = async (e) => {
     const formData = new FormData();
     formData.append('image', e);
     formData.append('id', uuidv4())
-    await axios.post('http://localhost:5000/api/endpoints/insertImageCertificate', formData);
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageCertificate', formData);
   };
   
   const handlePdfCertification = async (e) => {
@@ -242,43 +242,43 @@ function ProviderProfile4Provider() {
     formData.append('pdf', e);
     formData.append('name', 'application/pdf');
     formData.append('id', uuidv4())
-    await axios.post('http://localhost:5000/api/endpoints/insertPdfCertificate', formData);
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfCertificate', formData);
   };
 
   const handlePDFExperience = async (e) => {
     const formData = new FormData();
     formData.append('experiencePdf', e);
     formData.append('id', uuidv4())
-    await axios.post('http://localhost:5000/api/endpoints/insertPdfExperience', formData);
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfExperience', formData);
   };
 
   const handleIMAGEExperience = async (e) => {
     const formData = new FormData();
     formData.append('experienceImage', e);
     formData.append('id', uuidv4())
-    await axios.post('http://localhost:5000/api/endpoints/insertImageExperience', formData);
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageExperience', formData);
   };
 
   const deleteImageCertificate = async(e) => {
     console.log('e ===> '+e)
-    await axios.delete('http://localhost:5000/api/endpoints/deleteImageCertificate/'+e)
+    await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteImageCertificate/'+e)
   }
   const deletePdfCertificate = async(e) => {
-    await axios.delete('http://localhost:5000/api/endpoints/deletePdfCertificate/'+e)
+    await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deletePdfCertificate/'+e)
   }
 
   const deleteImageExperience = async(e) => {
     console.log('imageExperience id ==> ==> '+e)
-    await axios.delete('http://localhost:5000/api/endpoints/deleteImageExperience/'+e)
+    await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteImageExperience/'+e)
 
   }
   const deletePdfExperience = async(e) => {
-    await axios.delete('http://localhost:5000/api/endpoints/deletePdfExperience/'+e)
+    await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deletePdfExperience/'+e)
   }
 
   useEffect(() => {
     const fetchReports = async() => {
-      const response = await axios.get('http://localhost:5000/api/endpoints/getReport')
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getReport')
       setReports(response.data)
       console.log('reports ===> '+response.data)
     }
@@ -286,7 +286,7 @@ function ProviderProfile4Provider() {
   },[])
   
   const deleteBlog = async() => {
-    await axios.patch('http://localhost:5000/api/endpoints/deleteBlog')
+    await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteBlog')
   }
 
 
@@ -296,7 +296,7 @@ function ProviderProfile4Provider() {
     formData.append('image', e)
     formData.append('name', 'image/png')
     console.log(formData)
-    await axios.post('http://localhost:5000/api/endpoints/addBlog' , formData)
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addBlog' , formData)
   }
   return (
     <>

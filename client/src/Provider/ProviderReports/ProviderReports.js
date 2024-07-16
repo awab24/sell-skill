@@ -5,7 +5,7 @@ function ProviderReports() {
     const [reports, setReports] = useState([])
     useEffect(() => {
         const fetchReports = async() => {
-          const response = await axios.get('http://localhost:5000/api/endpoints/getReport')
+          const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getReport')
           setReports(response.data)
           console.log('reports ===> '+response.data)
         }

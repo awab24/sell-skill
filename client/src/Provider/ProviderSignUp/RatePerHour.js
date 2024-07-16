@@ -9,7 +9,7 @@ function RatePerHour() {
     const navigate = useNavigate()
     const handleNextClick = async () => {
       navigate("/payment-register");
-      await axios.post('http://localhost:5000/api/endpoints/addRate', { ratePerHour: rate });
+      await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addRate', { ratePerHour: rate });
     }
     
   return (

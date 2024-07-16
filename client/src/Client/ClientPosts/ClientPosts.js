@@ -10,11 +10,11 @@ function ClientPosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const responseProviderOrClientId = await axios.get('http://localhost:5000/api/endpoints/providerOrClientId');
+        const responseProviderOrClientId = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerOrClientId');
         const clientId = responseProviderOrClientId.data;
         
 
-        const response = await axios.get(`http://localhost:5000/api/endpoints/showClientPosts/${clientId}`);
+        const response = await axios.get(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/showClientPosts/${clientId}`);
       
         setPosts(response.data)
       } catch (error) {
@@ -25,7 +25,7 @@ function ClientPosts() {
   }, []);// Ensure dependency array to avoid infinite loop
 
   const deletePost = async(e) => {
-    await axios.delete('http://localhost:5000/api/endpoints/deletePost/'+e)
+    await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deletePost/'+e)
   }
   return (
     <div>

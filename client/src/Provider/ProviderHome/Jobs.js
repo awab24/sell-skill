@@ -16,14 +16,14 @@ function Jobs() {
   dispatch(setProviderId(providerId));
 
   const handleApply = (id) => {
-    axios.post(`http://localhost:5000/api/endpoints/insertProviderToClient/${clientID}`, { clientID });
+    axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertProviderToClient/${clientID}`, { clientID });
     navigate('/make-proposal');
   };
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/endpoints/getPosts');
+        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getPosts');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

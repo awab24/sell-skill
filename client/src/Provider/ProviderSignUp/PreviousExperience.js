@@ -17,7 +17,7 @@ function PreviousExperience() {
     formData.append('experiencePdf', e);
     formData.append('id', uuidv4())
     
-      await axios.post('http://localhost:5000/api/endpoints/insertPdfExperience', formData)
+      await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfExperience', formData)
   })
   const handleIMAGE = (async(e) => {
 
@@ -26,7 +26,7 @@ function PreviousExperience() {
     formData.append('id', uuidv4())
 
 
-   await axios.post('http://localhost:5000/api/endpoints/insertImageExperience', formData )
+   await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageExperience', formData )
   })
 
 

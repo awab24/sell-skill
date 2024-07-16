@@ -13,7 +13,7 @@ function ReceivedMessages2Client() {
     useEffect(() => {
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://localhost:5000/api/endpoints/getProviderToClientMessagesInClient');
+            const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProviderToClientMessagesInClient');
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
@@ -36,7 +36,7 @@ function ReceivedMessages2Client() {
             message: messageContent
           };
     
-          await axios.post(`http://localhost:5000/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
+          await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
     
           setMessageContent(''); // Clear message input after sending
         } catch (error) {
@@ -60,7 +60,7 @@ const navigate = useNavigate()
  
   useEffect(() => { 
     const fetchPermission = async() => { 
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
         { 
          Authorization:  
            `Bearer ${token}`
@@ -84,7 +84,7 @@ const navigateSignUpIn = () => {
 const deleteClientMessage = async(e) => {
   receivedMessages.map((receivedMessage) => console.log(receivedMessage))
   console.log('id of the message that will be deleted client side => => '+e)
-  await axios.delete('http://localhost:5000/api/endpoints/deleteClientMessage/'+e)
+  await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteClientMessage/'+e)
 }
   return (
     <div>

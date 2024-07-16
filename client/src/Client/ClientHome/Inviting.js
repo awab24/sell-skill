@@ -21,7 +21,7 @@ const navigate = useNavigate()
  
   useEffect(() => { 
     const fetchPermission = async() => { 
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
         { 
          Authorization:  
            `Bearer ${token}`
@@ -44,7 +44,7 @@ const navigateSignUpIn = () => {
 
 const handleInvite = async() => {
   navigate('/provider')
-  await axios.post('http://localhost:5000/api/endpoints/sendInvite', {providerEmail: providerEmail, message: invitationMessage})
+  await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendInvite', {providerEmail: providerEmail, message: invitationMessage})
 
 }
   return (

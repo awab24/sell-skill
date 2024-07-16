@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://sell-skill-d7865032728d.herokuapp.com",
   "engines": {
     "node": "20.x",
     "npm": "10.7.0"

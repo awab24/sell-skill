@@ -9,7 +9,7 @@ function Overview() {
 const postData = useSelector((state) => state.allow.overview)
 const handlePost= async()=>{
   console.log('last post data ===> ' +postData)
- await axios.post('http://localhost:5000/api/endpoints/insertPost', postData)
+ await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPost', postData)
 }
 
 
@@ -28,7 +28,7 @@ const navigate = useNavigate()
  
   useEffect(() => { 
     const fetchPermission = async() => { 
-      const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
         { 
          Authorization:  
            `Bearer ${token}`

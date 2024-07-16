@@ -14,7 +14,7 @@ function Blog() {
     formData.append('image', e)
     formData.append('name', 'image/png')
     console.log(formData)
-    await axios.post('http://localhost:5000/api/endpoints/addBlog' , formData)
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addBlog' , formData)
     }
     const handleNextClick =(async() => {
       navigate('/rate-per-hour')

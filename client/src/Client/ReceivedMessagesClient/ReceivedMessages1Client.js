@@ -19,13 +19,13 @@ function ReceivedMessages1Client() {
     useEffect(() => {
         const fetchPosts = async () => {
           try {
-            const response = await fetch('http://localhost:5000/api/endpoints/getProviderToClientMessagesInClient');
+            const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProviderToClientMessagesInClient');
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
             const result = await response.json();
             setReceivedMessages(result);  // Assuming result is an array or object directly
-            await axios.patch('http://localhost:5000/api/endpoints/cancelClientNewMessages')
+            await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/cancelClientNewMessages')
           } catch (error) {
             console.error('Failed to fetch posts:', error);
           }
@@ -47,7 +47,7 @@ function ReceivedMessages1Client() {
        
         useEffect(() => { 
           const fetchPermission = async() => { 
-            const response = await axios.get('http://localhost:5000/api/endpoints/verifyClient',{headers: 
+            const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
               { 
                Authorization:  
                  `Bearer ${token}`
