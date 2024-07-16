@@ -1,36 +1,36 @@
-import React, { useState } from 'react'
-import { Button, Card, Container, Form } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Button, Card, Container, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function TypeOfWork() {
-  const navigate = useNavigate()
-  const [category, setCategory] = useState([])
-  const [others, setOthers] = useState('')
-  
+  const navigate = useNavigate();
+  const [category, setCategory] = useState([]);
+  const [others, setOthers] = useState('');
+
   const handleNextClick = async () => {
-    navigate("/client")
-    console.log('categories ===> ' + category)
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientCategory', category)
-  }
+    navigate("/client");
+    console.log('categories ===> ', category);
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientCategory', category);
+  };
 
   const handleCategoryClick = (cat) => {
     setCategory((prevCategories) => {
       if (prevCategories.includes(cat)) {
-        return prevCategories.filter((c) => c !== cat)
+        return prevCategories.filter((c) => c !== cat);
       } else {
-        return [...prevCategories, cat]
+        return [...prevCategories, cat];
       }
-    })
-  }
+    });
+  };
 
   const handleAddOther = () => {
     if (others.trim() && !category.includes(others)) {
-      setCategory((prevCategories) => [...prevCategories, others])
-      setOthers('')
+      setCategory((prevCategories) => [...prevCategories, others]);
+      setOthers('');
     }
-  }
+  };
 
   return (
     <div style={styles.container}>
@@ -55,16 +55,16 @@ function TypeOfWork() {
               type="text"
               value={others}
               onChange={(e) => setOthers(e.target.value)}
-              placeholder="enter other field ..."
+              placeholder="Enter other field ..."
               style={styles.input}
             />
-            <Button style={styles.button} onClick={handleAddOther}>add other</Button>
+            <Button style={styles.button} onClick={handleAddOther}>Add Other</Button>
             <Button style={styles.nextButton} onClick={handleNextClick}>Next</Button>
           </Card>
         </Card>
       </Container>
     </div>
-  )
+  );
 }
 
 const styles = {
@@ -81,7 +81,8 @@ const styles = {
     borderRadius: '20px',
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-    width: '80%',
+    width: '90%',
+    maxWidth: '600px',
     margin: '0 auto',
   },
   innerCard: {
@@ -91,7 +92,7 @@ const styles = {
     padding: '20px',
   },
   title: {
-    fontSize: '30px',
+    fontSize: '24px',
     textAlign: 'center',
     marginBottom: '20px',
   },
@@ -129,7 +130,6 @@ const styles = {
     color: '#fff',
     borderRadius: '5px',
   },
-}
+};
 
-export default TypeOfWork
-
+export default TypeOfWork;

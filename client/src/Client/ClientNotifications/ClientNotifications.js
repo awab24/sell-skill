@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Card, Button } from 'react-bootstrap';
+import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setProposalId } from '../../reducers/reducers';
@@ -25,7 +25,6 @@ function ClientNotifications() {
                 }
                 const result = await response.json();
                 setIncomingProvidersData(result);
-                console.log(result);
             } catch (error) {
                 console.error('Failed to fetch proposals:', error);
             }
@@ -34,79 +33,75 @@ function ClientNotifications() {
         fetchProposals();
     }, []);
 
-    const [permission, setPermission] = useState(false) 
-let token; 
-const tokenString = localStorage.getItem('clientToken') 
-const tokenObject = JSON.parse(tokenString) 
-token = tokenObject.token 
-if(!token){ 
-  token = tokenObject 
-} 
-console.log('token from mainHome => '+ token) 
+    const [permission, setPermission] = useState(false);
+    let token;
+    const tokenString = localStorage.getItem('clientToken');
+    const tokenObject = JSON.parse(tokenString);
+    token = tokenObject.token || tokenObject;
 
- 
- 
- 
-  useEffect(() => { 
-    const fetchPermission = async() => { 
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
-        { 
-         Authorization:  
-           `Bearer ${token}`
-          
-        } 
-        } 
-       
-        ) 
-      console.log(response.data.permission) 
-      setPermission(response.data.permission) 
-  
-    } 
-fetchPermission(); 
-  }, []) 
- 
-  useEffect(() => {
-    const killProposalNewNotification =async () => {
-      await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/cancelClientNewProposals')
-    }
-    killProposalNewNotification();
- }, [])
-const navigateSignUpIn = () => { 
-  navigate('/auth') 
-}
+    useEffect(() => {
+        const fetchPermission = async () => {
+            const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setPermission(response.data.permission);
+        };
+        fetchPermission();
+    }, []);
 
+    useEffect(() => {
+        const killProposalNewNotification = async () => {
+            await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/cancelClientNewProposals');
+        };
+        killProposalNewNotification();
+    }, []);
 
+    const navigateSignUpIn = () => {
+        navigate('/auth');
+    };
 
     return (
-        <div style={{ 'backgroundColor': 'blue', 'height': '633px' }}>
-            {
-                permission ? (            <Container>
-                    {incomingProvidersData.length > 0 ? (
-                        incomingProvidersData.map((proposal, index) => (
-                            <div key={index} style={{ 'backgroundColor': 'blue', 'paddingBottom': '36px', 'width': '1366px', 'position': 'relative', 'left': '-125px' }}>
-                                <div>
-                                  
-                                </div>
-                                <Card style={{ 'backgroundColor': 'black', 'color': 'blue', 'width': '700px', 'position': 'relative', 'left': '290px', 'top': '30px' }}>
-                                    <Button onClick={() => handleButtonClick(proposal.incomingProvider._id)}>
-                                        <Card.Title style={{ 'color': 'black' }}>You got a proposal from</Card.Title>
+        <div style={{ backgroundColor: 'blue', minHeight: '100vh' }}>
+            <Container className="py-4">
+                {permission ? (
+                    <Row className="justify-content-center">
+                        {incomingProvidersData.length > 0 ? (
+                            incomingProvidersData.map((proposal, index) => (
+                                <Col xs={12} sm={6} md={4} lg={3} key={index} className="mb-4">
+                                    <Card className="text-center" style={{ backgroundColor: 'black', color: 'blue' }}>
                                         <Card.Body>
-                                            Name: {proposal.incomingProvider.providerName}
+                                            <Card.Title style={{ color: 'black' }}>
+                                                You got a proposal from
+                                            </Card.Title>
+                                            <Card.Text>
+                                                <strong>Name:</strong> {proposal.incomingProvider.providerName} <br />
+                                                <strong>Email:</strong> {proposal.incomingProvider.providerEmail}
+                                            </Card.Text>
+                                            <Button onClick={() => handleButtonClick(proposal.incomingProvider._id)} variant="primary">
+                                                View Proposal
+                                            </Button>
                                         </Card.Body>
-                                        <Card.Body>
-                                            Email: {proposal.incomingProvider.providerEmail}
-                                        </Card.Body>
-                                    </Button>
-                                </Card>
-                            </div>
-                        ))
-                    ) : (
-                        <p>There aren't any proposals</p>
-                    )}
-                </Container>): (<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}> 
-          <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card> 
-        </div>)
-            }
+                                    </Card>
+                                </Col>
+                            ))
+                        ) : (
+                            <Col>
+                                <p className="text-center text-white">There aren't any proposals</p>
+                            </Col>
+                        )}
+                    </Row>
+                ) : (
+                    <div className="text-center mt-5">
+                        <Card className="mx-auto" style={{ width: '400px' }}>
+                            <Card.Body>
+                                <Button onClick={navigateSignUpIn}>Sign Up/In</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                )}
+            </Container>
         </div>
     );
 }

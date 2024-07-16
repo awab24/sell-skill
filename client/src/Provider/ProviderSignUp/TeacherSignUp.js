@@ -1,111 +1,133 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Card, Form,Button } from 'react-bootstrap'
-import { GoogleLogin } from '@react-oauth/google'
-import axios from 'axios'
-import {v4 as uuidv4} from 'uuid'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { Container, Card, Form, Button } from 'react-bootstrap';
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
+import styled, { createGlobalStyle } from 'styled-components';
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #004e92; /* Blue background */
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+`;
 
+const StyledContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const MainCard = styled(Card)`
+  background-color: black;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+`;
+
+const Title = styled(Card.Title)`
+  text-align: center;
+  color: blue;
+  margin-top: 20px;
+  font-size: 24px;
+`;
+
+const StyledForm = styled(Form)`
+  margin: 20px;
+`;
+
+const SubmitButton = styled(Button)`
+  width: 100%;
+  margin-top: 20px;
+`;
 
 function TeacherAuth() {
-  const [providerSignUpData, setProviderSignUpData] = useState({_id:uuidv4(), name: '', surname:'', email: '', password: '', confirmPassword: ''})
-  const [alreadyProviderExist, setAlreadyProviderExist] = useState(false)
+  const [providerSignUpData, setProviderSignUpData] = useState({
+    _id: uuidv4(),
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+  const [alreadyProviderExist, setAlreadyProviderExist] = useState(false);
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  let responseProvider;
-  let providerToken;
-
-
-  const googleSuccess = async(response) => {
-    const {credential} = response;
+  const googleSuccess = async (response) => {
+    const { credential } = response;
     const payload = JSON.parse(atob(credential.split('.')[1]));
-    const {email, name, family_name} = payload;
-    console.log('name => '+name)
-    console.log('email => '+email)
-    console.log('last name => ' + family_name)
+    const { email, name, family_name } = payload;
+
     try {
-      responseProvider = await  axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData', {_id: uuidv4(), name: name,surname: family_name, email: email, password: '',confirmPassword: '' })
-      providerToken  = responseProvider.data;
-      console.log(JSON.stringify(providerToken))
-      localStorage.setItem('providerToken', JSON.stringify(providerToken));
-      if(!providerToken){
-        setAlreadyProviderExist(true)
-      }
-      providerToken &&
-      navigate("/profile-picture")
-    } catch (error) {
-      setAlreadyProviderExist(true)
-    }
+      const responseProvider = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData', {
+        _id: uuidv4(),
+        name,
+        surname: family_name,
+        email,
+        password: '',
+        confirmPassword: ''
+      });
+      const providerToken = responseProvider.data;
 
-  
-  }
-  const handleProviderSignUp = async() => {
-    
+      if (!providerToken) {
+        setAlreadyProviderExist(true);
+      } else {
+        localStorage.setItem('providerToken', JSON.stringify(providerToken));
+        navigate("/profile-picture");
+      }
+    } catch (error) {
+      setAlreadyProviderExist(true);
+    }
+  };
+
+  const handleProviderSignUp = async () => {
     try {
-      responseProvider = await  axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData',providerSignUpData)
-      providerToken  = responseProvider.data;
-      if(!providerToken){
-        setAlreadyProviderExist(true)
+      const responseProvider = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData', providerSignUpData);
+      const providerToken = responseProvider.data;
+
+      if (!providerToken) {
+        setAlreadyProviderExist(true);
+      } else {
+        localStorage.setItem('providerToken', JSON.stringify(providerToken));
+        navigate("/profile-picture");
       }
-      console.log(JSON.stringify(providerToken))
-      localStorage.setItem('providerToken', JSON.stringify(providerToken));
-      providerToken &&
-      navigate("/profile-picture")
-
     } catch (error) {
-
+      setAlreadyProviderExist(true);
     }
-
-}
-
+  };
 
   return (
-    <div  style={{'backgroundColor': 'blue','height': '633px'}}>
-
-    <Container >
-      <Card style={{'position':'relative', 'top': '30px', 'height':'550px', 'borderRadius':'30px', 'backgroundColor':'black'}}>
-      <Card style={{'position':'relative', 'top': '30px', 'borderRadius':'30px', 'backgroundColor':'black', 'width': '700px',}}>
-          <Card.Title style={{'position':'relative', 'top':'40px', 'left': '450px', 'color': 'blue', 'fontSize': '20px  '}}>
-            Sign up as a provider
-          </Card.Title>
-            <Form style={{'position': 'relative', 'top': '80px','left':'230px',  'width': '630px'}} >
-              <Form.Control placeholder='name' onChange={(e) => setProviderSignUpData({...providerSignUpData, name: e.target.value})}/>
-            </Form>
-            <Form style={{'position': 'relative', 'top': '90px','left':'230px',  'width': '630px'}}>
-              <Form.Control placeholder='surname' onChange={(e) => setProviderSignUpData({...providerSignUpData, surname: e.target.value})}/>
-            </Form>
-            <Form style={{'position': 'relative', 'top': '100px','left':'230px',  'width': '630px'}}>
-              <Form.Control placeholder='email'  onChange={(e) => setProviderSignUpData({...providerSignUpData, email: e.target.value})}/>
-            </Form>
-            <Form style={{'position': 'relative', 'top': '110px','left':'230px',  'width': '630px'}}>
-              <Form.Control placeholder='password'  onChange={(e) => setProviderSignUpData({...providerSignUpData, password: e.target.value})}/>
-            </Form>
-            <Form style={{'position': 'relative', 'top': '120px','left':'230px',  'width': '630px'}}>
-              <Form.Control placeholder='confrim password'  onChange={(e) => setProviderSignUpData({...providerSignUpData, confirmPassword: e.target.value})}/>
-            </Form>
+    <>
+      <GlobalStyle />
+      <StyledContainer>
+        <MainCard>
+          <Title>Sign up as a provider</Title>
+          <StyledForm>
+            <Form.Control placeholder='Name' onChange={(e) => setProviderSignUpData({ ...providerSignUpData, name: e.target.value })} />
+            <Form.Control placeholder='Surname' onChange={(e) => setProviderSignUpData({ ...providerSignUpData, surname: e.target.value })} />
+            <Form.Control placeholder='Email' onChange={(e) => setProviderSignUpData({ ...providerSignUpData, email: e.target.value })} />
+            <Form.Control type='password' placeholder='Password' onChange={(e) => setProviderSignUpData({ ...providerSignUpData, password: e.target.value })} />
+            <Form.Control type='password' placeholder='Confirm Password' onChange={(e) => setProviderSignUpData({ ...providerSignUpData, confirmPassword: e.target.value })} />
             
-            <Button style={{'position':'relative', 'top': '150px' ,'left':'790px',  'width': '300px', 'height': '45px',}} onClick={handleProviderSignUp}>
-              Next
-            </Button>
-            <a href="/auth" style={{'position':'relative', 'top': '170px', 'left': '400px'}}>
-              already have an account?! let's sign in
-            </a>
-  <div style={{'position': 'relative', 'top': '180px', 'left': '420px'}}>
-  <GoogleLogin 
-  onSuccess={googleSuccess}
-  />
-  </div>
-  {
-    alreadyProviderExist && <div>email is already exist</div>
-  }
-        </Card>   
-      </Card>
-      
-      </Container>
-      </div>
-  )
+            <SubmitButton onClick={handleProviderSignUp}>Next</SubmitButton>
+            <div style={{ textAlign: 'center', marginTop: '10px' }}>
+              <a href="/auth">Already have an account? Let's sign in</a>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+              <GoogleLogin onSuccess={googleSuccess} />
+            </div>
+            {alreadyProviderExist && <div style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>Email already exists</div>}
+          </StyledForm>
+        </MainCard>
+      </StyledContainer>
+    </>
+  );
 }
 
-export default TeacherAuth
+export default TeacherAuth;

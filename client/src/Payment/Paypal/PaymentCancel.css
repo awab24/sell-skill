@@ -1,0 +1,22 @@
+.payment-cancel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.payment-cancel-card {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-message {
+  color: red;
+  margin-bottom: 20px;
+}

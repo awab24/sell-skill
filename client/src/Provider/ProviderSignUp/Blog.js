@@ -1,57 +1,103 @@
-import React, { useState } from 'react'
-import {Button, Alert, Breadcrumb, Card, Form, Container, Col,Row} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Button, Card, Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled, { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #004e92; /* Blue background */
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+`;
+
+const StyledContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const MainCard = styled(Card)`
+  background-color: black;
+  color: blue;
+  border-radius: 40px;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+`;
+
+const Title = styled(Card.Title)`
+  text-align: center;
+  font-size: 30px;
+  color: black;
+  margin-top: 20px;
+`;
+
+const FileButton = styled(Button)`
+  width: 150px;
+  margin: 20px auto;
+  display: block;
+`;
+
+const ImagePreview = styled.img`
+  width: 140px;
+  height: 140px;
+  border-radius: 40px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 function Blog() {
-    const navigate = useNavigate()
-    const [intro, setIntro] = useState('')
-   const  handleAddBlog = async(e) => {
-    
-    const formData = new FormData()
-    setIntro(e)
-    formData.append('image', e)
-    formData.append('name', 'image/png')
-    console.log(formData)
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addBlog' , formData)
-    }
-    const handleNextClick =(async() => {
-      navigate('/rate-per-hour')
+  const navigate = useNavigate();
+  const [intro, setIntro] = useState('');
 
-    })
+  const handleAddBlog = async (e) => {
+    const formData = new FormData();
+    setIntro(e);
+    formData.append('image', e);
+    formData.append('name', 'image/png');
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addBlog', formData);
+  };
+
+  const handleNextClick = async () => {
+    navigate('/rate-per-hour');
+  };
+
   return (
-    <div  style={{'height':'630px','backgroundColor': 'blue'}}>
-    <Container>
-    <Card style={{'position': 'relative', 'top': '80px', 'height': '530px', 'backgroundColor': 'black', 'color': 'blue', 'borderRadius': '40px'}}>
-      <Card style={{'position':'relative','top':'50px','left':'270px','backgroundColor': 'blue', 'width': '600px', 'height': '360px','borderRadius':'40px'}}>
-      <Card.Title style={{'position': 'absolute', 'left': '215px', 'display':'flex', 'top': '50px', 'fontSize': '30px', }}>
-        <b style={{'color': 'black'}}>
-          Intro video or you can do it latter
-        </b>
-
-         </Card.Title>
-
-
-<Button style={{'position': 'relative', 'top':'150px','left':'220px','width':'150px'}}>
-    <b>Image blog</b>
-    <br></br>
-    <br></br>
-<input type="file"  name='image' onChange={(e) => handleAddBlog(e.target.files[0])}  style={{'color':'black', 'width':'100px'}} />
-</Button>
-{
-    intro && <img src= {URL.createObjectURL(intro)} style={{'position':'relative','top':'135px','left':'224px', 'width':'140px', 'height':'140px', 'borderRadius':'40px'}}/>
-}
-  
-<Button onClick={handleNextClick} style={{'position': 'relative', 'top':'280px','left':'300px', 'width':'290px'}}>Next</Button>
-
-      </Card>
-    </Card>
-    </Container>
-
-  
-    </div>
-  )
+    <>
+      <GlobalStyle />
+      <StyledContainer>
+        <MainCard>
+          <Title>
+            <b>Intro video or you can do it later</b>
+          </Title>
+          <Card.Body className="text-center">
+            <FileButton>
+              <b>Image blog</b>
+              <input
+                type="file"
+                name="image"
+                onChange={(e) => handleAddBlog(e.target.files[0])}
+                style={{ display: 'block', marginTop: '10px' }}
+              />
+            </FileButton>
+            {intro && <ImagePreview src={URL.createObjectURL(intro)} />}
+            <Button onClick={handleNextClick} style={{ marginTop: '20px', width: '100%' }}>
+              Next
+            </Button>
+          </Card.Body>
+        </MainCard>
+      </StyledContainer>
+    </>
+  );
 }
 
-export default Blog
+export default Blog;

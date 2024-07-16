@@ -1,55 +1,119 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import {Button, Alert, Breadcrumb, Card, Form, Container, Col,Row} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Card, Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 function ClientProfilePicture() {
-    const [picture, setPicture]= useState('')
-    const navigate = useNavigate()
-const handleNextClick = () => {
-  navigate("/client-category")
-}
-      const handleUploadClick = (async(e) => {
-        
+    const [picture, setPicture] = useState('');
+    const navigate = useNavigate();
+
+    const handleNextClick = () => {
+        navigate("/client-category");
+    };
+
+    const handleUploadClick = async (e) => {
         e.preventDefault();
-          const formData = new FormData();
-          formData.append('picture', picture)
-          formData.append('name', 'img/png')
-            await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertClientPicture', formData)
- })
-  return (
-    <div  style={{'height':'630px','backgroundColor': 'blue'}}>
-    <Container>
-    <Card style={{'position': 'relative', 'top': '80px', 'height': '530px', 'backgroundColor': 'black', 'color': 'blue', 'borderRadius': '40px'}}>
-      <Card style={{'position':'relative','top':'50px','left':'270px','backgroundColor': 'blue', 'width': '600px', 'height': '360px','borderRadius':'40px'}}>
-      <Card.Title style={{'position': 'absolute', 'left': '150px', 'display':'flex', 'top': '50px', 'fontSize': '30px', }}>
-        <b style={{'color': 'black'}}>
-        A nice profile picture
-        </b>
+        const formData = new FormData();
+        formData.append('picture', picture);
+        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertClientPicture', formData);
+    };
 
-         </Card.Title>
-<Button style={{'position': 'relative', 'top':'130px','left':'110px','width':'350px'}}>
-<input type="file" name="picture" onChange={(e) => setPicture(e.target.files[0])} style={{'color':'black'}}/>
-
-</Button>
-{
-    picture && <img src= {URL.createObjectURL(picture)} style={{'position':'relative','top':'135px','left':'224px', 'width':'140px', 'height':'140px', 'borderRadius':'40px'}}/>
+    return (
+        <div style={styles.container}>
+            <Container>
+                <Card style={styles.outerCard}>
+                    <Card style={styles.innerCard}>
+                        <Card.Title style={styles.title}>
+                            <b>A nice profile picture</b>
+                        </Card.Title>
+                        <div style={styles.uploadContainer}>
+                            <input
+                                type="file"
+                                name="picture"
+                                onChange={(e) => setPicture(e.target.files[0])}
+                                style={styles.fileInput}
+                            />
+                        </div>
+                        {picture && (
+                            <img
+                                src={URL.createObjectURL(picture)}
+                                style={styles.previewImage}
+                                alt="Profile Preview"
+                            />
+                        )}
+                        <div style={styles.buttonContainer}>
+                            <Button onClick={handleUploadClick} style={styles.button}>
+                                Upload
+                            </Button>
+                            <Button onClick={handleNextClick} style={styles.button}>
+                                Next
+                            </Button>
+                        </div>
+                    </Card>
+                </Card>
+            </Container>
+        </div>
+    );
 }
-  <a href="/type-of-work">
-  <Button onClick={handleUploadClick} style={{'position': 'relative', 'top':'240px','left':'300px', 'width':'290px'}}>Upload</Button>
-  </a>
 
-<Button onClick={handleNextClick} style={{'position': 'relative', 'top':'240px','left':'300px', 'width':'290px'}}>Next</Button>
+const styles = {
+    container: {
+        height: '100vh',
+        backgroundColor: 'blue',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    outerCard: {
+        height: '530px',
+        backgroundColor: 'black',
+        color: 'blue',
+        borderRadius: '40px',
+        padding: '20px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+        width: '90%',
+        maxWidth: '600px',
+    },
+    innerCard: {
+        backgroundColor: 'blue',
+        borderRadius: '40px',
+        padding: '20px',
+        position: 'relative',
+    },
+    title: {
+        textAlign: 'center',
+        fontSize: '30px',
+        marginBottom: '20px',
+        color: 'black',
+    },
+    uploadContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: '20px',
+    },
+    fileInput: {
+        color: 'black',
+        width: '350px',
+        margin: 'auto',
+    },
+    previewImage: {
+        width: '140px',
+        height: '140px',
+        borderRadius: '40px',
+        display: 'block',
+        margin: '0 auto',
+    },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginTop: '20px',
+    },
+    button: {
+        width: '140px',
+        margin: '0 5px',
+    },
+};
 
-      </Card>
-    </Card>
-    </Container>
+export default ClientProfilePicture;
 
-  
-    </div>
-  )
-}
-
-export default ClientProfilePicture

@@ -4,98 +4,92 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
 function ImgSlider() {
-let settings = {
-    dots : true,
+  let settings = {
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll : 1,
+    slidesToScroll: 1,
     autoplay: true
-}
+  };
+
   return (
-<ImgSliderContainer >
-<BlueBorder/>
-<Carousel {...settings}>
-
-    <Wrap>
-    <img src="/images/teacher2.jpg" alt="" style={{'height': '490px', 'width':'100%',     'object-fit': 'cover'}}/>
-    </Wrap>
-    <Wrap>
-    <img src="/images/teacher3.jpg" alt="" style={{'height': '100%', 'width':'100%',     'object-fit': 'cover'}}/>
-    </Wrap>
-    
-</Carousel>
-
-
-</ImgSliderContainer>
-
-
-
-  )
+    <ImgSliderContainer>
+      <BlueBorder />
+      <Carousel {...settings}>
+        <Wrap>
+          <img src="/images/teacher2.jpg" alt="Teacher" />
+        </Wrap>
+        <Wrap>
+          <img src="/images/teacher3.jpg" alt="Teacher" />
+        </Wrap>
+      </Carousel>
+    </ImgSliderContainer>
+  );
 }
 
-export default ImgSlider
-const ImgSliderContainer = styled.div`
+export default ImgSlider;
 
-`
+const ImgSliderContainer = styled.div`
+  position: relative;
+  margin-top: 20px;
+`;
 
 const BlueBorder = styled.div`
-
-
-`
+  height: 5px;
+  background-color: blue;
+`;
 
 const Carousel = styled(Slider)`
+  position: relative;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1130px;
+  height: 500px;
+  overflow: hidden;
 
-position: relative;
-top: 20px;
-left: 100px;
-width: 1130px;
-height: 500px;
-  overflow-x: hidden;
-    overflow-y: hidden;
-margin-top : 20px;
-margin-bottom : 19px;
+  ul li button {
+    &:before {
+      font-size: 10px;
+      color: white;
+    }
+  }
 
-ul li button{
-  &:before{
-    font-size: 10px;
+  li.slick-active button::before {
     color: white;
   }
-}
-li.slick-active button::before{
-  color : white;
-}
-.slick-list{
+
+  .slick-list {
     overflow: visible;
-}
-button {
-  z-index: 1;
-};
-Wrap {
-width: 100%;
-height: 100%;
-}
-border-radius:5px;
+  }
 
-`
+  button {
+    z-index: 1;
+  }
+
+  .slick-prev, .slick-next {
+    width: 50px;
+    height: 50px;
+  }
+`;
+
 const Wrap = styled.div`
-cursor: pointer;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
 
-img{
-  border: 6px solid transparent;
-   border-radius: 7px;
-   
-    height: 100%;
+  img {
+    border: 6px solid transparent;
+    border-radius: 7px;
     width: 100%;
-    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px,
-    rgb(0 0 0 / 73%) 0px 16px 10px -10px;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
     transition-duration: 300ms;
 
-    &: hover{
+    &:hover {
       border: 4px solid rgba(249, 249, 249, 0.8);
     }
-}
-`
-
+  }
+`;

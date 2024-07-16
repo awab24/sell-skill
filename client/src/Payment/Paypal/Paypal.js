@@ -1,105 +1,87 @@
 import React, { useState, useEffect } from 'react';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import axios from 'axios'
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Container } from 'react-bootstrap';
+import './PayPalCheckout.css'; // Add your custom styles here
 
-
-const PayPalCheckout = ({  description, onSuccess }) => {
-  const amount = useSelector((state) => state.allow.amount)
-  console.log('amount => =. => '+amount)
-  
+const PayPalCheckout = ({ description, onSuccess }) => {
+  const amount = useSelector((state) => state.allow.amount);
   const [paid, setPaid] = useState(false);
   const [completed, setCompleted] = useState(false);
   const [error, setError] = useState(null);
+  const [permission, setPermission] = useState(false);
   
+  const tokenString = localStorage.getItem('clientToken');
+  const tokenObject = JSON.parse(tokenString);
+  const token = tokenObject.token || tokenObject;
+  const navigate = useNavigate();
 
   const initialOptions = {
-    currency: 'USD', // Adjust currency code if needed
+    currency: 'USD',
   };
 
-  const [permission, setPermission] = useState(false) 
-let token; 
-const tokenString = localStorage.getItem('clientToken') 
-const tokenObject = JSON.parse(tokenString) 
-token = tokenObject.token 
-if(!token){ 
-  token = tokenObject 
-} 
-console.log('token from mainHome => '+ token) 
-const navigate = useNavigate() 
- 
- 
- 
-  useEffect(() => { 
-    const fetchPermission = async() => { 
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
-        { 
-         Authorization:  
-           `Bearer ${token}` 
-          
-        } 
-        } 
-       
-        ) 
-      console.log(response.data.permission) 
-      setPermission(response.data.permission) 
-  
-    } 
-fetchPermission(); 
-  }, []) 
- 
- 
-const navigateSignUpIn = () => { 
-  navigate('/auth') 
-}
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setPermission(response.data.permission);
+    };
+
+    fetchPermission();
+  }, [token]);
+
+  const navigateSignUpIn = () => {
+    navigate('/auth');
+  };
+
   return (
-    <>
-    {
-      permission ? (    <PayPalScriptProvider options={initialOptions}>
-
-        <PayPalButtons
-
-createOrder={(data, actions) => {
-
-  return actions.order.create({
-    purchase_units: [{
-      amount: {
-        value: amount, // Use the amount prop passed to the component
-      },
-      description: description, // Use the description prop passed to the component
-    }],
-  });
-  
-}}
-
-onApprove={(data, actions) => {
-  return actions.order.capture().then(async(details) => {
-    setPaid(true);
-    setCompleted(true);
-    axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/payProvider', {providerAmount: (amount * 70)/100})
-    onSuccess(details);
-   
-  }
-
-);
-  
-}
-
-}
-onError={(err) => {
-  setError(err);
-  console.error('PayPal Checkout onError', err);
-}}
-        />
-
-
-    </PayPalScriptProvider>): (<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}> 
-          <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card> 
-        </div>)
-    }
-    </>
+    <Container className="paypal-checkout-container">
+      {
+        permission ? (
+          <PayPalScriptProvider options={initialOptions}>
+            <PayPalButtons
+              createOrder={(data, actions) => {
+                return actions.order.create({
+                  purchase_units: [{
+                    amount: {
+                      value: amount,
+                    },
+                    description: description,
+                  }],
+                });
+              }}
+              onApprove={async (data, actions) => {
+                const details = await actions.order.capture();
+                setPaid(true);
+                setCompleted(true);
+                await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/payProvider', {
+                  providerAmount: (amount * 70) / 100
+                });
+                onSuccess(details);
+              }}
+              onError={(err) => {
+                setError(err);
+                console.error('PayPal Checkout onError', err);
+              }}
+            />
+          </PayPalScriptProvider>
+        ) : (
+          <div className="sign-up-container">
+            <Card className="sign-up-card">
+              <Card.Body>
+                <Button onClick={navigateSignUpIn}>Sign Up/In</Button>
+              </Card.Body>
+            </Card>
+          </div>
+        )
+      }
+      {error && <div className="error-message">{error.message}</div>}
+    </Container>
   );
 }
 

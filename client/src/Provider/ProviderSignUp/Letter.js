@@ -1,48 +1,85 @@
-import React, { useState } from 'react'
-import {Button, Alert, Breadcrumb, Card, Form, Container, Col,Row} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import React, { useState } from 'react';
+import { Button, Card, Form, Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import styled, { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #004e92; /* Blue background */
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+`;
+
+const StyledContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const MainCard = styled(Card)`
+  background-color: black;
+  border-radius: 40px;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+`;
+
+const Title = styled(Card.Title)`
+  text-align: center;
+  font-size: 30px;
+  color: black;
+  margin-top: 20px;
+`;
+
+const TextArea = styled(Form.Control)`
+  height: 400px;
+  border-radius: 30px;
+  background-color: #f0f0f0;
+  color: black;
+`;
+
+const NextButton = styled(Button)`
+  width: 100%;
+  margin-top: 20px;
+`;
 
 function Letter() {
-    const [letter, setLetter] = useState('')
-    const navigate = useNavigate()
-    const handleNextClick = async() => {
-        navigate("/certifications")
-        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertLetter',letter)
-    }
+  const [letter, setLetter] = useState('');
+  const navigate = useNavigate();
+
+  const handleNextClick = async () => {
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertLetter', letter);
+    navigate("/certifications");
+  };
 
   return (
-    <div  style={{'height':'930px','backgroundColor': 'blue'}}>
-    <Container>
-    <Card style={{'position': 'relative', 'top': '100px', 'height': '800px', 'backgroundColor': 'black', 'color': 'blue', 'borderRadius': '40px', 'width':'1100px'}}>
-      <Card style={{'position':'relative','top':'50px','left':'170px','backgroundColor': 'blue', 'width': '800px', 'height': '630px','borderRadius':'40px'}}>
-      <Card.Title style={{'position': 'absolute', 'left': '320px', 'display':'flex', 'top': '50px', 'fontSize': '30px', }}>
-        <b style={{'color': 'black'}}>
-        Cover letter
-        </b>
-
-         </Card.Title>
-         <Form style={{ position: 'relative', top: '130px', left: '120px', borderRadius: '90px', width: '600px' }}>
-        <Form.Control
-          as="textarea" // Use 'textarea' to allow multi-line input
-          placeholder="Enter a cover letter for your profile"
-          onChange={(e) => setLetter(e.target.value)}
-          value={letter}
-          style={{ height: '400px', borderRadius: '30px' }}
-        />
-      </Form>
-  
-<Button onClick={handleNextClick} style={{'position': 'relative', 'top':'290px','left':'490px', 'width':'300px'}}>Next</Button>
-
-      </Card>
-    </Card>
-    </Container>
-
-  
-    </div>
-
-  )
+    <>
+      <GlobalStyle />
+      <StyledContainer>
+        <MainCard>
+          <Title>
+            <b>Cover Letter</b>
+          </Title>
+          <Form style={{ padding: '20px' }}>
+            <TextArea
+              as="textarea"
+              placeholder="Enter a cover letter for your profile"
+              onChange={(e) => setLetter(e.target.value)}
+              value={letter}
+            />
+            <NextButton onClick={handleNextClick}>Next</NextButton>
+          </Form>
+        </MainCard>
+      </StyledContainer>
+    </>
+  );
 }
 
-export default Letter
+export default Letter;

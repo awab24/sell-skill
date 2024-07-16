@@ -1,128 +1,114 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Card } from 'react-bootstrap';
-import { FaTrash } from 'react-icons/fa';
+import { Button, Form, Card, Container, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FaTrash } from 'react-icons/fa';
 
 function ClientMessages() {
   const [messageContent, setMessageContent] = useState('');
-  const [receivedMessages, setReceivedMessages] = useState('')
+  const [receivedMessages, setReceivedMessages] = useState([]);
   const providerId = useSelector((state) => state.allow.proposalId);
-  const navigate = useNavigate()
-console.log(providerId)
-const auth = localStorage.getItem('authenticated')
-const tokenString = localStorage.getItem('clientToken')
-const tokenObject = JSON.parse(tokenString)
-const token = tokenObject.token
+  const navigate = useNavigate();
 
+  const auth = localStorage.getItem('authenticated');
+  const tokenString = localStorage.getItem('clientToken');
+  const tokenObject = JSON.parse(tokenString);
+  const token = tokenObject.token;
 
-useEffect(() => {
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProviderToClientMessagesInClient');
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProviderToClientMessagesInClient');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const result = await response.json();
+        setReceivedMessages(result);
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
       }
-      const result = await response.json();
-      setReceivedMessages(result);  // Assuming result is an array or object directly
-    } catch (error) {
-      console.error('Failed to fetch posts:', error);
-    }
-  };
+    };
 
-  fetchPosts();
-}, []);
-
-console.log(receivedMessages)
-
-
+    fetchPosts();
+  }, []);
 
   const handleSend = async () => {
     try {
       const message = {
-        _id: providerId, // Include the _id here
+        _id: providerId,
         message: messageContent
       };
 
       await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
-
-      setMessageContent(''); // Clear message input after sending
+      setMessageContent('');
     } catch (error) {
       console.error('Error sending message:', error);
-      // Handle error (show error message, etc.)
     }
   };
 
-
-
-  const [permission, setPermission] = useState(false)
-
-
-
-
+  const [permission, setPermission] = useState(false);
 
   useEffect(() => {
-    const fetchPermission = async() => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers:
-        {
-         Authorization: 
-           `Bearer ${token}`
-         
+    const fetchPermission = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-        }
-      
-        )
-      console.log(response.data.permission)
-      setPermission(response.data.permission)
- 
-    }
-fetchPermission();
-  }, [])
+      });
+      setPermission(response.data.permission);
+    };
 
+    fetchPermission();
+  }, []);
 
-const navigateSignUpIn = () => {
-  navigate('/auth')
-}
+  const navigateSignUpIn = () => {
+    navigate('/auth');
+  };
 
   return (
-    permission ? (
-      <div>
-      {
-        receivedMessages.length > 0 ?(
-          receivedMessages.map ((receivedMessage) => 
-            
-            receivedMessage.message.providerId === providerId ? 
-
-            <Card>
-          <Card.Body>
-            {
-              receivedMessage.message.message
-            }
-
-          </Card.Body> 
-
-        </Card> : <></>
-          )
-   
-          )
-           : 
-           (<></>)
-      }
-      <Form>
-        <Form.Control
-          type="text"
-          placeholder="Insert your message"
-          value={messageContent}
-          onChange={(e) => setMessageContent(e.target.value)}
-        />
-        <Button onClick={handleSend}>Send</Button>
-      </Form>
-    </div>
-    ): (<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}>
-      <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card>
-    </div>)
-  
+    <Container className="mt-4">
+      {permission ? (
+        <>
+          <Row className="mb-4">
+            {receivedMessages.length > 0 ? (
+              receivedMessages.map((receivedMessage) =>
+                receivedMessage.message.providerId === providerId ? (
+                  <Col xs={12} sm={6} md={4} lg={3} key={receivedMessage._id} className="mb-3">
+                    <Card>
+                      <Card.Body>
+                        {receivedMessage.message.message}
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ) : null
+              )
+            ) : (
+              <p>No messages available.</p>
+            )}
+          </Row>
+          <Form className="d-flex">
+            <Form.Control
+              type="text"
+              placeholder="Insert your message"
+              value={messageContent}
+              onChange={(e) => setMessageContent(e.target.value)}
+              className="me-2"
+            />
+            <Button onClick={handleSend}>Send</Button>
+          </Form>
+        </>
+      ) : (
+        <div className="text-center mt-5">
+          <Card className="w-50 mx-auto">
+            <Card.Body>
+              <Button onClick={navigateSignUpIn}>Sign Up/In</Button>
+            </Card.Body>
+          </Card>
+        </div>
+      )}
+    </Container>
   );
 }
 

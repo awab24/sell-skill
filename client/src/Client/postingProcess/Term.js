@@ -1,105 +1,154 @@
-import React, { useEffect, useState } from 'react'
-import {Button, Alert, Breadcrumb, Card, Form, Container, Col,Row} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import {useNavigate} from 'react-router-dom'
-import {v4 as uuidv4} from 'uuid'
-import { useDispatch } from 'react-redux'
-import { setOverviewTerm } from '../../reducers/reducers'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { setOverviewTerm } from '../../reducers/reducers';
+import axios from 'axios';
 
 function Term() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [postData, setPostData] = useState({_id:uuidv4(), term:'', title:'', skills:[], estimate:'', experience:'', pudget:'', description:''})
-    const handleNextClick = () => {
-    dispatch(setOverviewTerm(postData))
-    navigate("/posting-title")
-    console.log(postData)
-  }
-
-
-  const [permission, setPermission] = useState(false) 
-let token; 
-const tokenString = localStorage.getItem('clientToken') 
-const tokenObject = JSON.parse(tokenString) 
-token = tokenObject.token 
-if(!token){ 
-  token = tokenObject 
-} 
-console.log('token from mainHome => '+ token) 
-
- 
- 
- 
-  useEffect(() => { 
-    const fetchPermission = async() => { 
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',{headers: 
-        { 
-         Authorization:  
-           `Bearer ${token}`
-          
-        } 
-        } 
-       
-        ) 
-      console.log(response.data.permission) 
-      setPermission(response.data.permission) 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [postData, setPostData] = useState({
+    _id: uuidv4(),
+    term: '',
+    title: '',
+    skills: [],
+    estimate: '',
+    experience: '',
+    budget: '',
+    description: ''
+  });
   
-    } 
-fetchPermission(); 
-  }, []) 
- 
- 
-const navigateSignUpIn = () => { 
-  navigate('/auth') 
-}
+  const [permission, setPermission] = useState(false);
+  let token = localStorage.getItem('clientToken');
+  const tokenObject = JSON.parse(token);
+  token = tokenObject.token || tokenObject;
+
+  useEffect(() => {
+    const fetchPermission = async () => {
+      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setPermission(response.data.permission);
+    };
+    fetchPermission();
+  }, [token]);
+
+  const handleNextClick = () => {
+    dispatch(setOverviewTerm(postData));
+    navigate("/posting-title");
+  };
+
+  const navigateSignUpIn = () => {
+    navigate('/auth');
+  };
 
   return (
-    <div  style={{'backgroundColor': 'blue','height': '633px'}}>
-      {
-        permission ? (    <Container >
-          <Card style={{'position':'relative', 'top': '30px', 'height':'550px', 'borderRadius':'30px', 'backgroundColor':'black'}}>
-          <Card style={{'position':'relative', 'top': '30px', 'borderRadius':'30px', 'backgroundColor':'black', 'width': '700px',}}>
-              <Card.Title style={{'position':'relative', 'top':'40px', 'left': '430px', 'color': 'blue', 'fontSize': '23px  '}}>
-               <b> Is it one time or a lot?</b>
+    <div style={styles.container}>
+      {permission ? (
+        <Container>
+          <Card style={styles.outerCard}>
+            <Card style={styles.innerCard}>
+              <Card.Title style={styles.title}>
+                <b>Is it one time or a lot?</b>
               </Card.Title>
-              <div style={{'width':'100px'}}>
-              <Button style={{'cursor':'pointer' , 'color':'blue' }} onClick={handleNextClick}>
-    
-    <Card style={{'position':'relative','top':'120px','left':'70px', 'backgroundColor':'blue', 'height': '300px', 'width':'300px', 'color':'black'}}>
-    
-                <Card.Title>
-                    <b style={{'position': 'relative', 'top':'120px', 'left':'80px'}}>Only one call</b>
-                </Card.Title>
-         
-              </Card>
-              </Button>
+              <div style={styles.buttonContainer}>
+                <Button style={styles.button} onClick={handleNextClick}>
+                  <Card style={styles.cardOption}>
+                    <Card.Title>
+                      <b style={styles.cardText}>Only one call</b>
+                    </Card.Title>
+                  </Card>
+                </Button>
+
+                <Button style={styles.button} onClick={handleNextClick}>
+                  <Card style={{ ...styles.cardOption, marginLeft: '20px' }}>
+                    <Card.Title>
+                      <b style={styles.cardText}>A lot</b>
+                    </Card.Title>
+                  </Card>
+                </Button>
               </div>
-      
-    
-         
-         <Button style={{'cursor':'pointer', 'color':'blue'}}  onClick={handleNextClick}>
-         <Card style={{'position':'absolute','top':'167px','left':'740px', 'backgroundColor':'blue', 'height': '300px', 'width':'300px', 'color':'black'}}>
-        <Card.Title>
-            <b  style={{'position': 'relative', 'top':'120px', 'left':'130px'}}>
-            Alot
-            </b>
-           
-        </Card.Title>
-    </Card>
-         </Button>
-    
-            </Card>  
-            
+            </Card>
           </Card>
-          
-          </Container>):(<div style={{'position':'relative','top':'170px','left':'270px', 'backgroundColor':'black', 'height':'200px', 'width':'800px'}}> 
-          <Card style={{'width':'400px', 'position':'relative','top':'50px','left':'190px' }}><Button onClick={navigateSignUpIn}>sign up/in</Button></Card> 
-        </div>)
-      }
-    
-      </div>
-  )
+        </Container>
+      ) : (
+        <div style={styles.permissionContainer}>
+          <Card style={styles.permissionCard}>
+            <Button onClick={navigateSignUpIn}>Sign Up/In</Button>
+          </Card>
+        </div>
+      )}
+    </div>
+  );
 }
 
-export default Term
+const styles = {
+  container: {
+    backgroundColor: 'blue',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  outerCard: {
+    position: 'relative',
+    borderRadius: '30px',
+    backgroundColor: 'black',
+    width: '90%',
+    maxWidth: '800px',
+    padding: '20px',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+  },
+  innerCard: {
+    position: 'relative',
+    borderRadius: '30px',
+    backgroundColor: 'black',
+    textAlign: 'center',
+  },
+  title: {
+    color: 'blue',
+    fontSize: '23px',
+    marginBottom: '20px',
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '20px',
+  },
+  button: {
+    cursor: 'pointer',
+    color: 'blue',
+    flex: 1,
+    margin: '5px',
+  },
+  cardOption: {
+    backgroundColor: 'blue',
+    height: '150px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '15px',
+  },
+  cardText: {
+    color: 'black',
+  },
+  permissionContainer: {
+    textAlign: 'center',
+  },
+  permissionCard: {
+    width: '100%',
+    maxWidth: '400px',
+    marginTop: '20px',
+    padding: '20px',
+    backgroundColor: 'black',
+    color: 'white',
+    borderRadius: '10px',
+  },
+};
+
+export default Term;

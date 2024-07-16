@@ -1,67 +1,61 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Card, Form, Container } from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { setOverviewSkills } from '../../reducers/reducers'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Form, Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOverviewSkills } from '../../reducers/reducers';
+import axios from 'axios';
 
 function Skills() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const previousPostData = useSelector((state) => state.allow.overview)
-  const [postData, setPostData] = useState(previousPostData)
-  const [other, setOther] = useState('')
-  const [permission, setPermission] = useState(false)
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const previousPostData = useSelector((state) => state.allow.overview);
+  const [postData, setPostData] = useState(previousPostData);
+  const [other, setOther] = useState('');
+  const [permission, setPermission] = useState(false);
   
-  let token
-  const tokenString = localStorage.getItem('clientToken')
-  const tokenObject = JSON.parse(tokenString)
-  token = tokenObject.token
-  if (!token) {
-    token = tokenObject
-  }
-  console.log('token from mainHome => ' + token)
-  
+  let token;
+  const tokenString = localStorage.getItem('clientToken');
+  const tokenObject = JSON.parse(tokenString);
+  token = tokenObject.token || tokenObject;
+
   useEffect(() => {
     const fetchPermission = async () => {
       const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      console.log(response.data.permission)
-      setPermission(response.data.permission)
-    }
-    fetchPermission()
-  }, [])
-  
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setPermission(response.data.permission);
+    };
+    fetchPermission();
+  }, [token]);
+
   const navigateSignUpIn = () => {
-    navigate('/auth')
-  }
-  
+    navigate('/auth');
+  };
+
   const handleNextClick = () => {
-    dispatch(setOverviewSkills(postData))
-    navigate("/posting-scope")
-    console.log(postData)
-  }
-  
+    dispatch(setOverviewSkills(postData));
+    navigate("/posting-scope");
+  };
+
   const handleCategoryClick = (cat) => {
     setPostData((prevData) => ({
       ...prevData,
-      skills: prevData.skills.includes(cat) ? prevData.skills.filter(skill => skill !== cat) : [...prevData.skills, cat]
-    }))
-  }
+      skills: prevData.skills.includes(cat) ? prevData.skills.filter(skill => skill !== cat) : [...prevData.skills, cat],
+    }));
+  };
 
   const handleAddOther = () => {
     if (other.trim() && !postData.skills.includes(other)) {
       setPostData((prevData) => ({
         ...prevData,
-        skills: [...prevData.skills, other]
-      }))
-      setOther('')
+        skills: [...prevData.skills, other],
+      }));
+      setOther('');
     }
-  }
+  };
 
   return (
     <div style={styles.container}>
@@ -87,10 +81,10 @@ function Skills() {
                 type="text"
                 value={other}
                 onChange={(e) => setOther(e.target.value)}
-                placeholder="enter another field ..."
+                placeholder="Enter another field..."
                 style={styles.input}
               />
-              <Button style={styles.button} onClick={handleAddOther}>add other</Button>
+              <Button style={styles.button} onClick={handleAddOther}>Add Other</Button>
               <Button style={styles.nextButton} onClick={handleNextClick}>Next</Button>
             </Card>
           </Card>
@@ -98,12 +92,12 @@ function Skills() {
       ) : (
         <div style={styles.permissionContainer}>
           <Card style={styles.permissionCard}>
-            <Button onClick={navigateSignUpIn}>sign up/in</Button>
+            <Button onClick={navigateSignUpIn}>Sign Up/In</Button>
           </Card>
         </div>
       )}
     </div>
-  )
+  );
 }
 
 const styles = {
@@ -113,6 +107,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: '20px',
   },
   outerCard: {
     backgroundColor: '#000',
@@ -120,7 +115,8 @@ const styles = {
     borderRadius: '20px',
     padding: '20px',
     boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-    width: '80%',
+    width: '100%',
+    maxWidth: '600px',
     margin: '0 auto',
   },
   innerCard: {
@@ -141,14 +137,14 @@ const styles = {
     marginBottom: '20px',
   },
   button: {
-    width: '150px',
+    width: '48%',
     margin: '5px',
     backgroundColor: '#000',
     borderColor: '#000',
     color: '#fff',
   },
   selectedButton: {
-    width: '150px',
+    width: '48%',
     margin: '5px',
     backgroundColor: '#00f',
     borderColor: '#000',
@@ -169,19 +165,15 @@ const styles = {
     borderRadius: '5px',
   },
   permissionContainer: {
-    position: 'relative',
-    top: '170px',
-    left: '270px',
-    backgroundColor: 'black',
-    height: '200px',
-    width: '800px',
+    textAlign: 'center',
+    marginTop: '20px',
   },
   permissionCard: {
-    width: '400px',
-    position: 'relative',
-    top: '50px',
-    left: '190px',
-  }
-}
+    padding: '20px',
+    backgroundColor: '#000',
+    color: '#fff',
+    borderRadius: '10px',
+  },
+};
 
-export default Skills
+export default Skills;

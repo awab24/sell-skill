@@ -1,55 +1,98 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import {Button, Alert, Breadcrumb, Card, Form, Container, Col,Row} from 'react-bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Card, Container, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
+import styled, { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #004e92; /* Blue background */
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+`;
+
+const StyledContainer = styled(Container)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const MainCard = styled(Card)`
+  background-color: black;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+`;
+
+const Title = styled(Card.Title)`
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  margin-top: 20px;
+`;
+
+const UploadButton = styled(Button)`
+  width: 100%;
+  margin: 20px 0;
+`;
+
+const ImagePreview = styled.img`
+  display: block;
+  margin: 20px auto;
+  width: 140px;
+  height: 140px;
+  border-radius: 20px;
+`;
 
 function Picture() {
-    const [picture, setPicture]= useState('')
-    const navigate = useNavigate()
-const handleNextClick = () => {
-  navigate("/type-of-work")
-}
-      const handleUploadClick = (async(e) => {
+  const [picture, setPicture] = useState('');
+  const navigate = useNavigate();
 
-        e.preventDefault();
-          const formData = new FormData();
-          formData.append('picture', picture)
-          formData.append('name', 'img/png')
-            await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPicture', formData)
- })
+  const handleNextClick = () => {
+    navigate("/type-of-work");
+  };
+
+  const handleUploadClick = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('picture', picture);
+    formData.append('name', 'image/png');
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPicture', formData);
+  };
+
   return (
-    <div  style={{'height':'630px','backgroundColor': 'blue'}}>
-    <Container>
-    <Card style={{'position': 'relative', 'top': '80px', 'height': '530px', 'backgroundColor': 'black', 'color': 'blue', 'borderRadius': '40px'}}>
-      <Card style={{'position':'relative','top':'50px','left':'270px','backgroundColor': 'blue', 'width': '600px', 'height': '360px','borderRadius':'40px'}}>
-      <Card.Title style={{'position': 'absolute', 'left': '150px', 'display':'flex', 'top': '50px', 'fontSize': '30px', }}>
-        <b style={{'color': 'black'}}>
-        A nice profile picture
-        </b>
-
-         </Card.Title>
-<Button style={{'position': 'relative', 'top':'130px','left':'110px','width':'350px'}}>
-<input type="file" name="picture" onChange={(e) => setPicture(e.target.files[0])} style={{'color':'black'}}/>
-
-</Button>
-{
-    picture && <img src= {URL.createObjectURL(picture)} style={{'position':'relative','top':'135px','left':'224px', 'width':'140px', 'height':'140px', 'borderRadius':'40px'}}/>
-}
-  <a href="/type-of-work">
-  <Button onClick={handleUploadClick} style={{'position': 'relative', 'top':'240px','left':'300px', 'width':'290px'}}>Upload</Button>
-  </a>
-
-<Button onClick={handleNextClick} style={{'position': 'relative', 'top':'240px','left':'300px', 'width':'290px'}}>Next</Button>
-
-      </Card>
-    </Card>
-    </Container>
-
-  
-    </div>
-  )
+    <>
+      <GlobalStyle />
+      <StyledContainer>
+        <MainCard>
+          <Title>
+            <b>A Nice Profile Picture</b>
+          </Title>
+          <Form style={{ padding: '20px' }}>
+            <UploadButton as="label" htmlFor="file-upload">
+              Choose a Picture
+              <input
+                type="file"
+                id="file-upload"
+                name="picture"
+                onChange={(e) => setPicture(e.target.files[0])}
+                style={{ display: 'none' }}
+              />
+            </UploadButton>
+            {picture && <ImagePreview src={URL.createObjectURL(picture)} alt="Preview" />}
+            <UploadButton onClick={handleUploadClick}>Upload</UploadButton>
+            <UploadButton onClick={handleNextClick}>Next</UploadButton>
+          </Form>
+        </MainCard>
+      </StyledContainer>
+    </>
+  );
 }
 
-export default Picture
+export default Picture;
