@@ -21,7 +21,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors({
-    origin: '*', // Allow your frontend URL
+    origin: 'https://sell-skill-d7865032728d.herokuapp.com/' || '*', // Allow your frontend URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }));

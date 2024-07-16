@@ -56,7 +56,7 @@ function SignUpLogin() {
 
 
       try {
-        responseClient = await axios.post('http://localhost:5000/api/endpoints/clientSignIn', signInData);
+        responseClient = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientSignIn', signInData);
         clientToken  = responseClient.data;
         console.log('token ======================================================> '+clientToken)
         localStorage.setItem('clientToken', JSON.stringify(clientToken));
