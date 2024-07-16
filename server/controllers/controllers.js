@@ -29,10 +29,10 @@ export const sendProviderOrClientId = (req, res) => {
 export const handleClientSignIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log(req.body)
+
     // Find the user by email in the database
     const findUser = await ClientModel.findOne({ email });
-
+    
 if(findUser){
 
     // Compare the provided password with the hashed password in the database
@@ -133,7 +133,7 @@ export const handleClientSignUp = async(req, res) => {
         providerOrClientId = findUser2._id
         res.json(token)
 
-
+        
     
     }
 
@@ -173,7 +173,8 @@ export const handleProviderSignUp = async(req, res) => {
 
 
 export const verify = (req, res, next) => {
-  const token = req.headers['authorization']; // Check lowercase 'authorization'
+  const token = req.headers['authorization'];// Check lowercase 'authorization'
+  console.log('token ==========>================>================> '+token)
   if (!token) {
     return res.status(403).send('Token not provided');
   }

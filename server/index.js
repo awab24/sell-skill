@@ -21,7 +21,7 @@ const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors({
-    origin: 'http://localhost:3000', // Allow your frontend URL
+    origin: '*', // Allow your frontend URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }));
@@ -36,12 +36,17 @@ const dbUrl = process.env.DATABASE_URL;
 
 
 //--------------------------
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// app.use(express.static(path.join(__dirname, '../client/build')));
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+ const __filename = fileURLToPath(import.meta.url);
+ const __dirname = path.dirname(__filename);
+ app.use(express.static(path.join(__dirname, '../client/build')));
+ app.get('/api/endpoints', (req, res) => {
+  res.json({ message: 'Hello from the backend!' });
+});
+
+app.use(router);
+ app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+ });
 //------------------------------------
 
 
@@ -54,30 +59,5 @@ const connectMongoose = async() => {
 connectMongoose();
 
 
-
-
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// app.get("/*", (req, res) => {
-//   res.sendFile(
-//     path.join(__dirname, "../client/build/index.html"),
-//     (err) => {
-//       if (err) {
-//         res.status(500).send(err);
-//       }
-//     }
-//   );
-// });
-
-
-// Set up PayPal environment
-
-
-
-
-
-app.use(router)
 
 

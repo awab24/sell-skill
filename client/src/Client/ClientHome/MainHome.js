@@ -33,7 +33,7 @@ const navigate = useNavigate()
         }
       
         )
-      console.log(response.data.permission)
+      console.log('data from back =====>  ',response)
       setPermission(response.data.permission)
  
     }

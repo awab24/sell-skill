@@ -86,6 +86,7 @@ function SignUpLogin() {
       dispatch(changeAuth(true));
       
       responseClient && navigate('/Client');
+      console.log('responseClient ====================================>>>>>>>>>> '+responseClient)
       responseProvider && navigate('/provider')
       if(responseClient || responseProvider){
         const responseProviderOrClientId = await axios.get('http://localhost:5000/api/endpoints/providerOrClientId')
