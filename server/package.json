@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "proxy": "http://localhost:3000",
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": " node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-          "heroku-postbuild": "cd sell-skill/client/sell-skill && npm install && npm run build",
-      "install": "npm install --prefix server && npm install --prefix client"
+          "heroku-postbuild": "cd ../client && npm install && npm run build",
+      "install": "npm install "
   },
   "engines": {
     "node": "20.x",

@@ -31,7 +31,11 @@ app.set('view engine', 'ejs')
 //connect to mongoose
 const PORT = process.env.PORT || 5000;
 const dbUrl = process.env.DATABASE_URL;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 const connectMongoose = async() => {
     await mongoose.connect(dbUrl)
@@ -41,19 +45,25 @@ const connectMongoose = async() => {
 
 connectMongoose();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.get("/*", (req, res) => {
-  res.sendFile(
-    path.join(__dirname, "../client/build/index.html"),
-    (err) => {
-      if (err) {
-        res.status(500).send(err);
-      }
-    }
-  );
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+
+// app.get("/*", (req, res) => {
+//   res.sendFile(
+//     path.join(__dirname, "../client/build/index.html"),
+//     (err) => {
+//       if (err) {
+//         res.status(500).send(err);
+//       }
+//     }
+//   );
+// });
 
 
 // Set up PayPal environment

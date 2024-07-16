@@ -35,7 +35,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && (cd ../server && npm install)",
+    "build": "react-scripts build",
 "heroku-prebuild": "echo \"legacy-peer-deps=true\" > ~/.npmrc",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
