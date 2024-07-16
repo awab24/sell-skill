@@ -1,0 +1,21 @@
+{
+  "name": "sell-skill",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd sell-skill && cd server && node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js",
+    "install": "npm install --prefix server && npm install --prefix client/sell-skill",
+    "heroku-postbuild": "cd client/sell-skill && npm install && npm run build"
+  },
+"engines": {
+  "node": "20.x",
+  "npm": "10.x"
+}
+,
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+
+}

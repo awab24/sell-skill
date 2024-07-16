@@ -1,0 +1,33 @@
+/* Accept.css */
+
+.accept-container {
+    background-color: blue; /* Bootstrap primary blue color */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .accept-card {
+    height: 300px;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .accept-button {
+    margin-top: 20px;
+    background-color: #28a745; /* Bootstrap success green color */
+    border: none;
+  }
+  
+  .accept-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
