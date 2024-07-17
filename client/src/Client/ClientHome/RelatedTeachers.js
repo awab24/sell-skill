@@ -190,7 +190,7 @@ function RelatedTeachers() {
                                 <CardText>{relatedProvider.email}</CardText>
                                 <CardText>{relatedProvider.ratePerHour}</CardText>
                                 <CardText>{relatedProvider.categories.join(', ')}</CardText>
-                                <InviteButton>
+                                <InviteButton style={{'position':'relative', 'zIndex':'10'}} onClick={() => navigate('/inviting')}>
                                     <b>Invite</b>
                                 </InviteButton>
                             </Card.Body>
