@@ -298,7 +298,11 @@ const ProviderProfile4Provider = () => {
           <Container>
             <Section>
               <HeaderTitle>Provider: {name}</HeaderTitle>
-              <ProfileImage src={profileImageSrc} alt="Profile" />
+              {
+                profileImageSrc && 
+                <ProfileImage src={profileImageSrc} alt="Profile" />
+              }
+
             </Section>
 
             <Section>
@@ -322,10 +326,17 @@ const ProviderProfile4Provider = () => {
               {certificateImagesSrcs.length > 0 ? (
                 certificateImagesSrcs.map((imageSrc, index) => (
                   <div key={index}>
-                    <Image src={imageSrc.imageSrc} alt={`Certification ${index + 1}`} />
-                    <Button onClick={() => deleteImageCertificate(imageSrc.imageId)}>
-                      <FaTrash /> Delete Certificate
-                    </Button>
+                    {
+                      imageSrc && 
+                      <>
+                      <Image src={imageSrc.imageSrc} alt={`Certification ${index + 1}`} />
+                      <Button onClick={() => deleteImageCertificate(imageSrc.imageId)}>
+                        <FaTrash /> Delete Certificate
+                      </Button> 
+                      </>
+
+                    }
+
                   </div>
                 ))
               ) : (
@@ -340,10 +351,15 @@ const ProviderProfile4Provider = () => {
               {certificatePdfSrcs.length > 0 ? (
                 certificatePdfSrcs.map((pdfSrc, index) => (
                   <div key={index}>
-                    <PdfEmbed src={pdfSrc.certificatePdfSrc} type="application/pdf" />
+                    {
+                      pdfSrc && <>
+                                        <PdfEmbed src={pdfSrc.certificatePdfSrc} type="application/pdf" />
                     <Button onClick={() => deletePdfCertificate(pdfSrc.certificatePdfId)}>
                       <FaTrash /> Delete Certificate
-                    </Button>
+                    </Button>  
+                      </>
+                    }
+
                   </div>
                 ))
               ) : (
@@ -357,10 +373,15 @@ const ProviderProfile4Provider = () => {
               {experienceImageSrcs.length > 0 ? (
                 experienceImageSrcs.map((experienceImageSrc, index) => (
                   <div key={index}>
-                    <Image src={experienceImageSrc.src} alt={`Experience ${index + 1}`} />
+                    {
+                      experienceImageSrc && <>
+                                          <Image src={experienceImageSrc.src} alt={`Experience ${index + 1}`} />
                     <Button onClick={() => deleteImageExperience(experienceImageSrc.id)}>
                       <FaTrash /> Delete Experience
                     </Button>
+                      </>
+                    }
+
                   </div>
                 ))
               ) : (
@@ -374,10 +395,16 @@ const ProviderProfile4Provider = () => {
               {experiencePdfSrcs.length > 0 ? (
                 experiencePdfSrcs.map((pdfExperienceSrc, index) => (
                   <div key={index}>
-                    <PdfEmbed src={pdfExperienceSrc.src} type="application/pdf" />
+                    {
+                      pdfExperienceSrc && 
+                      <>
+                                          <PdfEmbed src={pdfExperienceSrc.src} type="application/pdf" />
                     <Button onClick={() => deletePdfExperience(pdfExperienceSrc.id)}>
                       <FaTrash /> Delete Experience
                     </Button>
+                      </>
+                    }
+
                   </div>
                 ))
               ) : (

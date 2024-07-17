@@ -256,8 +256,11 @@ const CertainProvider = () => {
             <Section>
               <SectionTitle>Definition Blogs</SectionTitle>
      
-                
+                {
+                  blog && 
                   <Image src={blog} alt="Blog" />
+                }
+
           
                         
             </Section>
@@ -267,7 +270,11 @@ const CertainProvider = () => {
               {certificateImagesSrcs.length > 0 ? (
                 certificateImagesSrcs.map((imageSrc, index) => (
                   <div key={index}>
-                    <Image src={imageSrc.imageSrc} alt={`Certification ${index + 1}`} />
+                    {
+                      imageSrc && 
+                      <Image src={imageSrc.imageSrc} alt={`Certification ${index + 1}`} />
+                    }
+
 
                   </div>
                 ))
@@ -283,7 +290,11 @@ const CertainProvider = () => {
               {certificatePdfSrcs.length > 0 ? (
                 certificatePdfSrcs.map((pdfSrc, index) => (
                   <div key={index}>
-                    <PdfEmbed src={pdfSrc.certificatePdfSrc} type="application/pdf" />
+                    {
+                      pdfSrc && 
+                      <PdfEmbed src={pdfSrc.certificatePdfSrc} type="application/pdf" />
+                    }
+
 
                   </div>
                 ))
@@ -298,7 +309,11 @@ const CertainProvider = () => {
               {experienceImageSrcs.length > 0 ? (
                 experienceImageSrcs.map((experienceImageSrc, index) => (
                   <div key={index}>
-                    <Image src={experienceImageSrc.src} alt={`Experience ${index + 1}`} />
+                    {
+                      experienceImageSrc && 
+                      <Image src={experienceImageSrc.src} alt={`Experience ${index + 1}`} />
+                    }
+
 
                   </div>
                 ))
@@ -313,7 +328,11 @@ const CertainProvider = () => {
               {experiencePdfSrcs.length > 0 ? (
                 experiencePdfSrcs.map((pdfExperienceSrc, index) => (
                   <div key={index}>
-                    <PdfEmbed src={pdfExperienceSrc.src} type="application/pdf" />
+                    {
+                      pdfExperienceSrc && 
+                      <PdfEmbed src={pdfExperienceSrc.src} type="application/pdf" />
+                    }
+
 
                   </div>
                 ))

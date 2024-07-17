@@ -74,8 +74,10 @@ function TopBar() {
             <Card className="text-center">
               <Card.Body>
                 <Card.Title className="mb-3">{name}</Card.Title>
-                <img
-                  src={imageSrc || '/images/NormalProfile.jpg'}
+                {
+                  imageSrc && 
+                  <img
+                  src={imageSrc}
                   alt="Profile"
                   style={{
                     width: '50px',
@@ -84,6 +86,8 @@ function TopBar() {
                     objectFit: 'cover',
                   }}
                 />
+                }
+
               </Card.Body>
             </Card>
           </a>

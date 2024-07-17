@@ -64,7 +64,11 @@ function TopBar() {
 
       <ProfileCard>
         <Card.Title>{name}</Card.Title>
-        <ProfileImage src={profilePictureSrc || "/images/NormalProfile.jpg"} />
+        {
+          profilePictureSrc && 
+          <ProfileImage src={profilePictureSrc || "/images/NormalProfile.jpg"} />
+        }
+
       </ProfileCard>
     </TopBarContainer>
   );
