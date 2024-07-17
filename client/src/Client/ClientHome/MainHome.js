@@ -19,7 +19,7 @@ function MainHome() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: {
           Authorization: `Bearer ${token}`
         }

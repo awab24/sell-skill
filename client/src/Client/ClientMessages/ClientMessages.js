@@ -18,7 +18,7 @@ function ClientMessages() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProviderToClientMessagesInClient');
+        const response = await fetch('https://sell-skill.com/api/endpoints/getProviderToClientMessagesInClient');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -39,7 +39,7 @@ function ClientMessages() {
         message: messageContent
       };
 
-      await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
+      await axios.post(`https://sell-skill.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
       setMessageContent('');
     } catch (error) {
       console.error('Error sending message:', error);
@@ -50,7 +50,7 @@ function ClientMessages() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: {
           Authorization: `Bearer ${token}`
         }

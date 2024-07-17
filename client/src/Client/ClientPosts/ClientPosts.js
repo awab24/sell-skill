@@ -10,10 +10,10 @@ function ClientPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const responseProviderOrClientId = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerOrClientId');
+                const responseProviderOrClientId = await axios.get('https://sell-skill.com/api/endpoints/providerOrClientId');
                 const clientId = responseProviderOrClientId.data;
 
-                const response = await axios.get(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/showClientPosts/${clientId}`);
+                const response = await axios.get(`https://sell-skill.com/api/endpoints/showClientPosts/${clientId}`);
                 setPosts(response.data);
             } catch (error) {
                 console.error('Error fetching posts:', error);
@@ -23,7 +23,7 @@ function ClientPosts() {
     }, []);
 
     const deletePost = async (postId) => {
-        await axios.delete(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deletePost/${postId}`);
+        await axios.delete(`https://sell-skill.com/api/endpoints/deletePost/${postId}`);
         setPosts(posts.filter(post => post._id !== postId)); // Update state to remove deleted post
     };
 

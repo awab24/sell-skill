@@ -16,7 +16,7 @@ function TopBar() {
 
   useEffect(() => {
     const fetchCheckProviderNewMessages = async () => {
-      const providerNewMessagesResult = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkProviderNewMessages');
+      const providerNewMessagesResult = await axios.get('https://sell-skill.com/api/endpoints/checkProviderNewMessages');
       setNewMessages(providerNewMessagesResult.data);
     };
     fetchCheckProviderNewMessages();
@@ -24,14 +24,14 @@ function TopBar() {
 
   useEffect(() => {
     const fetchCheckProviderNewInvites = async () => {
-      const providerNewInvitesResult = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/checkProviderNewInvites');
+      const providerNewInvitesResult = await axios.get('https://sell-skill.com/api/endpoints/checkProviderNewInvites');
       setNewInvites(providerNewInvitesResult.data);
     };
     fetchCheckProviderNewInvites();
   }, []);
 
   useEffect(() => {
-    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileData')
+    fetch('https://sell-skill.com/api/endpoints/getProfileData')
       .then((response) => response.json())
       .then((result) => setName(JSON.stringify(result.name).replace(/"/g, '')));
   }, []);
@@ -39,7 +39,7 @@ function TopBar() {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePicture', {
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getProfilePicture', {
           responseType: 'arraybuffer',
         });
 

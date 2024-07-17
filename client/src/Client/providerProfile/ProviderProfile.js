@@ -96,7 +96,7 @@ function ProviderProfile() {
 
   useEffect(() => {
     const fetchReports = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getReport');
+      const response = await axios.get('https://sell-skill.com/api/endpoints/getReport');
       setReports(response.data);
     };
     fetchReports();
@@ -104,7 +104,7 @@ function ProviderProfile() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPermission(response.data.permission);
@@ -128,16 +128,16 @@ function ProviderProfile() {
   };
 
   useEffect(() => {
-    fetchImage('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileIMAGE', setImageSrc);
-    fetchImage('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePDF', setFileSrc);
-    fetchImage('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperiencePDF', setExperiencePdfSrc);
-    fetchImage('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperienceIMAGE', setExperienceImageSrc);
-    fetchImage('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getIntro', setIntroVideo);
-    fetchImage('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePicture', setProfileImageSrc);
+    fetchImage('https://sell-skill.com/api/endpoints/getProfileIMAGE', setImageSrc);
+    fetchImage('https://sell-skill.com/api/endpoints/getProfilePDF', setFileSrc);
+    fetchImage('https://sell-skill.com/api/endpoints/getExperiencePDF', setExperiencePdfSrc);
+    fetchImage('https://sell-skill.com/api/endpoints/getExperienceIMAGE', setExperienceImageSrc);
+    fetchImage('https://sell-skill.com/api/endpoints/getIntro', setIntroVideo);
+    fetchImage('https://sell-skill.com/api/endpoints/getProfilePicture', setProfileImageSrc);
   }, [name]);
 
   useEffect(() => {
-    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileData')
+    fetch('https://sell-skill.com/api/endpoints/getProfileData')
       .then(response => response.json())
       .then(result => setName(result.name));
   }, []);

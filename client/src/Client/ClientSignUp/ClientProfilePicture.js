@@ -16,7 +16,7 @@ function ClientProfilePicture() {
 
         const formData = new FormData();
         formData.append('picture', e);
-        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertClientPicture', formData);
+        await axios.post('https://sell-skill.com/api/endpoints/insertClientPicture', formData);
     };
 
     return (

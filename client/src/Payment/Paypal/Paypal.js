@@ -24,7 +24,7 @@ const PayPalCheckout = ({ description, onSuccess }) => {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -59,7 +59,7 @@ const PayPalCheckout = ({ description, onSuccess }) => {
                 const details = await actions.order.capture();
                 setPaid(true);
                 setCompleted(true);
-                await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/payProvider', {
+                await axios.post('https://sell-skill.com/api/endpoints/payProvider', {
                   providerAmount: (amount * 70) / 100
                 });
                 onSuccess(details);

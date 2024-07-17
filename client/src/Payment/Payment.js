@@ -75,7 +75,7 @@ function CheckoutForm() {
       return;
     }
 
-    const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/create-payment-intent', {
+    const response = await fetch('https://sell-skill.com/api/endpoints/create-payment-intent', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ amount }),

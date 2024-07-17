@@ -8,7 +8,7 @@ function ProviderInvitation2() {
 
   useEffect(() => {
     const getChoosenInvitation = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getInvitationContent');
+      const response = await axios.get('https://sell-skill.com/api/endpoints/getInvitationContent');
       setChoosenInvitation(response.data);
     };
     getChoosenInvitation();

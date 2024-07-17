@@ -75,7 +75,7 @@ function TypeOfWork() {
   const handleNextClick = async () => {
     navigate("/letter");
     console.log('categories ===> ' + category);
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/category', category);
+    await axios.post('https://sell-skill.com/api/endpoints/category', category);
   };
 
   const handleCategoryClick = (cat) => {

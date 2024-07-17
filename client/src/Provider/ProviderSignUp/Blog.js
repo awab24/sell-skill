@@ -64,7 +64,7 @@ function Blog() {
     setIntro(e);
     formData.append('image', e);
     formData.append('name', 'image/png');
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addBlog', formData);
+    await axios.post('https://sell-skill.com/api/endpoints/addBlog', formData);
   };
 
   const handleNextClick = async () => {

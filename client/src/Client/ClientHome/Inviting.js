@@ -21,7 +21,7 @@ function Inviting() {
   useEffect(() => {
     const fetchPermission = async () => {
       const response = await axios.get(
-        'https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient',
+        'sell-skill.com/api/endpoints/verifyClient',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ function Inviting() {
   const handleInvite = async () => {
     navigate('/provider');
     await axios.post(
-      'https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendInvite',
+      'sell-skill.com/api/endpoints/sendInvite',
       { providerEmail: providerEmail, message: invitationMessage }
     );
   };

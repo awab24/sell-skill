@@ -64,13 +64,13 @@ function ProviderToClientMessage() {
   const token = tokenObject?.token || tokenObject;
 
   const handleProviderToClientMessage = async () => {
-    await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderToClientMessage/${clientID}`, { _id: uuidv4(), message: messageContent });
+    await axios.post(`https://sell-skill.com/api/endpoints/sendProviderToClientMessage/${clientID}`, { _id: uuidv4(), message: messageContent });
   };
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
+        const response = await fetch('https://sell-skill.com/api/endpoints/getMessagesFromClientIntoProvider');
         const result = await response.json();
         setMessages(result);
       } catch (error) {
@@ -83,7 +83,7 @@ function ProviderToClientMessage() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyProvider', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -99,7 +99,7 @@ function ProviderToClientMessage() {
   };
 
   const deleteProviderMessage = async (id) => {
-    await axios.delete('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteProviderMessage/' + id);
+    await axios.delete('https://sell-skill.com/api/endpoints/deleteProviderMessage/' + id);
   };
 
   return (

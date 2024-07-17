@@ -90,7 +90,7 @@ function PreviousExperience() {
     formData.append('pdf', file);
     formData.append('id', uuidv4());
 
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfExperience', formData);
+    await axios.post('https://sell-skill.com/api/endpoints/insertPdfExperience', formData);
   };
 
   const handleIMAGE = async (file) => {
@@ -98,7 +98,7 @@ function PreviousExperience() {
     formData.append('image', file);
     formData.append('id', uuidv4());
 
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageExperience', formData);
+    await axios.post('https://sell-skill.com/api/endpoints/insertImageExperience', formData);
   };
 
   const handleNextClick = () => {

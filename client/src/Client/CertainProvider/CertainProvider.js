@@ -105,7 +105,7 @@ const CertainProvider = () => {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -122,7 +122,7 @@ const CertainProvider = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileIMAGE4Client/'+providerId);
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getProfileIMAGE4Client/'+providerId);
         const imagesData = response.data.map((image) => ({
           imageSrc: `data:${image.contentType};base64,${image.data}`,
           imageId: image.imageCertificationId,
@@ -138,7 +138,7 @@ const CertainProvider = () => {
   useEffect(() => {
     const fetchPdf = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePDF4Client/'+providerId);
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getProfilePDF4Client/'+providerId);
         const certificatePdfs = response.data.map((certificatePdf) => ({
           certificatePdfSrc: `data:${certificatePdf.contentType};base64,${certificatePdf.data}`,
           certificatePdfId: certificatePdf.id,
@@ -154,7 +154,7 @@ const CertainProvider = () => {
   useEffect(() => {
     const fetchExperiencePdf = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperiencePDF4Client/'+providerId);
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getExperiencePDF4Client/'+providerId);
         const pdfExperiences = response.data.map((pdfExperience) => ({
           src: `data:${pdfExperience.contentType};base64,${pdfExperience.data}`,
           id: pdfExperience.id,
@@ -170,7 +170,7 @@ const CertainProvider = () => {
   useEffect(() => {
     const fetchExperienceImage = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getExperienceIMAGE4Client/'+providerId);
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getExperienceIMAGE4Client/'+providerId);
         const imageExperiences = response.data.map((imageExperience) => ({
           src: `data:${imageExperience.contentType};base64,${imageExperience.data}`,
           id: imageExperience.id,
@@ -186,7 +186,7 @@ const CertainProvider = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getBlog4Client/'+providerId, {
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getBlog4Client/'+providerId, {
           responseType: 'arraybuffer',
         });
 
@@ -201,7 +201,7 @@ const CertainProvider = () => {
   }, []);
 
   useEffect(() => {
-    fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfileData4Client/'+providerId)
+    fetch('https://sell-skill.com/api/endpoints/getProfileData4Client/'+providerId)
       .then((response) => response.json())
       .then((result) => setName(JSON.stringify(result.name).replace(/"/g, '')));
   }, []);
@@ -209,7 +209,7 @@ const CertainProvider = () => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProfilePicture4Client/'+providerId, {
+        const response = await axios.get('https://sell-skill.com/api/endpoints/getProfilePicture4Client/'+providerId, {
           responseType: 'arraybuffer',
         });
 
@@ -233,7 +233,7 @@ const CertainProvider = () => {
  
   useEffect(() => {
     const fetchReports = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getReport4Client/'+providerId);
+      const response = await axios.get('https://sell-skill.com/api/endpoints/getReport4Client/'+providerId);
       setReports(response.data);
     };
     fetchReports();

@@ -63,7 +63,7 @@ function ProviderMessages() {
   let token = tokenObject?.token || tokenObject;
 
   const fetchProviderID = async () => {
-    responseProviderId = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront');
+    responseProviderId = await axios.post('https://sell-skill.com/api/endpoints/sendProviderIdToFront');
     responseProviderId = await responseProviderId.data;
     setProviderId(responseProviderId);
   };
@@ -80,7 +80,7 @@ function ProviderMessages() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
+        const response = await fetch('https://sell-skill.com/api/endpoints/getMessagesFromClientIntoProvider');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -97,13 +97,13 @@ function ProviderMessages() {
   useEffect(() => {
     const fetchPermission = async () => {
       try {
-        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider', {
+        const response = await axios.get('https://sell-skill.com/api/endpoints/verifyProvider', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         setPermission(response.data.permission);
-        await axios.patch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/cancelProviderNewMessages');
+        await axios.patch('https://sell-skill.com/api/endpoints/cancelProviderNewMessages');
       } catch (error) {
         console.error('Failed to verify provider:', error);
       }

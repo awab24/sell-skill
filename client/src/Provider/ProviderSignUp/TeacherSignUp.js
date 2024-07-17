@@ -65,7 +65,7 @@ function TeacherAuth() {
     const { email, name, family_name } = payload;
 
     try {
-      const responseProvider = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData', {
+      const responseProvider = await axios.post('https://sell-skill.com/api/endpoints/providerSignUpData', {
         _id: uuidv4(),
         name,
         surname: family_name,
@@ -88,7 +88,7 @@ function TeacherAuth() {
 
   const handleProviderSignUp = async () => {
     try {
-      const responseProvider = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/providerSignUpData', providerSignUpData);
+      const responseProvider = await axios.post('https://sell-skill.com/api/endpoints/providerSignUpData', providerSignUpData);
       const providerToken = responseProvider.data;
 
       if (!providerToken) {

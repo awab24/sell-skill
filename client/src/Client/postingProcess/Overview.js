@@ -15,7 +15,7 @@ function Overview() {
 
     useEffect(() => {
         const fetchPermission = async () => {
-            const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+            const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             setPermission(response.data.permission);
@@ -25,7 +25,7 @@ function Overview() {
 
     const handlePost = async () => {
         console.log('last post data ===> ', postData);
-        await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPost', postData);
+        await axios.post('https://sell-skill.com/api/endpoints/insertPost', postData);
     };
 
     const navigateSignUpIn = () => {

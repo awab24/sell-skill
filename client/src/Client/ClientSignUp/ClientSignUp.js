@@ -18,7 +18,7 @@ function ClientSignUp() {
   const [alreadyClientExist, setAlreadyClientExist] = useState(false);
 
   const handleClientSignUp = async () => {
-    const responseClient = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientSignUp', clientSignUpData);
+    const responseClient = await axios.post('https://sell-skill.com/api/endpoints/clientSignUp', clientSignUpData);
     const clientToken = responseClient.data;
     
     if (!clientToken) {
@@ -34,7 +34,7 @@ function ClientSignUp() {
     const payload = JSON.parse(atob(credential.split('.')[1]));
     const { email, name, family_name } = payload;
 
-    const responseClient = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/clientSignUp', {
+    const responseClient = await axios.post('https://sell-skill.com/api/endpoints/clientSignUp', {
       _id: uuidv4(),
       name,
       surname: family_name,

@@ -16,7 +16,7 @@
 //     useEffect(  () => {
 //         const fetchRelatedProviders = async (retryCount = 0) => {
 //             try {
-//                 const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
+//                 const response = await axios.get('https://sell-skill.com/api/endPoints/getRelatedProviders');
 //                setRelatedProviders(response.data);
 //             } catch (error) {
 //                 if (retryCount < 3) {
@@ -155,7 +155,7 @@ function RelatedTeachers() {
     useEffect(() => {
         const fetchRelatedProviders = async (retryCount = 0) => {
             try {
-                const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
+                const response = await axios.get('https://sell-skill.com/api/endPoints/getRelatedProviders');
                 setRelatedProviders(response.data);
             } catch (error) {
                 if (retryCount < 3) {

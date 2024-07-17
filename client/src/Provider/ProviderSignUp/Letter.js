@@ -56,7 +56,7 @@ function Letter() {
 
   const handleNextClick = async () => {
     navigate("/certifications");
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertLetter', letter);
+    await axios.post('https://sell-skill.com/api/endpoints/insertLetter', letter);
 
   };
 

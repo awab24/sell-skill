@@ -28,7 +28,7 @@ function ProposalAtClient() {
   useEffect(() => {
     const fetchProposals = async () => {
       try {
-        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProposals');
+        const response = await fetch('https://sell-skill.com/api/endpoints/getProposals');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -50,7 +50,7 @@ function ProposalAtClient() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: {
           Authorization: `Bearer ${token}`
         }

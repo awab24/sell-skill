@@ -80,7 +80,7 @@ function Picture() {
     const formData = new FormData();
     formData.append('picture', e);
     formData.append('name', 'image/png');
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPicture', formData);
+    await axios.post('https://sell-skill.com/api/endpoints/insertPicture', formData);
     setPicture(e);
   };
 

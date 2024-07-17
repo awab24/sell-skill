@@ -62,7 +62,7 @@ function ReceivedMessages2Client() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getProviderToClientMessagesInClient');
+        const response = await fetch('https://sell-skill.com/api/endpoints/getProviderToClientMessagesInClient');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -84,7 +84,7 @@ function ReceivedMessages2Client() {
         message: messageContent,
       };
 
-      await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
+      await axios.post(`https://sell-skill.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
       setMessageContent('');
       console.log('providerId==========================================> ',providerId,' <===========================providerId')
     } catch (error) {
@@ -98,7 +98,7 @@ function ReceivedMessages2Client() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyClient', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,7 +114,7 @@ function ReceivedMessages2Client() {
   };
 
   const deleteClientMessage = async (id) => {
-    await axios.delete(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/deleteClientMessage/${id}`);
+    await axios.delete(`https://sell-skill.com/api/endpoints/deleteClientMessage/${id}`);
     setReceivedMessages(receivedMessages.filter(msg => msg.message._id !== id));
   };
 

@@ -52,7 +52,7 @@ function RatePerHour() {
 
   const handleNextClick = async () => {
     navigate("/payment-register");
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/addRate', { ratePerHour: rate });
+    await axios.post('https://sell-skill.com/api/endpoints/addRate', { ratePerHour: rate });
   };
 
   return (
