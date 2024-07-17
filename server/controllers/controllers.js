@@ -212,17 +212,19 @@ export const insertPost = async(req, res)=>{
 
 export const getPosts = async(req, res) => {
   let relatedPosts = []
-  const provider = await ProviderModel.findById(providerOrClientId)
-   console.log('provider categories ==> '+provider.categories)
-  const allPosts = await PostsModel.find()
-   allPosts.map((post) => console.log('post category ===> '+post.skills))
-   allPosts.map((post) => post.skills.map((postSkill) => provider.categories.map((providerCategory)=> {
-    if(postSkill === providerCategory && !relatedPosts.includes(post))  {
-    relatedPosts.push(post)
-    }
+  if (providerOrClientId){
+    const provider = await ProviderModel.findById(providerOrClientId)
+    const allPosts = await PostsModel.find()
+     allPosts.map((post) => console.log('post category ===> '+post.skills))
+     allPosts.map((post) => post.skills.map((postSkill) => provider.categories.map((providerCategory)=> {
+      if(postSkill === providerCategory && !relatedPosts.includes(post))  {
+      relatedPosts.push(post)
+      }
+  
+    })))
+     res.send(relatedPosts)
+  }
 
-  })))
-   res.send(relatedPosts)
 }
 
 

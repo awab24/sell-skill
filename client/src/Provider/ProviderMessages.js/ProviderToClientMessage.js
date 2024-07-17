@@ -24,7 +24,7 @@ function ProviderToClientMessage() {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        const result = await response.json();
+        const result =  response.json();
         setMessages(result);
       } catch (error) {
         console.error('Failed to fetch posts:', error);
