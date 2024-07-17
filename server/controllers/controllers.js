@@ -232,7 +232,7 @@ export const getPosts = async(req, res) => {
 export const insertCategory = async (req, res) => {
   const categoriesFromFront = req.body;
    // Assuming you get providerOrClientId from req.user
-
+   sendMessageFromClientToProvider
 
   try {
     for (const categoryFromFront of categoriesFromFront) {
@@ -674,7 +674,7 @@ await ProviderModel.findByIdAndUpdate(
           message:
           {
             _id: message.messageId,
-            providerId: message.providerId,
+            providerId: providerId,
             clientId: providerOrClientId,
             name: clientName,
             message: message.message

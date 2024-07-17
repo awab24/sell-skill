@@ -30,10 +30,9 @@ function ProviderMessages() {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        console.log('==================================================> ',result,' <============================================')
-
+       
         setMessages(result);
-        messages.map((message) => console.log('message =========================================> '+message+' <========================================message'))
+
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }

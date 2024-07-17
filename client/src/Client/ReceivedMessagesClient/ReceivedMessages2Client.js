@@ -86,6 +86,7 @@ function ReceivedMessages2Client() {
 
       await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
       setMessageContent('');
+      console.log('providerId==========================================> ',providerId,' <===========================providerId')
     } catch (error) {
       console.error('Error sending message:', error);
     }
