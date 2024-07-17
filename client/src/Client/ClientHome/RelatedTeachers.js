@@ -156,7 +156,9 @@ function RelatedTeachers() {
         const fetchRelatedProviders = async (retryCount = 0) => {
             try {
                 const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
-                setRelatedProviders(response.data);
+                setRelatedProviders(response.json());
+                console.log('response.data===================> ',response.data,'  <==================response.data')
+                console.log('response.json===================> ',response.json(),'  <==================response.json')
             } catch (error) {
                 if (retryCount < 3) {
                     setTimeout(() => fetchRelatedProviders(retryCount + 1), 3000); // Retry after 3 seconds
