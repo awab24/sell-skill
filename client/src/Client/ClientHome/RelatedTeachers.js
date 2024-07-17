@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Container } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Buffer } from 'buffer';
@@ -10,52 +10,50 @@ import { setProviderId } from '../../reducers/reducers';
 
 function RelatedTeachers() {
     const [relatedProviders, setRelatedProviders] = useState([]);
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchRelatedProviders = async () => {
-            const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
-            const result = await response.data
-            setRelatedProviders(result);
-            console.log('response.json ==================================>',response.json(),'  <===============================response.json')
-            console.log('response ==================================>',response,'  <===============================response')
-            console.log('response.data ==================================>',response.data,'  <===============================response.data')
-            console.log('relatedProviders============================>  ', relatedProviders, '  <============================relatedProviders')
+            try {
+                const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
+                setRelatedProviders(response.data);
+            } catch (error) {
+                console.error('Error fetching related providers:', error);
+            }
         };
         fetchRelatedProviders();
     }, []);
 
     const goToCertainProvider = (id) => {
-        dispatch(setProviderId(id)); 
-        navigate('/certain-provider')
- 
+        dispatch(setProviderId(id));
+        navigate('/certain-provider');
     }
 
     return (
         <RelatedContainer>
             <h3 style={{ color: 'white' }}>Related Providers in Your Field</h3>
             {relatedProviders.length > 0 ? (
-                relatedProviders.map((relatedProvider, index) => (
-                    <Button onClick={() => goToCertainProvider(relatedProvider._id)}>
-                        <ProviderCard key={index}>
-                        <Card.Body>
-                            <ProfileImage src={
-                                relatedProvider.picture && relatedProvider.picture.picture && relatedProvider.picture.picture.data
-                                    ? 'data:image/jpg;base64,' + Buffer.from(relatedProvider.picture.picture.data, 'binary').toString('base64')
-                                    : "/images/NormalProfile.jpg"
-                            } />
-                            <Card.Title style={{ color: 'white' }}>{relatedProvider.name}</Card.Title>
-                            <Card.Text style={{ color: 'white' }}>{relatedProvider.email}</Card.Text>
-                            <Card.Text style={{ color: 'white' }}>{relatedProvider.ratePerHour}</Card.Text>
-                            <Card.Text style={{ color: 'white' }}>
-                                {relatedProvider.categories.join(', ')}
-                            </Card.Text>
-                            <InviteButton>
-                                <b>Invite</b>
-                            </InviteButton>
-                        </Card.Body>
-                    </ProviderCard>
+                relatedProviders.map((relatedProvider) => (
+                    <Button key={relatedProvider._id} onClick={() => goToCertainProvider(relatedProvider._id)}>
+                        <ProviderCard>
+                            <Card.Body>
+                                <ProfileImage src={
+                                    relatedProvider.picture && relatedProvider.picture.picture && relatedProvider.picture.picture.data
+                                        ? 'data:image/jpg;base64,' + Buffer.from(relatedProvider.picture.picture.data, 'binary').toString('base64')
+                                        : "/images/NormalProfile.jpg"
+                                } />
+                                <Card.Title style={{ color: 'white' }}>{relatedProvider.name}</Card.Title>
+                                <Card.Text style={{ color: 'white' }}>{relatedProvider.email}</Card.Text>
+                                <Card.Text style={{ color: 'white' }}>{relatedProvider.ratePerHour}</Card.Text>
+                                <Card.Text style={{ color: 'white' }}>
+                                    {relatedProvider.categories.join(', ')}
+                                </Card.Text>
+                                <InviteButton>
+                                    <b>Invite</b>
+                                </InviteButton>
+                            </Card.Body>
+                        </ProviderCard>
                     </Button>
                 ))
             ) : (
