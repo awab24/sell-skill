@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setProviderId } from '../../reducers/reducers';
 
 function ProposalAtClient() {
   const [proposals, setProposals] = useState([]);
   const navigate = useNavigate();
   const proposalId = useSelector((state) => state.allow.proposalId);
+  const dispatch = useDispatch()
   
   const handleAccept = () => {
     navigate("/accept");
@@ -17,9 +19,10 @@ function ProposalAtClient() {
     navigate("/client-messages");
   };
 
-  const handleSeeProfile = async () => {
-    navigate("/provider-profile");
-    await axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/proposalId/${proposalId}`);
+  const handleSeeProfile = async (id) => {
+    dispatch(setProviderId(id))
+    navigate("/certain-provider");
+
   };
 
   useEffect(() => {
@@ -79,7 +82,7 @@ function ProposalAtClient() {
                   <div style={styles.buttonContainer}>
                     <Button style={styles.button} onClick={handleAccept}>Accept</Button>
                     <Button style={styles.button} onClick={handleMessage}>Message</Button>
-                    <Button style={styles.button} onClick={handleSeeProfile}>See Profile</Button>
+                    <Button style={styles.button} onClick={() => handleSeeProfile(proposal.proposalId)}>See Profile</Button>
                   </div>
                 </Card>
               </Container>

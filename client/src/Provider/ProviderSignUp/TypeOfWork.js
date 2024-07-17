@@ -103,7 +103,7 @@ function TypeOfWork() {
             <b>Which category are you interested in?</b>
           </Title>
           <ButtonsContainer>
-            {['coding', 'AI', 'JavaScript', 'C++', 'Web design', 'Logo design', 'gym', 'cardio', 'motivation', 'self improvement'].map((cat) => (
+            {['Coding', 'AI', 'Medicne', 'Engineering', 'Law', 'Buisness', 'Trading', 'Cryptocurrecny', 'Youtube improvement', 'Brain Storming', 'Self disipline', 'Fitness','Self improvement','Time management', 'Dropshipping'].map((cat) => (
               <StyledButton
                 key={cat}
                 selected={category.includes(cat)}
