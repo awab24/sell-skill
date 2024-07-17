@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { handleClientSignIn, handleClientSignUp, handleProviderSignUp, verify, insertPost, getPosts, insertCategory, insertLetter, insertPicture,  addRate, addCourse, getProfileData, getProfilePicture, insertImageCertificate, insertPdfCertificate, getProfileIMAGE, getProfilePDF, handleProviderSignIn, insertPdfExperience, insertImageExperience, getImageExperience, getPdfExperience, insertProviderToClient, getProviderData, submitProposal, getProposals, getProposalId,  sendMessageFromClientToProvider, getMessagesFromClientIntoProvider, sendProviderIdToFront,  sendProviderToClientMessage, getProviderToClientMessagesInClient,  payProvider, createPayment, executePayment, deleteImageCertificate, deletePdfCertificate, deletePdfExperience, deleteImageExperience, showClientPosts, sendProviderOrClientId, deletePost, deleteProviderMessage, deleteClientMessage, sendInvite, getInvitations, getInvitationContent, sendChoosenInvitationId, getReport, insertReport, deleteBlog, getBlog, addBlog, checkClientNewMessages, cancelClientNewMessages, checkProviderNewMessages, cancelProviderNewMessages, cancelProviderNewInvites, checkProviderNewInvites, checkClientNewProposals, cancelClientNewProposals, insertClientPicture, getClientProfilePicture, getClientProfileData, insertClientCategory, getRelatedProviders, insertPaypalEmail} from '../controllers/controllers.js'
+import { handleClientSignIn, handleClientSignUp, handleProviderSignUp, verify, insertPost, getPosts, insertCategory, insertLetter, insertPicture,  addRate, addCourse, getProfileData, getProfilePicture, insertImageCertificate, insertPdfCertificate, getProfileIMAGE, getProfilePDF, handleProviderSignIn, insertPdfExperience, insertImageExperience, getImageExperience, getPdfExperience, insertProviderToClient, getProviderData, submitProposal, getProposals, getProposalId,  sendMessageFromClientToProvider, getMessagesFromClientIntoProvider, sendProviderIdToFront,  sendProviderToClientMessage, getProviderToClientMessagesInClient,  payProvider, createPayment, executePayment, deleteImageCertificate, deletePdfCertificate, deletePdfExperience, deleteImageExperience, showClientPosts, sendProviderOrClientId, deletePost, deleteProviderMessage, deleteClientMessage, sendInvite, getInvitations, getInvitationContent, sendChoosenInvitationId, getReport, insertReport, deleteBlog, getBlog, addBlog, checkClientNewMessages, cancelClientNewMessages, checkProviderNewMessages, cancelProviderNewMessages, cancelProviderNewInvites, checkProviderNewInvites, checkClientNewProposals, cancelClientNewProposals, insertClientPicture, getClientProfilePicture, getClientProfileData, insertClientCategory, getRelatedProviders, insertPaypalEmail, getProfilePDF4Client, getExperienceIMAGE4Client, getBlog4Client, getProfileData4Client, getProfilePicture4Client, getReport4Client} from '../controllers/controllers.js'
 import upload from '../middlewares/upload.js'
 
 
@@ -76,5 +76,15 @@ router.get('/api/endpoints/getClientProfileData', cors(), getClientProfileData)
 router.post('/api/endpoints/clientCategory', cors(), insertClientCategory)
 router.get('/api/endPoints/getRelatedProviders', cors(), getRelatedProviders)
 router.post('/api/endpoints/insertPaypalEmail', cors(), insertPaypalEmail)
+
+
+router.get('/api/endpoints/getProfileIMAGE4Client', cors(), )
+router.get('/api/endpoints/getProfilePDF4Client', cors(), getProfilePDF4Client)
+router.get('/api/endpoints/getExperiencePDF4Client', cors(), getExperienceIMAGE4Client)
+router.get('/api/endpoints/getExperienceIMAGE4Client', cors(), getExperienceIMAGE4Client)
+router.get('/api/endpoints/getBlog4Client', cors(), getBlog4Client)
+router.get('/api/endpoints/getProfileData4Client', cors(), getProfileData4Client)
+router.get('/api/endpoints/getProfilePicture4Client', cors(), getProfilePicture4Client)
+router.get('/api/endpoints/getReport4Client', cors(), getReport4Client)
 
 export default router;

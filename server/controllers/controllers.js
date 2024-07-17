@@ -436,7 +436,7 @@ export const getProfilePicture = async (req, res) => {
 };
 export const getProfileIMAGE = async (req, res) => {
   try {
-    console.log('awaw');
+
     if (!providerOrClientId) {
       return res.status(400).send('Provider ID is required');
     }
@@ -1410,7 +1410,7 @@ export const getRelatedProviders = async(req, res) => {
 
   await res.send(relatedProviders)
 }
-
+getProfilePDF
 export const insertPaypalEmail = async(req, res) => {
   const paypalEmail= req.body.paypalEmail
 
@@ -1423,4 +1423,152 @@ export const insertPaypalEmail = async(req, res) => {
      },
      {new: true}
    )
+}
+
+
+export const getProfileIMAGE4client = async(req,res) => {
+
+  providerId = req.params
+  console.log('providerId ===========================>   '+providerId)
+  try {
+
+    if (!providerId) {
+      return res.status(400).send('Provider ID is required');
+    }
+
+    const provider = await ProviderModel.findById(providerId)
+
+    if (!provider) {
+      return res.status(404).send('Provider not found');
+    }
+    const providerImageCertifications = provider.imageCertifications;
+    const providerImageCertificationsImageCertificateData = providerImageCertifications.map(imageCertificate => {
+      return {
+        data: imageCertificate.imageCertificate.data.toString('base64'), // Convert binary to base64 string
+        contentType: imageCertificate.imageCertificate.contentType,
+        imageCertificationId: imageCertificate.imageCertificate.imageCertificationId
+      };
+    });
+
+    res.json(providerImageCertificationsImageCertificateData);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send('Server error');
+  }
+}
+
+export const getProfilePDF4Client = async(req, res) => {
+ providerId = req.params
+ 
+  const provider= await ProviderModel.findById(providerId)
+
+
+
+
+    
+    const providerPdfCertifications = provider.pdfCertifications;
+    const providerPdfCertificationsPdfCertificateData = providerPdfCertifications.map(pdfCertificate => {
+      return {
+        data: pdfCertificate.pdfCertificate.data.toString('base64'), // Convert binary to base64 string
+        contentType: pdfCertificate.pdfCertificate.contentType,
+        id: pdfCertificate.pdfCertificate.id
+      };
+    });
+
+    res.json(providerPdfCertificationsPdfCertificateData);
+    
+
+}
+getPdfExperience
+
+export const getExperiencePDF4Client = async(req, res) => {
+   providerId = req.params
+  const provider = await ProviderModel.findById(providerId)
+
+
+
+  const providerPdfExperiences = provider.pdfExperiences;
+  const providerPdfExperiencesPdfExperienceData = providerPdfExperiences.map(pdfExperience => {
+    return {
+      data: pdfExperience.pdfExperience.data.toString('base64'), // Convert binary to base64 string
+      contentType: pdfExperience.pdfExperience.contentType,
+      id: pdfExperience.pdfExperience.id
+    };
+  });
+
+  res.json(providerPdfExperiencesPdfExperienceData);
+}
+
+
+
+export const getExperienceIMAGE4Client = async(req, res) => {
+   providerId = req.params
+  const provider = await ProviderModel.findById(providerId)
+
+  const providerImageExperiences = provider.imageExperiences;
+  const providerImageExperiencesImageExperienceData = providerImageExperiences.map((imageExperience) => {
+    return {
+      data: imageExperience.imageExperience.data.toString('base64'), // Convert binary to base64 string
+      contentType: imageExperience.imageExperience.contentType,
+      id: imageExperience.imageExperience.id
+    };
+  });
+
+  res.json(providerImageExperiencesImageExperienceData);
+  
+}
+
+
+
+export const getBlog4Client = async(req, res) => {
+   providerId = req.params
+  const provider = await ProviderModel.findById(providerId)
+
+  res.set('Content-Type', provider.blog.picture.contentType)
+  res.send(provider.blog.picture.data)
+}
+
+
+
+export const getProfileData4Client = async(req, res) => {
+   providerId = req.params
+  const provider = await ProviderModel.findById(providerId)
+  provider = await ProviderModel.findById(providerOrClientId);
+
+
+  res.json(provider)
+
+
+}
+
+
+
+getProfilePicture
+export const getProfilePicture4Client = async(req, res) => {
+   providerId = req.params
+  const provider = await ProviderModel.findById(providerId)
+
+
+
+
+  
+  if (!provider || !provider.picture || !provider.picture.picture) {
+    return res.status(404).send('Profile picture not found');
+  }
+
+  res.set('Content-Type', provider.picture.picture.contentType);
+  res.send(provider.picture.picture.data);
+
+}
+
+
+getReport
+export const getReport4Client = async(req, res) => {
+   providerId = req.params
+  const provider = await ProviderModel.findById(providerId)
+
+  const reports = provider.reports
+  console.log(reports)
+  res.send(reports)
+
 }
