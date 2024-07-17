@@ -30,6 +30,7 @@ function ProviderMessages() {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
+        console.log('==================================================> '+result+' <============================================')
         setMessages(result);
       } catch (error) {
         console.error('Failed to fetch posts:', error);
@@ -37,7 +38,7 @@ function ProviderMessages() {
 
       try {
         responseProviderId = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront');
-        responseProviderId =  responseProviderId.data;
+        responseProviderId =  await responseProviderId.data;
         setProviderId(responseProviderId);
       } catch (error) {
         console.error('Failed to fetch provider ID:', error);
