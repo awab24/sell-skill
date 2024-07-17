@@ -16,7 +16,11 @@ function RelatedTeachers() {
     useEffect(() => {
         const fetchRelatedProviders = async () => {
             const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
-            setRelatedProviders(response.data);
+            const result = await response.json()
+            setRelatedProviders(result);
+            console.log('response.json ==================================>',response.json(),'  <===============================response.json')
+            console.log('response ==================================>',response,'  <===============================response')
+            console.log('response.data ==================================>',response.data,'  <===============================response.data')
         };
         fetchRelatedProviders();
     }, []);
