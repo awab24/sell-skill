@@ -1248,7 +1248,7 @@ export const deleteBlog = async (req, res) => {
 
 export const checkClientNewMessages = async(req, res) => {
   const client = await ClientModel.findById(providerOrClientId)
-   res.send(client.newMessage)
+   res.send(client?.newMessage)
 }
 export const cancelClientNewMessages = async(req, res) => {
   await ClientModel.findByIdAndUpdate(
