@@ -70,10 +70,10 @@ function ProviderToClientMessage() {
             <div>
               {messages.length > 0 ? (
                 messages.map((message) => (
-                  <Card key={message._id} className="mb-3">
-                    {message.clientId === clientID && (
+                  <Card key={message.message_id} className="mb-3">
+                    {message.message.clientId === clientID && (
                       <Card.Body>
-                        <Card.Text>{message.message}</Card.Text>
+                        <Card.Text>{message.message.message}</Card.Text>
                         <Button variant="danger" onClick={() => deleteProviderMessage(message.message._id)}>
                           <FaTrash /> Delete message
                         </Button>
