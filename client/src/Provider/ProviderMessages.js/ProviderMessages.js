@@ -17,6 +17,15 @@ function ProviderMessages() {
   const tokenObject = JSON.parse(tokenString);
   let token = tokenObject?.token || tokenObject;
 
+const fetchProviderID = async() => {
+  responseProviderId = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront');
+  responseProviderId =  await responseProviderId.data;
+  console.log('providerId===========================> ',providerId, ' <=====================================providerId')
+  setProviderId(responseProviderId);
+}
+fetchProviderID();
+
+
   const handleClickOnMessage = (id) => {
     navigate('/provider-client-messaging');
     dispatch(setClientId(id));
@@ -37,14 +46,6 @@ function ProviderMessages() {
         console.error('Failed to fetch posts:', error);
       }
 
-      try {
-        responseProviderId = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront');
-        responseProviderId =  await responseProviderId.data;
-        console.log('providerId===========================> ',providerId, ' <=====================================providerId')
-        setProviderId(responseProviderId);
-      } catch (error) {
-        console.error('Failed to fetch provider ID:', error);
-      }
     };
 
     fetchPosts();
