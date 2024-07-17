@@ -1403,7 +1403,7 @@ export const getRelatedProviders = async(req, res) => {
   
     clientCategory === providerCategory && !relatedProviders.includes(provider) &&
   
-    relatedProviders.push(provider)
+    relatedProviders.push({name: provider?.name, email: provider?.email, ratePerHour: provider?.ratePerHour, picture: provider?.picture})
   
   ))
   )
