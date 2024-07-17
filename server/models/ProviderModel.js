@@ -40,6 +40,7 @@ const ProviderSchema = new schema({
 
       _id: String,
       clientId: String,
+      providerId: String,
       name: String,
       message: String
     }}],
