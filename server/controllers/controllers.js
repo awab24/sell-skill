@@ -745,7 +745,7 @@ export const sendProviderToClientMessage = async(req, res) => {
 
    clientId = JSON.stringify(req.params.id)
    clientId = clientId.replace(/"/g, "")
-  const providerId = providerOrClientId
+   providerId = providerOrClientId
   const provider = await ProviderModel.findById(providerOrClientId)
   const providerName = provider.name
   const client = await ClientModel.findById(clientId)
@@ -1424,4 +1424,3 @@ export const insertPaypalEmail = async(req, res) => {
      {new: true}
    )
 }
-addRate
