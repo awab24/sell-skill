@@ -178,7 +178,10 @@ function RelatedTeachers() {
             <Header>Related Providers in Your Field</Header>
             {relatedProviders.length > 0 ? (
                 relatedProviders.map((relatedProvider) => (
-                    <StyledButton key={relatedProvider._id} onClick={() => goToCertainProvider(relatedProvider._id)}>
+
+                                                <>
+                                                
+                                                <StyledButton key={relatedProvider._id} onClick={() => goToCertainProvider(relatedProvider._id)}>
                         <ProviderCard>
                             <Card.Body>
                                 <ProfileImage src={
@@ -190,12 +193,13 @@ function RelatedTeachers() {
                                 <CardText>{relatedProvider.email}</CardText>
                                 <CardText>{relatedProvider.ratePerHour}</CardText>
                                 <CardText>{relatedProvider.categories.join(', ')}</CardText>
-                                <InviteButton style={{'position':'relative', 'zIndex':'10'}} onClick={() => navigate('/inviting')}>
-                                    <b>Invite</b>
-                                </InviteButton>
+
                             </Card.Body>
                         </ProviderCard>
                     </StyledButton>
+                                                    <InviteButton style={{'position':'relative', 'zIndex':'10'}} onClick={() => navigate('/inviting')}>
+                                                    <b>Invite</b>
+                                                </InviteButton></>
                 ))
             ) : (
                 <LoadingMessage>Loading...</LoadingMessage>
