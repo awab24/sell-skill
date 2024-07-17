@@ -73,7 +73,7 @@ export const handleProviderSignIn = async (req, res, next) => {
     const findUser = await ProviderModel.findOne({ email });
 
     if(findUser){
-      providerOrClientId = findUser._id
+
         const compare = await bcryptjs.compare(password, findUser.password);
         if (!compare) {
           return res.status(401).send('Email or password is incorrect');
@@ -87,7 +87,7 @@ export const handleProviderSignIn = async (req, res, next) => {
 
     // If user is not found or password is incorrect
     if (!findUser) {
-      return res.redirect('http://localhost:3000/client');
+
     }
 
     // Compare the provided password with the hashed password in the database
@@ -360,7 +360,7 @@ export const addRate = async (req, res) => {
     if (isNaN(rateValue)) {
       return res.status(400).json({ error: 'Invalid rate per hour value' });
     }
-    console.log('reteValue ================================>  '+rateValue+'  <======rateValue')
+
     const updatedProvider = await ProviderModel.findOneAndUpdate(
       { _id: providerOrClientId },
       { $set: { ratePerHour: rateValue } },
@@ -576,8 +576,7 @@ export const insertProviderToClient = async(req, res)=> {
       // console.log('provider => '+ provider.email)
 
     const client = await ClientModel.findById(clientId)
-    console.log('provider ==> '+provider)
-    console.log('client ==> ' + client)
+
        await ClientModel.findOneAndUpdate(
          {_id: clientId},
          {
@@ -605,7 +604,7 @@ export const insertProviderToClient = async(req, res)=> {
 
 export const getProviderData = async(req, res) => {
     const client = await ClientModel.findById(providerOrClientId)
-    console.log('incoming providers ===> '+ client.incomingProviders)
+
      res.send(client.incomingProviders)
 }
 
@@ -638,13 +637,13 @@ export const submitProposal = async(req, res) => {
       
     )
   }
-console.log('proposals after exist logic should be one proposal ===> '+client.proposals)
+
 }
 
 export const getProposals = async(req, res)=>{
   const client = await ClientModel.findById(providerOrClientId)
   const proposals = client?.proposals
-  console.log('proposals ======> ' +proposals)
+
   res.send(proposals)
 }
 
@@ -699,7 +698,7 @@ await ProviderModel.findByIdAndUpdate(
           message:
           {
             _id: message.messageId,
-            providerId: message.providerId,
+            providerId: providerId,
             clientId: providerOrClientId,
             name: null,
             message: message.message
@@ -734,7 +733,7 @@ await ProviderModel.findByIdAndUpdate(
 export const getMessagesFromClientIntoProvider = async(req, res) => {
     const provider = await ProviderModel.findById(providerOrClientId)
 
-    res.send(provider.messages)
+    res.send(provider?.messages)
 }
 
 export const sendProviderToClientMessage = async(req, res) => {
@@ -743,9 +742,7 @@ export const sendProviderToClientMessage = async(req, res) => {
   message = message.replace(/"/g, "")
   let id = JSON.stringify(req.body._id)
   id = id.replace(/"/g, "")
-  console.log('message provider to client ===> '+message)
-  console.log(id)
-  console.log(message)
+
    clientId = JSON.stringify(req.params.id)
    clientId = clientId.replace(/"/g, "")
   const providerId = providerOrClientId
@@ -917,7 +914,7 @@ const client = new paypal1.core.PayPalHttpClient(environment);
 
 export const payProvider = async function createPayout(req, res) {
   const providerShare = req.body.providerAmount
-  console.log(providerShare)
+
   const request = new paypal1.payouts.PayoutsPostRequest();
   request.requestBody({
     sender_batch_header: {
@@ -939,8 +936,7 @@ export const payProvider = async function createPayout(req, res) {
 
   try {
     const response = await client.execute(request);
-    console.log(response.result.batch_header.payout_batch_id);
-    console.log(response.result.batch_header.batch_status);
+
   } catch (err) {
     console.error('Failed to create payout:', err);
   }
@@ -949,7 +945,7 @@ export const payProvider = async function createPayout(req, res) {
 export const deleteImageCertificate = async (req, res) => {
   try {
     let  imageCertificateId=  JSON.stringify(req.params.id).replace(/"/g, "")
-    console.log('imageCertificatedId ==> '+imageCertificateId)
+
 
 
 
@@ -984,7 +980,7 @@ export const deleteImageCertificate = async (req, res) => {
 export const deletePdfCertificate = async (req, res) => {
   try {
     let  pdfCertificateId=  JSON.stringify(req.params.id).replace(/"/g, "")
-    console.log('pdfCertificatedId ==> '+pdfCertificateId)
+
 
 
 
@@ -1015,7 +1011,7 @@ export const deletePdfCertificate = async (req, res) => {
 export const deleteImageExperience = async (req, res) => {
   try {
     let  imageExperienceId=  JSON.stringify(req.params.id).replace(/"/g, "")
-    console.log('imageExperienceId ==> '+imageExperienceId)
+
 
 
 
@@ -1045,7 +1041,7 @@ export const deleteImageExperience = async (req, res) => {
 export const deletePdfExperience = async (req, res) => {
   try {
     let  pdfExperienceId=  JSON.stringify(req.params.id).replace(/"/g, "")
-    console.log('pdfExperienceId ==> '+pdfExperienceId)
+
 
 
 
@@ -1086,7 +1082,7 @@ export const showClientPosts = async (req, res) => {
 
     // Find all posts where clientId matches
     const posts = await PostsModel.find({ clientId: providerOrClientId });
-    console.log('posts ===> '+posts)
+
     // Send the posts back in the response
     res.send(posts);
   } catch (error) {
@@ -1106,10 +1102,9 @@ export const deletePost = async(req, res) => {
 
 export const deleteProviderMessage = async(req, res) => {
   const messageId = req.params.id
-  console.log(messageId)
+  
   const provider = await ProviderModel.findById(providerOrClientId);
-  provider.messages.map((message) => 
-  console.log(message.message._id))
+
   provider.messages =  provider.messages.filter((message) => message.message._id !== messageId)
    await provider.save();
 
@@ -1117,7 +1112,7 @@ export const deleteProviderMessage = async(req, res) => {
 sendProviderToClientMessage
 export const deleteClientMessage = async(req, res) => {
   const messageId = req.params.id
-  console.log(messageId)
+
   const client = await ClientModel.findById(providerOrClientId)
   client.messages = client.messages.filter((message) => message.message._id !== messageId)
   await client.save()
@@ -1127,7 +1122,7 @@ export const sendInvite = async(req, res) => {
   const providerEmail = req.body.providerEmail
  
   const client = await ClientModel.findById(providerOrClientId)
-  console.log('client name ===> '+client.name)
+
   const provider = await ProviderModel.findOne({email: providerEmail})
   if (provider){
     provider.invitaions.push({
@@ -1177,7 +1172,7 @@ export const getInvitationContent = async(req, res) => {
 
 export const sendChoosenInvitationId = async(req, res) => {
     choosenInvitationId = req.params.id
-    console.log('choosenInvitation id ===> '+choosenInvitationId)
+
 }
 
 
