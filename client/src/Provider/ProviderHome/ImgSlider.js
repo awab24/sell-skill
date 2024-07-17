@@ -19,10 +19,16 @@ function ImgSlider() {
       <BlueBorder />
       <Carousel {...settings}>
         <Wrap>
-          <img src="/images/teacher2.jpg" alt="Teacher" />
+          <img src="/images/Slider1.png" alt="Teacher" />
         </Wrap>
         <Wrap>
-          <img src="/images/teacher3.jpg" alt="Teacher" />
+          <img src="/images/Slider2.png" alt="Teacher" />
+        </Wrap>
+        <Wrap>
+          <img src="/images/Slider3.webp" alt="Teacher" />
+        </Wrap>
+        <Wrap>
+          <img src="/images/Slider4.png" alt="Teacher" />
         </Wrap>
       </Carousel>
     </ImgSliderContainer>
