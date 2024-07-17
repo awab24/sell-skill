@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Container, Form } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -24,29 +24,51 @@ const StyledContainer = styled(Container)`
 `;
 
 const MainCard = styled(Card)`
-  background-color: black;
+  background-color: #2c2c2c;
   border-radius: 20px;
   width: 100%;
   max-width: 600px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  padding: 20px;
 `;
 
-const Title = styled(Card.Title)`
+const Title = styled.h2`
   text-align: center;
-  font-size: 24px;
   color: white;
-  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const UploadCard = styled(Card)`
-  background-color: black;
-  margin: 20px;
-  padding: 10px;
+  background-color: #3d3d3d;
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #4a4a4a;
+  }
 `;
 
 const UploadButton = styled(Button)`
   width: 100%;
-  margin: 10px 0;
+  margin-top: 20px;
+  background-color: #007bff;
+  border: none;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Input = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  display: block;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
 `;
 
 const ImagePreview = styled.img`
@@ -55,6 +77,7 @@ const ImagePreview = styled.img`
   width: 140px;
   height: 140px;
   border-radius: 20px;
+  object-fit: cover;
 `;
 
 function PreviousExperience() {
@@ -62,17 +85,17 @@ function PreviousExperience() {
   const [imageExperience, setImageExperience] = useState(null);
   const navigate = useNavigate();
 
-  const handlePDF = async (e) => {
+  const handlePDF = async (file) => {
     const formData = new FormData();
-    formData.append('experiencePdf', e);
+    formData.append('pdf', file);
     formData.append('id', uuidv4());
 
     await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfExperience', formData);
   };
 
-  const handleIMAGE = async (e) => {
+  const handleIMAGE = async (file) => {
     const formData = new FormData();
-    formData.append('experienceImage', e);
+    formData.append('image', file);
     formData.append('id', uuidv4());
 
     await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageExperience', formData);
@@ -87,42 +110,38 @@ function PreviousExperience() {
       <GlobalStyle />
       <StyledContainer>
         <MainCard>
-          <Title>
-            <b>Previous Experience</b>
-          </Title>
-
-          <UploadCard onClick={handleIMAGE}>
-            <b style={{ color: 'white', textAlign: 'center' }}>Upload Image</b>
-            <input
+          <Title>Previous Experience</Title>
+          <UploadCard>
+            <b style={{ color: 'white' }}>Upload Image</b>
+            <Input
               type="file"
-              name="experienceImage"
-              accept="image/png"
+              id="image-upload"
+              name="image"
+              accept="image/png, image/jpeg"
               onChange={(e) => {
                 setImageExperience(e.target.files[0]);
                 handleIMAGE(e.target.files[0]);
               }}
-              style={{ display: 'none' }}
             />
+            <Label htmlFor="image-upload">Choose Image</Label>
           </UploadCard>
-
-          <UploadCard onClick={handlePDF}>
-            <b style={{ color: 'white', textAlign: 'center' }}>Upload PDF</b>
-            <input
+          <UploadCard>
+            <b style={{ color: 'white' }}>Upload PDF</b>
+            <Input
               type="file"
-              name="experiencePdf"
+              id="pdf-upload"
+              name="pdf"
               accept="application/pdf"
               onChange={(e) => {
                 setPdfExperience(e.target.files[0]);
                 handlePDF(e.target.files[0]);
               }}
-              style={{ display: 'none' }}
             />
+            <Label htmlFor="pdf-upload">Choose PDF</Label>
           </UploadCard>
-
           {imageExperience && (
             <ImagePreview src={URL.createObjectURL(imageExperience)} alt="Preview" />
           )}
-
           <UploadButton onClick={handleNextClick}>Next</UploadButton>
         </MainCard>
       </StyledContainer>

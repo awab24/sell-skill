@@ -13,11 +13,11 @@ function RelatedTeachers() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    useEffect(  () => {
         const fetchRelatedProviders = async (retryCount = 0) => {
             try {
                 const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
-                setRelatedProviders(response.data);
+               setRelatedProviders(response.data);
             } catch (error) {
                 if (retryCount < 3) {
                     setTimeout(() => fetchRelatedProviders(retryCount + 1), 3000); // Retry after 3 seconds
@@ -30,7 +30,7 @@ function RelatedTeachers() {
         fetchRelatedProviders();
     }, []);
     
-
+    
     const goToCertainProvider = (id) => {
         dispatch(setProviderId(id));
         navigate('/certain-provider');

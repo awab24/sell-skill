@@ -1408,7 +1408,7 @@ export const getRelatedProviders = async(req, res) => {
   ))
   )
 
-  res.send(relatedProviders)
+  await res.send(relatedProviders)
 }
 
 export const insertPaypalEmail = async(req, res) => {
