@@ -733,7 +733,7 @@ await ProviderModel.findByIdAndUpdate(
 
 export const getMessagesFromClientIntoProvider = async(req, res) => {
     const provider = await ProviderModel.findById(providerOrClientId)
-    console.log('messages from back =========>  ',messages)
+
     res.send(provider.messages)
 }
 
