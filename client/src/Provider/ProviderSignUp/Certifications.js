@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #004e92; /* Blue background */
-    color: #ffffff;
+    color: white;
     font-family: Arial, Helvetica, sans-serif;
   }
 `;
@@ -21,46 +21,64 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 20px;
 `;
 
 const MainCard = styled(Card)`
-  background-color: black;
-  color: blue;
-  border-radius: 40px;
+  background-color: #2c2c2c;
+  border-radius: 20px;
   width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
+  max-width: 600px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  padding: 20px;
 `;
 
-const Title = styled(Card.Title)`
+const Title = styled.h2`
   text-align: center;
-  font-size: 30px;
-  color: black;
-  margin-top: 20px;
+  color: white;
+  margin-bottom: 20px;
 `;
 
 const UploadCard = styled(Card)`
-  background-color: black;
-  color: white;
-  width: 200px;
-  height: 110px;
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: #3d3d3d;
+  margin: 10px 0;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
   cursor: pointer;
-  border-radius: 20px;
+  &:hover {
+    background-color: #4a4a4a;
+  }
+`;
+
+const UploadButton = styled(Button)`
+  width: 100%;
+  margin-top: 20px;
+  background-color: #007bff;
+  border: none;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Input = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  display: block;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
 `;
 
 const ImagePreview = styled.img`
+  display: block;
+  margin: 20px auto;
   width: 140px;
   height: 140px;
-  border-radius: 40px;
-  margin-top: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 20px;
+  object-fit: cover;
 `;
 
 function Certifications() {
@@ -74,6 +92,7 @@ function Certifications() {
     formData.append('name', 'application/pdf');
     formData.append('id', uuidv4());
     await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPdfCertificate', formData);
+    setPdfCertificate(e);
   };
 
   const handleIMAGE = async (e) => {
@@ -81,6 +100,7 @@ function Certifications() {
     formData.append('image', e);
     formData.append('id', uuidv4());
     await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertImageCertificate', formData);
+    setImageCertificate(e);
   };
 
   const handleNextClick = async () => {
@@ -92,13 +112,11 @@ function Certifications() {
       <GlobalStyle />
       <StyledContainer>
         <MainCard>
-          <Title>
-            <b>Certifications Here</b>
-          </Title>
+          <Title>Certifications Here</Title>
           <UploadCard onClick={() => document.getElementById('image-upload').click()}>
-            <b>Upload IMAGE</b>
+            <b style={{ color: 'white' }}>Upload IMAGE</b>
           </UploadCard>
-          <input
+          <Input
             id="image-upload"
             type="file"
             name="image"
@@ -107,25 +125,21 @@ function Certifications() {
               handleIMAGE(e.target.files[0]);
               setImageCertificate(e.target.files[0]);
             }}
-            style={{ display: 'none' }}
           />
           {imageCertificate && <ImagePreview src={URL.createObjectURL(imageCertificate)} />}
           
           <UploadCard onClick={() => document.getElementById('pdf-upload').click()} style={{ marginTop: '10px' }}>
-            <b>Upload PDF</b>
+            <b style={{ color: 'white' }}>Upload PDF</b>
           </UploadCard>
-          <input
+          <Input
             id="pdf-upload"
             type="file"
             name="pdf"
             accept="application/pdf"
             onChange={(e) => handlePDF(e.target.files[0])}
-            style={{ display: 'none' }}
           />
 
-          <Button onClick={handleNextClick} style={{ marginTop: '20px', width: '100%' }}>
-            Next
-          </Button>
+          <UploadButton onClick={handleNextClick}>Next</UploadButton>
         </MainCard>
       </StyledContainer>
     </>

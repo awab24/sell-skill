@@ -74,6 +74,7 @@ function Letter() {
               placeholder="Enter a cover letter for your profile"
               onChange={(e) => setLetter(e.target.value)}
               value={letter}
+              style={{'position':'relative','top':'15px', 'left':'3px'}}
             />
             <NextButton onClick={handleNextClick}>Next</NextButton>
           </Form>

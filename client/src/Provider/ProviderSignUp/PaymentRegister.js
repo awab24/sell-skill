@@ -54,8 +54,9 @@ function PaymentRegister() {
   const navigate = useNavigate();
 
   const handleNext = async () => {
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPaypalEmail', { paypalEmail });
     navigate("/provider");
+    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPaypalEmail', { paypalEmail });
+
   };
 
   return (

@@ -75,7 +75,7 @@ function TopBar() {
               <Card.Body>
                 <Card.Title className="mb-3">{name}</Card.Title>
                 <img
-                  src={imageSrc}
+                  src={imageSrc || '/images/NormalProfile.jpg'}
                   alt="Profile"
                   style={{
                     width: '50px',

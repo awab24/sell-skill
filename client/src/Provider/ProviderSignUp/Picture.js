@@ -20,26 +20,43 @@ const StyledContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 20px;
 `;
 
 const MainCard = styled(Card)`
-  background-color: black;
+  background-color: #2c2c2c;
   border-radius: 20px;
   width: 100%;
   max-width: 600px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  padding: 20px;
 `;
 
-const Title = styled(Card.Title)`
+const Title = styled.h2`
   text-align: center;
-  font-size: 24px;
   color: white;
-  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const UploadButton = styled(Button)`
   width: 100%;
   margin: 20px 0;
+  background-color: #007bff;
+  border: none;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Input = styled.input`
+  display: none;
+`;
+
+const Label = styled.label`
+  display: block;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
 `;
 
 const ImagePreview = styled.img`
@@ -48,6 +65,7 @@ const ImagePreview = styled.img`
   width: 140px;
   height: 140px;
   border-radius: 20px;
+  object-fit: cover;
 `;
 
 function Picture() {
@@ -59,11 +77,11 @@ function Picture() {
   };
 
   const handleUpload = async (e) => {
-    e.preventDefault();
     const formData = new FormData();
     formData.append('picture', e);
     formData.append('name', 'image/png');
     await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPicture', formData);
+    setPicture(e);
   };
 
   return (
@@ -71,22 +89,18 @@ function Picture() {
       <GlobalStyle />
       <StyledContainer>
         <MainCard>
-          <Title>
-            <b>A Nice Profile Picture</b>
-          </Title>
-          <Form style={{ padding: '20px' }}>
+          <Title>A Nice Profile Picture</Title>
+          <Form>
             <UploadButton as="label" htmlFor="file-upload">
               Choose a Picture
-              <input
+              <Input
                 type="file"
                 id="file-upload"
                 name="picture"
                 onChange={(e) => handleUpload(e.target.files[0])}
-                style={{ display: 'none' }}
               />
             </UploadButton>
             {picture && <ImagePreview src={URL.createObjectURL(picture)} alt="Preview" />}
-
             <UploadButton onClick={handleNextClick}>Next</UploadButton>
           </Form>
         </MainCard>

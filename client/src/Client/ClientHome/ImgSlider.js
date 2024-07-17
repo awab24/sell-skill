@@ -22,19 +22,19 @@ function ImgSlider() {
           <img src="/images/Slider1.png" alt="" />
         </Wrap>
         <Wrap>
-          <img src="/images/Slider2.png" alt="" />
+          <img src="/images/Slider5.png" alt="" />
         </Wrap>
    
         <Wrap>
-          <img src="/images/Slider4.png" alt="" />
+          <img src="/images/Slider7.png" alt="" />
         </Wrap>
 
         <Wrap>
-          <img src="/images/Slider5.jpg" alt="" />
+          <img src="/images/Slider8.jpg" alt="" />
         </Wrap>
 
         <Wrap>
-          <img src="/images/Slider6.jpg" alt="" />
+          <img src="/images/Slider9.jpg" alt="" />
         </Wrap>
       </Carousel>
     </ImgSliderContainer>
