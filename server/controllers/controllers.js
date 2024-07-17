@@ -449,7 +449,6 @@ export const getProfileIMAGE = async (req, res) => {
     if (!provider) {
       return res.status(404).send('Provider not found');
     }
-insertReport
     const providerImageCertifications = provider.imageCertifications;
     const providerImageCertificationsImageCertificateData = providerImageCertifications.map(imageCertificate => {
       return {
@@ -567,7 +566,7 @@ export const getImageExperience = async(req, res) => {
 export const insertProviderToClient = async(req, res)=> {
    clientId =JSON.stringify(req.params.id) ;
     clientId = clientId.replace(/"/g,"")
-    console.log('clientId for controller insertProviderToClient ===> '+clientId)
+
 
       const provider = await ProviderModel.findById(providerOrClientId)
       // const checkClient = await ClientModel.findById(clientId)
@@ -607,7 +606,7 @@ export const getProviderData = async(req, res) => {
     console.log('incoming providers ===> '+ client.incomingProviders)
      res.send(client.incomingProviders)
 }
-insertProviderToClient
+
 export const submitProposal = async(req, res) => {
   let exist = false;
   const proposal = JSON.stringify(req.body);
@@ -669,7 +668,7 @@ export const sendMessageFromClientToProvider = async (req, res) => {
     if (!NameExist) {
 await ProviderModel.findByIdAndUpdate(
         providerId,
-        { $push: { messages: {
+        { $push: { messages: { 
           message:
           {
             _id: message.messageId,

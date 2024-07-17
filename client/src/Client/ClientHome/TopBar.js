@@ -53,7 +53,7 @@ function TopBar() {
   return (
     <TopBarContainer>
       {checkNewMessages && <Alert variant="danger">You have new messages!</Alert>}
-      {newProposals && <Alert variant="danger">New proposal available!</Alert>}
+      {newProposals && <Alert variant="danger">You have got proposal!</Alert>}
 
       <NavLinks>
         <NavLink href="/report">Make Report</NavLink>

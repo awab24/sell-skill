@@ -80,7 +80,7 @@ function ReceivedMessages2Client() {
     try {
       const message = {
         messageId: uuidv4(),
-        providerId,
+        providerId: providerId,
         message: messageContent,
       };
 

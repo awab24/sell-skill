@@ -60,16 +60,14 @@ function ChooseMethod() {
     <StyledContainer>
       {permission ? (
         <StyledCard className="p-4">
-          <h2>Select Payment Method</h2>
+          <h2>Select Payment Amount</h2>
           <InputField
             placeholder="Enter the amount you want to pay"
             type="number"
             onChange={(e) => setPaypalAmount(e.target.value)}
           />
           <div className="d-flex justify-content-between">
-            <Button variant="outline-primary" onClick={() => navigate('/stripe')}>
-              Stripe
-            </Button>
+
             <Button variant="primary" onClick={handlePaypalClick}>
               PayPal
             </Button>

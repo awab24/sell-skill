@@ -11,8 +11,6 @@ function ClientMessages() {
   const [receivedMessages, setReceivedMessages] = useState([]);
   const providerId = useSelector((state) => state.allow.proposalId);
   const navigate = useNavigate();
-
-  const auth = localStorage.getItem('authenticated');
   const tokenString = localStorage.getItem('clientToken');
   const tokenObject = JSON.parse(tokenString);
   const token = tokenObject.token;
