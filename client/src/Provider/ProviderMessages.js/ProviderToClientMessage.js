@@ -20,13 +20,14 @@ function ProviderToClientMessage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
+        const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const result =   response.json();
         setMessages(result);
         console.log('messages========================>  ', messages, '  <========================messages')
+        console.log('result========================>  ', result, '  <========================result')
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }
