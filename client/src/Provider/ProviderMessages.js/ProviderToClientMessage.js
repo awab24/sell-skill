@@ -26,6 +26,7 @@ function ProviderToClientMessage() {
         }
         const result =   response.json();
         setMessages(result);
+        console.log('messages========================>  ', messages, '  <========================messages')
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }
