@@ -29,11 +29,11 @@ function ImgSlider() {
           <img src="/images/Slider4.png" alt="" />
         </Wrap>
         <Wrap>
-          <img src="/images/Slider5.jng" alt="" />
+          <img src="/images/Slider5.jpg" alt="" />
         </Wrap>
 
         <Wrap>
-          <img src="/images/Slider6.jng" alt="" />
+          <img src="/images/Slider6.jpg" alt="" />
         </Wrap>
       </Carousel>
     </ImgSliderContainer>
