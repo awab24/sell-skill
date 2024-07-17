@@ -20,7 +20,7 @@ function Jobs() {
     axios.post(`https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertProviderToClient/${clientID}`, { clientID });
     navigate('/make-proposal');
   };
-
+  
   useEffect(() => {
     const fetchPosts = async () => {
       try {

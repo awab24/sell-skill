@@ -32,7 +32,7 @@ function ProviderMessages() {
         const result = await response.json();
        
         setMessages(result);
-
+        messages.map((message) => console.log('providerId from message ===========================> ',message.message.providerId,' <================================providerId from message'))
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }
@@ -40,6 +40,7 @@ function ProviderMessages() {
       try {
         responseProviderId = await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/sendProviderIdToFront');
         responseProviderId =  await responseProviderId.data;
+        console.log('providerId===========================> ',providerId, ' <=====================================providerId')
         setProviderId(responseProviderId);
       } catch (error) {
         console.error('Failed to fetch provider ID:', error);
