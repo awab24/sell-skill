@@ -1533,7 +1533,7 @@ export const getBlog4Client = async(req, res) => {
 export const getProfileData4Client = async(req, res) => {
    providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
-  provider = await ProviderModel.findById(providerOrClientId);
+
 
 
   res.json(provider)
