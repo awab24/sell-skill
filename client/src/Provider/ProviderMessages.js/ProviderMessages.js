@@ -27,8 +27,9 @@ fetchProviderID();
 
 
   const handleClickOnMessage = (id) => {
-    navigate('/provider-client-messaging');
     dispatch(setClientId(id));
+    navigate('/provider-client-messaging');
+
   };
 
   useEffect(() => {

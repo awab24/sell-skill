@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProviderToClientMessage() {
   let clientID = useSelector((state) => state.allow.clientId);
+  console.log('clientID ==========================>  ', clientID, '   <=========================clientID')
   const [messageContent, setMessageContent] = useState('');
 
   const navigate = useNavigate();
@@ -73,6 +74,9 @@ function ProviderToClientMessage() {
                   <Card key={message.message_id} className="mb-3">
                     {message.message.clientId === clientID && (
                       <Card.Body>
+                        {
+                          console.log('message.message.clientId ======================> ',message.message.clientId, '   <========================message.message.clientId')
+                        }
                         <Card.Text>{message.message.message}</Card.Text>
                         <Button variant="danger" onClick={() => deleteProviderMessage(message.message._id)}>
                           <FaTrash /> Delete message
