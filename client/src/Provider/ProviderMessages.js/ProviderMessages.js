@@ -83,7 +83,7 @@ fetchProviderID();
           {messages.length > 0 ? (
             messages.map((message) => (
               <Col xs={12} md={6} lg={4} key={message.message.clientId} className="mb-4">
-                {message.message.name && providerId === message.message.providerId && (
+                {message.message.name  && (
                   <Card>
                     <Card.Body>
                       <Card.Title>{message.message.name}</Card.Title>
