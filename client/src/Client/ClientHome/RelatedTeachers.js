@@ -4,9 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Buffer } from 'buffer';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setProviderId } from '../../reducers/reducers';
 
 function RelatedTeachers() {
     const [relatedProviders, setRelatedProviders] = useState([]);
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchRelatedProviders = async () => {
@@ -16,12 +21,19 @@ function RelatedTeachers() {
         fetchRelatedProviders();
     }, []);
 
+    const goToCertainProvider = (id) => {
+        dispatch(setProviderId(id)); 
+        navigate('/certain-provider')
+ 
+    }
+
     return (
         <RelatedContainer>
             <h3 style={{ color: 'white' }}>Related Providers in Your Field</h3>
             {relatedProviders.length > 0 ? (
                 relatedProviders.map((relatedProvider, index) => (
-                    <ProviderCard key={index}>
+                    <Button onClick={() => goToCertainProvider(relatedProvider._id)}>
+                        <ProviderCard key={index}>
                         <Card.Body>
                             <ProfileImage src={
                                 relatedProvider.picture && relatedProvider.picture.picture && relatedProvider.picture.picture.data
@@ -39,6 +51,7 @@ function RelatedTeachers() {
                             </InviteButton>
                         </Card.Body>
                     </ProviderCard>
+                    </Button>
                 ))
             ) : (
                 <LoadingMessage>Loading...</LoadingMessage>

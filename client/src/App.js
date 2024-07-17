@@ -51,6 +51,7 @@ import ClientSignUp from './Client/ClientSignUp/ClientSignUp.js';
 import ClientProfilePicture from './Client/ClientSignUp/ClientProfilePicture.js';
 import ClientCategory from './Client/ClientSignUp/ClientCategory.js';
 import ProviderReports from './Provider/ProviderReports/ProviderReports.js';
+import CertainProvider from './Client/CertainProvider/CertainProvider.js';
 
 
 
@@ -129,6 +130,7 @@ function App() {
       <Route path="client-category" element={<ClientCategory/>}/>
       <Route path="/payment-register" element={<PaymentRegister/>}/>
       <Route path="/my-reports" element={<ProviderReports/>}/>
+      <Route path="/certain-provider" element={<CertainProvider/>}/>
     </Routes>
 
    
