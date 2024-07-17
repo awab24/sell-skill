@@ -1305,7 +1305,7 @@ export const cancelProviderNewInvites = async(req, res) => {
 
 export const checkClientNewProposals = async(req, res) => {
   const client = await ClientModel.findById(providerOrClientId)
-   res.send(client.newProposal)
+   res.send(client?.newProposal)
 }
 export const cancelClientNewProposals = async(req, res) => {
   await ClientModel.findByIdAndUpdate(
@@ -1428,7 +1428,7 @@ export const insertPaypalEmail = async(req, res) => {
 
 export const getProfileIMAGE4client = async(req,res) => {
 
-  providerId = req.params
+  providerId = req.params.id
   console.log('providerId ===========================>   '+providerId)
   try {
 
@@ -1458,7 +1458,7 @@ export const getProfileIMAGE4client = async(req,res) => {
 }
 
 export const getProfilePDF4Client = async(req, res) => {
- providerId = req.params
+ providerId = req.params.id
  
   const provider= await ProviderModel.findById(providerId)
 
@@ -1482,7 +1482,7 @@ export const getProfilePDF4Client = async(req, res) => {
 getPdfExperience
 
 export const getExperiencePDF4Client = async(req, res) => {
-   providerId = req.params
+   providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
 
 
@@ -1502,7 +1502,7 @@ export const getExperiencePDF4Client = async(req, res) => {
 
 
 export const getExperienceIMAGE4Client = async(req, res) => {
-   providerId = req.params
+   providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
 
   const providerImageExperiences = provider.imageExperiences;
@@ -1521,7 +1521,7 @@ export const getExperienceIMAGE4Client = async(req, res) => {
 
 
 export const getBlog4Client = async(req, res) => {
-   providerId = req.params
+   providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
 
   res.set('Content-Type', provider.blog.picture.contentType)
@@ -1531,7 +1531,7 @@ export const getBlog4Client = async(req, res) => {
 
 
 export const getProfileData4Client = async(req, res) => {
-   providerId = req.params
+   providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
   provider = await ProviderModel.findById(providerOrClientId);
 
@@ -1545,7 +1545,7 @@ export const getProfileData4Client = async(req, res) => {
 
 getProfilePicture
 export const getProfilePicture4Client = async(req, res) => {
-   providerId = req.params
+   providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
 
 
@@ -1564,7 +1564,7 @@ export const getProfilePicture4Client = async(req, res) => {
 
 getReport
 export const getReport4Client = async(req, res) => {
-   providerId = req.params
+   providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
 
   const reports = provider.reports
