@@ -58,10 +58,10 @@ function Picture() {
     navigate("/type-of-work");
   };
 
-  const handleUploadClick = async (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('picture', picture);
+    formData.append('picture', e);
     formData.append('name', 'image/png');
     await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertPicture', formData);
   };
@@ -81,12 +81,12 @@ function Picture() {
                 type="file"
                 id="file-upload"
                 name="picture"
-                onChange={(e) => setPicture(e.target.files[0])}
+                onChange={(e) => handleUpload(e.target.files[0])}
                 style={{ display: 'none' }}
               />
             </UploadButton>
             {picture && <ImagePreview src={URL.createObjectURL(picture)} alt="Preview" />}
-            <UploadButton onClick={handleUploadClick}>Upload</UploadButton>
+
             <UploadButton onClick={handleNextClick}>Next</UploadButton>
           </Form>
         </MainCard>

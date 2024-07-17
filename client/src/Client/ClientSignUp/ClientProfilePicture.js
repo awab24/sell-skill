@@ -12,10 +12,10 @@ function ClientProfilePicture() {
         navigate("/client-category");
     };
 
-    const handleUploadClick = async (e) => {
+    const handleUpload = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('picture', picture);
+        formData.append('picture', e);
         await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/insertClientPicture', formData);
     };
 
@@ -31,7 +31,7 @@ function ClientProfilePicture() {
                             <input
                                 type="file"
                                 name="picture"
-                                onChange={(e) => setPicture(e.target.files[0])}
+                                onChange={(e) => handleUpload(e.target.files[0])}
                                 style={styles.fileInput}
                             />
                         </div>
@@ -43,9 +43,7 @@ function ClientProfilePicture() {
                             />
                         )}
                         <div style={styles.buttonContainer}>
-                            <Button onClick={handleUploadClick} style={styles.button}>
-                                Upload
-                            </Button>
+
                             <Button onClick={handleNextClick} style={styles.button}>
                                 Next
                             </Button>

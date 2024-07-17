@@ -25,11 +25,7 @@ function ProviderToClientMessage() {
 
         const result = await  response.json();
         setMessages(result);
-        console.log('messages========================>  ', messages, '  <========================messages')
-        console.log('result========================>  ', result, '  <========================result')
-        console.log('response========================>  ', response, '  <========================response')
-        console.log('response.data========================>  ', response.data, '  <========================response.data')
-        console.log('response.json========================>  ', response.json(), '  <========================response.json')
+
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       }
@@ -72,14 +68,12 @@ function ProviderToClientMessage() {
             <div>
               {messages.length > 0 ? (
                 messages.map((message) => (
-                  <Card key={message.message_id} className="mb-3">
+                  <Card key={message._id} className="mb-3">
                     {message.message.clientId === clientID && (
                       <Card.Body>
-                        {
-                          console.log('message.message.clientId ======================> ',message.message.clientId, '   <========================message.message.clientId')
-                        }
+           
                         <Card.Text>{message.message.message}</Card.Text>
-                        <Button variant="danger" onClick={() => deleteProviderMessage(message.message._id)}>
+                        <Button variant="danger" onClick={() => deleteProviderMessage(message._id)}>
                           <FaTrash /> Delete message
                         </Button>
                       </Card.Body>
