@@ -23,7 +23,7 @@ function ProviderToClientMessage() {
       try {
         const response = await fetch('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/getMessagesFromClientIntoProvider');
 
-        const result = await  response.data;
+        const result = await  response.json();
         setMessages(result);
         console.log('messages========================>  ', messages, '  <========================messages')
         console.log('result========================>  ', result, '  <========================result')
