@@ -21,7 +21,7 @@ function Inviting() {
   useEffect(() => {
     const fetchPermission = async () => {
       const response = await axios.get(
-        'sell-skill.com/api/endpoints/verifyClient',
+        'https://sell-skill.com/api/endpoints/verifyClient',
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ function Inviting() {
   const handleInvite = async () => {
     navigate('/provider');
     await axios.post(
-      'sell-skill.com/api/endpoints/sendInvite',
+      'https://sell-skill.com/api/endpoints/sendInvite',
       { providerEmail: providerEmail, message: invitationMessage }
     );
   };
