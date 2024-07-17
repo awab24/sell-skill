@@ -78,13 +78,13 @@ router.get('/api/endPoints/getRelatedProviders', cors(), getRelatedProviders)
 router.post('/api/endpoints/insertPaypalEmail', cors(), insertPaypalEmail)
 
 
-router.get('/api/endpoints/getProfileIMAGE4Client', cors(), )
-router.get('/api/endpoints/getProfilePDF4Client', cors(), getProfilePDF4Client)
-router.get('/api/endpoints/getExperiencePDF4Client', cors(), getExperienceIMAGE4Client)
-router.get('/api/endpoints/getExperienceIMAGE4Client', cors(), getExperienceIMAGE4Client)
-router.get('/api/endpoints/getBlog4Client', cors(), getBlog4Client)
-router.get('/api/endpoints/getProfileData4Client', cors(), getProfileData4Client)
-router.get('/api/endpoints/getProfilePicture4Client', cors(), getProfilePicture4Client)
-router.get('/api/endpoints/getReport4Client', cors(), getReport4Client)
+router.get('/api/endpoints/getProfileIMAGE4Client/:id', cors(), )
+router.get('/api/endpoints/getProfilePDF4Client/:id', cors(), getProfilePDF4Client)
+router.get('/api/endpoints/getExperiencePDF4Client/:id', cors(), getExperienceIMAGE4Client)
+router.get('/api/endpoints/getExperienceIMAGE4Client/:id', cors(), getExperienceIMAGE4Client)
+router.get('/api/endpoints/getBlog4Client/:id', cors(), getBlog4Client)
+router.get('/api/endpoints/getProfileData4Client/:id', cors(), getProfileData4Client)
+router.get('/api/endpoints/getProfilePicture4Client/:id', cors(), getProfilePicture4Client)
+router.get('/api/endpoints/getReport4Client/:id', cors(), getReport4Client)
 
 export default router;
