@@ -1394,24 +1394,22 @@ export const insertClientCategory = async (req, res) => {
   }
 };
 
-export const getRelatedProviders = async (req, res) => {
-  try {
+export const getRelatedProviders = async(req, res) => {
+  let relatedProviders = [];
+  const client = await ClientModel.findById(providerOrClientId)
+  const allProviders = await ProviderModel.find()
+ allProviders.map((provider) => 
+  provider.categories.map((providerCategory) => client.categories.map((clientCategory) => 
+  
+    clientCategory === providerCategory && !relatedProviders.includes(provider) &&
+  
+    relatedProviders.push(provider)
+  
+  ))
+  )
 
-      const client = await ClientModel.findById(providerOrClientId);
-      const allProviders = await ProviderModel.find();
-      
-      const relatedProviders = allProviders.filter(provider =>
-          provider.categories.some(providerCategory =>
-              client.categories.includes(providerCategory)
-          )
-      );
-      
-      res.status(200).send(relatedProviders);
-  } catch (error) {
-      res.status(500).send({ error: 'An error occurred while fetching related providers.' });
-  }
+  res.send(relatedProviders)
 }
-
 
 export const insertPaypalEmail = async(req, res) => {
   const paypalEmail= req.body.paypalEmail

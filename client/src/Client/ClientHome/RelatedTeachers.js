@@ -14,16 +14,22 @@ function RelatedTeachers() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const fetchRelatedProviders = async () => {
+        const fetchRelatedProviders = async (retryCount = 0) => {
             try {
                 const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
                 setRelatedProviders(response.data);
             } catch (error) {
-                console.error('Error fetching related providers:', error);
+                if (retryCount < 3) {
+                    setTimeout(() => fetchRelatedProviders(retryCount + 1), 3000); // Retry after 3 seconds
+                } else {
+            
+                    console.error('Error fetching related providers:', error);
+                }
             }
         };
         fetchRelatedProviders();
     }, []);
+    
 
     const goToCertainProvider = (id) => {
         dispatch(setProviderId(id));
