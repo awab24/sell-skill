@@ -156,9 +156,7 @@ function RelatedTeachers() {
         const fetchRelatedProviders = async (retryCount = 0) => {
             try {
                 const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endPoints/getRelatedProviders');
-                setRelatedProviders(response.json());
-                console.log('response.data===================> ',response.data,'  <==================response.data')
-                console.log('response.json===================> ',response.json(),'  <==================response.json')
+                setRelatedProviders(response.data);
             } catch (error) {
                 if (retryCount < 3) {
                     setTimeout(() => fetchRelatedProviders(retryCount + 1), 3000); // Retry after 3 seconds
@@ -184,7 +182,7 @@ function RelatedTeachers() {
                         <ProviderCard>
                             <Card.Body>
                                 <ProfileImage src={
-                                    relatedProvider.picture 
+                                    relatedProvider.picture && relatedProvider.picture.picture && relatedProvider.picture.picture.data
                                         ? 'data:image/jpg;base64,' + Buffer.from(relatedProvider.picture.picture.data, 'binary').toString('base64')
                                         : "/images/NormalProfile.jpg"
                                 } />

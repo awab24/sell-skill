@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux'
 function CertainProvider() {
     const providerId = useSelector((state) => state.allow.providerId)
     console.log('providerId ==========> '+providerId)
+    console.log('providerId ==========> '+providerId)
+    console.log('providerId ==========> '+providerId)
+    console.log('providerId ==========> '+providerId)
   return (
     <div>
       certain provider page
