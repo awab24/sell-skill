@@ -24,7 +24,7 @@ function Overview() {
     }, [token]);
 
     const handlePost = async () => {
-        console.log('last post data ===> ', postData);
+        navigate('/client')
         await axios.post('https://sell-skill.com/api/endpoints/insertPost', postData);
     };
 

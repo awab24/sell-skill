@@ -77,7 +77,7 @@ router.post('/api/endpoints/clientCategory', cors(), insertClientCategory)
 router.get('/api/endPoints/getRelatedProviders', cors(), getRelatedProviders)
 router.post('/api/endpoints/insertPaypalEmail', cors(), insertPaypalEmail)
 
-
+  
 router.get('/api/endpoints/getProfileIMAGE4Client/:id', cors(), )
 router.get('/api/endpoints/getProfilePDF4Client/:id', cors(), getProfilePDF4Client)
 router.get('/api/endpoints/getExperiencePDF4Client/:id', cors(), getExperienceIMAGE4Client)
