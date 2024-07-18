@@ -39,7 +39,7 @@ if(findUser){
     const compare = await bcryptjs.compare(password, findUser.password);
         // If the password is incorrect
         if (!compare) {
-          return res.status(401).json({ redirectUrl: 'https://sell-skill.com/cancel' });
+          return res.status(401).json({ redirectUrl: 'http://localhost:3000/cancel' });
         }
             // Generate a JWT token
     const token = jwt.sign({ _id: findUser._id }, process.env.SECRET_KEY, { expiresIn: '30m' });
@@ -49,9 +49,6 @@ if(findUser){
     res.json({ token });
 }
     // If user is not found
-    if (!findUser) {
-      return res.redirect('https://sell-skill.com/cancel');
-    }
 
 
 
@@ -232,7 +229,7 @@ export const getPosts = async(req, res) => {
 export const insertCategory = async (req, res) => {
   const categoriesFromFront = req.body;
    // Assuming you get providerOrClientId from req.user
-
+   sendMessageFromClientToProvider
 
   try {
     for (const categoryFromFront of categoriesFromFront) {
@@ -390,7 +387,7 @@ export const addBlog = async(req, res) => {
     {new: true}
   )
   const provider =await ProviderModel.findById(providerOrClientId)
-
+  console.log('provider  ===> '+provider)
 }
 export const getBlog = async(req, res) => {
   const provider = await ProviderModel.findById(providerOrClientId)
@@ -571,6 +568,9 @@ export const insertProviderToClient = async(req, res)=> {
 
 
       const provider = await ProviderModel.findById(providerOrClientId)
+      // const checkClient = await ClientModel.findById(clientId)
+      // console.log('check client => '+ checkClient)
+      // console.log('provider => '+ provider.email)
 
     const client = await ClientModel.findById(clientId)
 
@@ -661,7 +661,7 @@ export const sendMessageFromClientToProvider = async (req, res) => {
   const provider = await ProviderModel.findById(providerId)
   provider.messages.map((message) => message.message.name === clientName ? NameExist = true : null)
   try {
-
+    // Ensure the _id is correctly formatted as ObjectId if needed
 
     if (!NameExist) {
 await ProviderModel.findByIdAndUpdate(
