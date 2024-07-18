@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const schema =  mongoose.Schema;
 const PostSchema = new schema({
-_id: String,
+postId: String,
 clientId: String,
    term: String,
    title: String,

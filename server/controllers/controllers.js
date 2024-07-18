@@ -197,7 +197,7 @@ export const verify = (req, res, next) => {
 export const insertPost = async(req, res)=>{
   console.log('reqSkills ====> '+req.body.skills)
   await PostsModel.insertMany({
-    _id: req.body._id,
+    postId: req.body._id,
     clientId: providerOrClientId,
     term: req.body.term,
     title: req.body.title,
@@ -1519,7 +1519,7 @@ export const getExperienceIMAGE4Client = async(req, res) => {
 }
 
 
-
+insertPost
 export const getBlog4Client = async(req, res) => {
    providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)

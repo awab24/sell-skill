@@ -46,7 +46,7 @@ function Jobs() {
           {relatedPosts.map((post) => {
             clientID = post.clientId;
             return (
-              <StyledCard key={post._id}>
+              <StyledCard key={post.postId}>
                 {post.title && (
                   <Card.Title className="text-center text-danger mb-3">
                     <b>{post.title}</b>
