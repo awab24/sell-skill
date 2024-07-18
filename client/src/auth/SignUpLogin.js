@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Alert, Card, Form, Container } from 'react-bootstrap';
+import { Button, Alert, Card, Form, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeAuth, setProviderId, setProviderOrClientId } from '../reducers/reducers';
-import './SignUpLogin.css'; // Add this import for the custom CSS
 
 function SignUpLogin() {
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ function SignUpLogin() {
     console.log('email => ' + email);
 
     try {
-      responseClient = await axios.post('https://sell-skill.com/api/endpoints/clientSignIn', { email, password: '' });
+      responseClient = await axios.post('https://sell-skill.com/api/endpoints/clientSignIn', { email: email, password: '' });
       clientToken = responseClient.data;
 
       localStorage.setItem('clientToken', JSON.stringify(clientToken));
@@ -36,7 +35,7 @@ function SignUpLogin() {
     } catch (error) {
       setClientResult(false);
       try {
-        responseProvider = await axios.post('https://sell-skill.com/api/endpoints/providerSignIn', { email, password: '' });
+        responseProvider = await axios.post('https://sell-skill.com/api/endpoints/providerSignIn', { email: email, password: '' });
         providerToken = responseProvider.data;
         localStorage.setItem('providerToken', JSON.stringify(providerToken));
         responseProvider && navigate('/provider');
@@ -86,34 +85,26 @@ function SignUpLogin() {
   };
 
   return (
-    <div className="signup-login-container">
-      <Container className="d-flex justify-content-center align-items-center">
-        <Card className="signup-login-card">
+    <div style={{ height: '100vh', backgroundColor: '#007bff' }}>
+      <Container className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
+        <Card style={{ width: '100%', maxWidth: '500px', backgroundColor: '#000', color: '#007bff', borderRadius: '20px' }}>
           <Card.Body>
-            <Card.Title className="text-center">
+            <Card.Title className="text-center" style={{ color: '#fff', fontSize: '24px' }}>
               <b>Login</b>
             </Card.Title>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control
-                  type="email"
-                  placeholder="Email or username"
-                  onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
-                />
+                <Form.Control type="email" placeholder="Email or username" onChange={(e) => setSignInData({ ...signInData, email: e.target.value })} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
-                />
+                <Form.Control type="password" placeholder="Password" onChange={(e) => setSignInData({ ...signInData, password: e.target.value })} />
               </Form.Group>
               <Button variant="primary" type="button" onClick={handleClick} className="w-100">
                 Log in
               </Button>
             </Form>
             <div className="text-center mt-3">
-              <a href="/sign-up-client-provider" className="signup-link">
+              <a href="/sign-up-client-provider" style={{ color: '#007bff' }}>
                 Don't have an account? Let's sign up
               </a>
             </div>
