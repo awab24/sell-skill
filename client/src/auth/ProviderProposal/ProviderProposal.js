@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function ProviderProposal() {
   const [proposal, setProposal] = useState('');
   const handleProposalSubmit = async () => {
-    await axios.post('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/submitProposal', { proposal });
+    await axios.post('https://sell-skill.com/api/endpoints/submitProposal', { proposal });
   };
 
   const [permission, setPermission] = useState(false);
@@ -23,7 +23,7 @@ function ProviderProposal() {
 
   useEffect(() => {
     const fetchPermission = async () => {
-      const response = await axios.get('https://sell-skill-d7865032728d.herokuapp.com/api/endpoints/verifyProvider', {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/verifyProvider', {
         headers: {
           Authorization: `Bearer ${token}`
         }
