@@ -67,7 +67,7 @@ function Skills() {
                 <b>Skills</b>
               </Card.Title>
               <div style={styles.buttonsContainer}>
-                {['Coding', 'AI', 'Medicne', 'Engineering', 'Law', 'Buisness', 'Trading', 'Cryptocurrecny', 'Youtube improvement', 'Brain Storming', 'Self disipline', 'Fitness','Self improvement','Time management', 'Dropshipping'].map((skill) => (
+                {['Coding', 'AI', 'Medicne', 'Health & fitness', 'Legal & financial advice', 'Languages', 'Hobbies & skills', 'Cryptocurrecny', 'Home improvement & DIY', 'Creative services', 'Education & tutoring', 'Entertainment & Leisure', 'Dropshipping', 'Pet services'].map((skill) => (
                   <Button
                     key={skill}
                     style={postData.skills.includes(skill) ? styles.selectedButton : styles.button}

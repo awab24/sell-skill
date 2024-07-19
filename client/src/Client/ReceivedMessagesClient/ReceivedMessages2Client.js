@@ -129,8 +129,8 @@ function ReceivedMessages2Client() {
                 receivedMessage.message.providerId === providerId && (
                   <MessageCard key={receivedMessage.message._id}>
                     <span>{receivedMessage.message.message}</span>
-                    <Button onClick={() => deleteClientMessage(receivedMessage.message._id)} variant="danger">
-                      <FaTrash /> Delete
+                    <Button onClick={() => deleteClientMessage(receivedMessage.message._id)} variant="danger" style={{'position':'relative', 'left':'200px'}}> 
+                      <FaTrash />
                     </Button>
                   </MessageCard>
                 )

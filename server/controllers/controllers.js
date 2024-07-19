@@ -776,18 +776,15 @@ export const sendProviderToClientMessage = async(req, res) => {
 
     )
 
-    let message = JSON.stringify(req.body.message)
-    message = message.replace(/"/g, "")
-    let id = JSON.stringify(req.body._id)
-    id = id.replace(/"/g, "")
+
     await ProviderModel.findByIdAndUpdate(
-      providerId,
+      providerOrClientId,
       { $push: { messages: {
         message:
         {
           _id: id,
           providerId: providerOrClientId,
-          clientId: req.params.id,
+          clientId: clientId,
           name: null,
           message: message,
           response: true
@@ -796,6 +793,12 @@ export const sendProviderToClientMessage = async(req, res) => {
       { new: true } // Return the updated document
     );
   }else{
+    let message = JSON.stringify(req.body.message)
+    message = message.replace(/"/g, "")
+    let id = JSON.stringify(req.body._id)
+    id = id.replace(/"/g, "")
+    clientId = JSON.stringify(req.params.id)
+    clientId = clientId.replace(/"/g, "")
     await ClientModel.findByIdAndUpdate(
       clientId,
       { $push: { messages: {
@@ -811,18 +814,15 @@ export const sendProviderToClientMessage = async(req, res) => {
       { new: true } // Return the updated document
     );
 
-    let message = JSON.stringify(req.body.message)
-    message = message.replace(/"/g, "")
-    let id = JSON.stringify(req.body._id)
-    id = id.replace(/"/g, "")
+
     await ProviderModel.findByIdAndUpdate(
       providerId,
       { $push: { messages: {
         message:
         {
-          _id: id,
+          providerOrClientId,
           providerId: providerOrClientId,
-          clientId: req.params.id,
+
           name: null,
           message: message,
           response: true
@@ -1400,7 +1400,7 @@ export const getClientProfilePicture = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
-insertCategory
+sendProviderToClientMessage
 export const getClientProfileData = async(req, res) => {
  
   const client = await ClientModel.findById(providerOrClientId);
@@ -1516,7 +1516,7 @@ export const getProfilePDF4Client = async(req, res) => {
     
 
 }
-getPdfExperience
+
 
 export const getExperiencePDF4Client = async(req, res) => {
    providerId = req.params.id
@@ -1556,7 +1556,7 @@ export const getExperienceIMAGE4Client = async(req, res) => {
 }
 
 
-insertPost
+
 export const getBlog4Client = async(req, res) => {
    providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
@@ -1580,7 +1580,7 @@ export const getProfileData4Client = async(req, res) => {
 
 
 
-getProfilePicture
+
 export const getProfilePicture4Client = async(req, res) => {
    providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
@@ -1611,5 +1611,3 @@ export const getReport4Client = async(req, res) => {
 }
 
 
-
-sendProviderToClientMessage

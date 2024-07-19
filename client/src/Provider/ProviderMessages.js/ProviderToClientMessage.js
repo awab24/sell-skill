@@ -119,12 +119,12 @@ function ProviderToClientMessage() {
                         {
                           message.message.response === true? 
                           <span style={{'backgroundColor':'white'}}>{message.message.message}</span>
-                          :  <span>{message.message.message}</span>
+                          :  <span><b style={{'color':'white'}}>{message.message.message}</b></span>
                         }
 
 
-                          <Button variant="danger" onClick={() => deleteProviderMessage(message._id)}>
-                            <FaTrash /> Delete
+                          <Button variant="danger" onClick={() => deleteProviderMessage(message._id)} style={{'position':'relative', 'left':'200px'}}>
+                            <FaTrash /> 
                           </Button>
                         </>
                       )}
