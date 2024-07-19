@@ -609,10 +609,10 @@ export const submitProposal = async(req, res) => {
   let exist = false;
   const proposal = JSON.stringify(req.body);
   const client = await ClientModel.findById(clientId)
-  client?.proposals?.map((proposal) => proposal.proposalId === providerOrClientId ? exist=true : null)
+  client.proposals.map((proposal) => proposal.proposalId === providerOrClientId ? exist=true : null)
   if (!exist){
     await ClientModel.findByIdAndUpdate(
-      {_id: clientId},
+       clientId,
       {$push: {
         proposals: {
           proposalId: providerOrClientId,
@@ -690,7 +690,7 @@ await ProviderModel.findByIdAndUpdate(
         {new: true}
       )
     }else{
-  await ProviderModel.findByIdAndUpdate(
+  await ProviderModel.findByIdAndUpdate(  
         providerId,
         { $push: { messages: {
           message:
