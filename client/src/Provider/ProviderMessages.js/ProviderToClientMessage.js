@@ -65,6 +65,7 @@ function ProviderToClientMessage() {
 
   const handleProviderToClientMessage = async () => {
     await axios.post(`https://sell-skill.com/api/endpoints/sendProviderToClientMessage/${clientID}`, { _id: uuidv4(), message: messageContent });
+    await axios.post(`https://sell-skill.com/api/endpoints/sendProviderToProvider/${clientID}`, {_id: uuidv4(), message: messageContent})
   };
 
   useEffect(() => {
@@ -115,7 +116,13 @@ function ProviderToClientMessage() {
                     <MessageCard key={message._id}>
                       {message.message.clientId === clientID && (
                         <>
-                          <span>{message.message.message}</span>
+                        {
+                          message.message.response === true? 
+                          <span style={{'backgroundColor':'white'}}>{message.message.message}</span>
+                          :  <span>{message.message.message}</span>
+                        }
+
+
                           <Button variant="danger" onClick={() => deleteProviderMessage(message._id)}>
                             <FaTrash /> Delete
                           </Button>

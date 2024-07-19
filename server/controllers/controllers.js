@@ -673,7 +673,8 @@ await ProviderModel.findByIdAndUpdate(
             providerId: providerId, 
             clientId: providerOrClientId,
             name: clientName,
-            message: message.message
+            message: message.message,
+            response: false
           }
         } } },
          // Push the message object into messages array directly
@@ -698,7 +699,8 @@ await ProviderModel.findByIdAndUpdate(
             providerId: providerId,
             clientId: providerOrClientId,
             name: null,
-            message: message.message
+            message: message.message,
+            response: false
           }
         } } }, // Push the message object into messages array directly
         { new: true } // Return the updated document
@@ -1558,7 +1560,7 @@ export const getProfilePicture4Client = async(req, res) => {
 }
 
 
-getReport
+
 export const getReport4Client = async(req, res) => {
    providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
@@ -1568,3 +1570,27 @@ export const getReport4Client = async(req, res) => {
   res.send(reports)
 
 }
+
+export const sendProviderToProvider = async(req, res) => {
+  let message = JSON.stringify(req.body.message)
+  message = message.replace(/"/g, "")
+  let id = JSON.stringify(req.body._id)
+  id = id.replace(/"/g, "")
+  await ProviderModel.findByIdAndUpdate(
+    providerId,
+    { $push: { messages: {
+      message:
+      {
+        _id: id,
+        providerId: providerOrClientId,
+        clientId: req.params.id,
+        name: null,
+        message: message,
+        response: true
+      }
+    } } }, // Push the message object into messages array directly
+    { new: true } // Return the updated document
+  );
+}
+
+
