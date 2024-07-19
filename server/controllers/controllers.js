@@ -1185,7 +1185,7 @@ export const showClientPosts = async (req, res) => {
     res.status(500).send({ error: 'Failed to retrieve posts' });
   }
 };
-insertProviderToClient
+
 
 
 export const deletePost = async(req, res) => {
@@ -1211,7 +1211,7 @@ export const deleteClientMessage = async(req, res) => {
   client.messages = client.messages.filter((message) => message.message._id !== messageId)
   await client.save()
 }
-sendMessageFromClientToProvider
+
 export const sendInvite = async(req, res) => {
   const providerEmail = req.body.providerEmail
  
