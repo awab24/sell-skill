@@ -42,7 +42,7 @@ if(findUser){
           return res.status(401).json({ redirectUrl: 'http://localhost:3000/cancel' });
         }
             // Generate a JWT token
-    const token = jwt.sign({ _id: findUser._id }, process.env.SECRET_KEY, { expiresIn: '30m' });
+    const token = jwt.sign({ _id: findUser?._id }, process.env.SECRET_KEY, { expiresIn: '30m' });
     providerOrClientId = findUser._id
     // Send the token as a JSON response
 
@@ -76,8 +76,8 @@ export const handleProviderSignIn = async (req, res, next) => {
           return res.status(401).send('Email or password is incorrect');
         }
             // Generate a JWT token
-    const token = jwt.sign({ _id: findUser._id }, process.env.SECRET_KEY, { expiresIn: '30m' });
-    providerOrClientId = findUser._id
+    const token = jwt.sign({ _id: findUser?._id }, process.env.SECRET_KEY, { expiresIn: '30m' });
+    providerOrClientId = findUser?._id
     // Send the token as a JSON response
     res.json({ token });
     }
@@ -126,8 +126,8 @@ export const handleClientSignUp = async(req, res) => {
         })
 
         const findUser2 = await ClientModel.findOne({email: req.body.email})
-        const token =  jwt.sign({_id: findUser2._id}, process.env.SECRET_KEY, {expiresIn: '1m'})
-        providerOrClientId = findUser2._id
+        const token =  jwt.sign({_id: findUser2?._id}, process.env.SECRET_KEY, {expiresIn: '1m'})
+        providerOrClientId = findUser2?._id
         res.json(token)
 
         
@@ -159,7 +159,7 @@ export const handleProviderSignUp = async(req, res) => {
     }) 
     const findUser2 = await ProviderModel.findOne({email: req.body.email})
     console.log('findUser2 => '+findUser2)
-    const token = jwt.sign({_id: findUser2._id}, process.env.SECRET_KEY, {expiresIn: '1m'})
+    const token = jwt.sign({_id: findUser2?._id}, process.env.SECRET_KEY, {expiresIn: '1m'})
     console.log(token)
     res.json({token})
 
@@ -212,8 +212,8 @@ export const getPosts = async(req, res) => {
   if (providerOrClientId){
     const provider = await ProviderModel.findById(providerOrClientId)
     const allPosts = await PostsModel.find()
-     allPosts.map((post) => console.log('post category ===> '+post.skills))
-     allPosts.map((post) => post.skills.map((postSkill) => provider.categories.map((providerCategory)=> {
+     allPosts?.map((post) => console.log('post category ===> '+post.skills))
+     allPosts?.map((post) => post.skills.map((postSkill) => provider?.categories.map((providerCategory)=> {
       if(postSkill === providerCategory && !relatedPosts.includes(post))  {
       relatedPosts.push(post)
       }
@@ -391,9 +391,9 @@ export const addBlog = async(req, res) => {
 }
 export const getBlog = async(req, res) => {
   const provider = await ProviderModel.findById(providerOrClientId)
-  console.log(provider.blog)
-  res.set('Content-Type', provider.blog.picture.contentType)
-  res.send(provider.blog.picture.data)
+  console.log(provider?.blog)
+  res.set('Content-Type', provider?.blog.picture.contentType)
+  res.send(provider?.blog.picture.data)
 }
 export const addCourse= async(req, res)=>{
   
@@ -480,8 +480,8 @@ export const getProfilePDF = async(req, res) => {
 
 
     
-    const providerPdfCertifications = provider.pdfCertifications;
-    const providerPdfCertificationsPdfCertificateData = providerPdfCertifications.map(pdfCertificate => {
+    const providerPdfCertifications = provider?.pdfCertifications;
+    const providerPdfCertificationsPdfCertificateData = providerPdfCertifications?.map(pdfCertificate => {
       return {
         data: pdfCertificate.pdfCertificate.data.toString('base64'), // Convert binary to base64 string
         contentType: pdfCertificate.pdfCertificate.contentType,
@@ -511,8 +511,8 @@ export const getPdfExperience = async(req, res) => {
 
 
 
-    const providerPdfExperiences = provider.pdfExperiences;
-    const providerPdfExperiencesPdfExperienceData = providerPdfExperiences.map(pdfExperience => {
+    const providerPdfExperiences = provider?.pdfExperiences;
+    const providerPdfExperiencesPdfExperienceData = providerPdfExperiences?.map(pdfExperience => {
       return {
         data: pdfExperience.pdfExperience.data.toString('base64'), // Convert binary to base64 string
         contentType: pdfExperience.pdfExperience.contentType,
@@ -546,7 +546,7 @@ export const getImageExperience = async(req, res) => {
 
 
     const providerImageExperiences = provider.imageExperiences;
-    const providerImageExperiencesImageExperienceData = providerImageExperiences.map((imageExperience) => {
+    const providerImageExperiencesImageExperienceData = providerImageExperiences?.map((imageExperience) => {
       return {
         data: imageExperience.imageExperience.data.toString('base64'), // Convert binary to base64 string
         contentType: imageExperience.imageExperience.contentType,
@@ -609,7 +609,7 @@ export const submitProposal = async(req, res) => {
   let exist = false;
   const proposal = JSON.stringify(req.body);
   const client = await ClientModel.findById(clientId)
-  client.proposals.map((proposal) => proposal.proposalId === providerOrClientId ? exist=true : null)
+  client?.proposals?.map((proposal) => proposal.proposalId === providerOrClientId ? exist=true : null)
   if (!exist){
     await ClientModel.findByIdAndUpdate(
       {_id: clientId},
@@ -659,7 +659,7 @@ export const sendMessageFromClientToProvider = async (req, res) => {
   const clientName = client.name
   let NameExist = false
   const provider = await ProviderModel.findById(providerId)
-  provider.messages.map((message) => message.message.name === clientName ? NameExist = true : null)
+  provider?.messages?.map((message) => message.message.name === clientName ? NameExist = true : null)
   try {
     // Ensure the _id is correctly formatted as ObjectId if needed
 
@@ -746,7 +746,7 @@ export const sendProviderToClientMessage = async(req, res) => {
   const provider = await ProviderModel.findById(providerOrClientId)
   const providerName = provider.name
   const client = await ClientModel.findById(clientId)
-  client.messages.map((message) => providerName === message.message.name ? NameExist = true : null)
+  client?.messages?.map((message) => providerName === message.message.name ? NameExist = true : null)
   if(!NameExist){
     await ClientModel.findByIdAndUpdate(
       clientId,
@@ -808,7 +808,7 @@ export const sendProviderToClientMessage = async(req, res) => {
 export const getProviderToClientMessagesInClient = async(req, res) => {
   try{
     const client = await ClientModel.findById(providerOrClientId);
-    const messages = client.messages
+    const messages = client?.messages
     res.send(messages)
   }catch(error){
 
@@ -899,7 +899,6 @@ export const getProviderToClientMessagesInClient = async(req, res) => {
 
 
 
-sendMessageFromClientToProvider
 
 
 // Replace 'client_id' and 'client_secret' with your actual client ID and secret.
@@ -954,7 +953,7 @@ export const deleteImageCertificate = async (req, res) => {
     }
 
     // Filter out the image certificate that matches the given ID
-    provider.imageCertifications = provider.imageCertifications.filter(
+    provider.imageCertifications = provider?.imageCertifications?.filter(
       (imageCertificate) => imageCertificate.imageCertificate.imageCertificationId !== imageCertificateId
     );
     
@@ -1438,8 +1437,8 @@ export const getProfileIMAGE4client = async(req,res) => {
     if (!provider) {
       return res.status(404).send('Provider not found');
     }
-    const providerImageCertifications = provider.imageCertifications;
-    const providerImageCertificationsImageCertificateData = providerImageCertifications.map(imageCertificate => {
+    const providerImageCertifications = provider?.imageCertifications;
+    const providerImageCertificationsImageCertificateData = providerImageCertifications?.map(imageCertificate => {
       return {
         data: imageCertificate.imageCertificate.data.toString('base64'), // Convert binary to base64 string
         contentType: imageCertificate.imageCertificate.contentType,
@@ -1502,8 +1501,8 @@ export const getExperienceIMAGE4Client = async(req, res) => {
    providerId = req.params.id
   const provider = await ProviderModel.findById(providerId)
 
-  const providerImageExperiences = provider.imageExperiences;
-  const providerImageExperiencesImageExperienceData = providerImageExperiences.map((imageExperience) => {
+  const providerImageExperiences = provider?.imageExperiences;
+  const providerImageExperiencesImageExperienceData = providerImageExperiences?.map((imageExperience) => {
     return {
       data: imageExperience.imageExperience.data.toString('base64'), // Convert binary to base64 string
       contentType: imageExperience.imageExperience.contentType,

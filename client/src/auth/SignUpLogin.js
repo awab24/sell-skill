@@ -88,7 +88,7 @@ function SignUpLogin() {
       <Container className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '100%' }}>
         <h1 className="text-white text-center mb-4">SELL-SKILL</h1>
         <h5 className="text-white text-center mb-4">share, act, and interact</h5>
-        <Card style={{ width: '100%', maxWidth: '500px', backgroundColor: '#000', color: '#007bff', borderRadius: '20px' }}>
+        <Card style={{ width: '100%', maxWidth: '500px', backgroundColor: '#000', color: '#00ccff', borderRadius: '20px', border: '2px solid #ffcc00' }}>
           <Card.Body>
             <Card.Title className="text-center text-white mb-4" style={{ fontSize: '24px' }}>
               <b>Login</b>
@@ -100,12 +100,12 @@ function SignUpLogin() {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Control type="password" placeholder="Password" onChange={(e) => setSignInData({ ...signInData, password: e.target.value })} />
               </Form.Group>
-              <Button variant="primary" type="button" onClick={handleClick} className="w-100">
+              <Button variant="warning" type="button" onClick={handleClick} className="w-100">
                 Log in
               </Button>
             </Form>
             <div className="text-center mt-3">
-              <a href="/sign-up-client-provider" style={{ color: '#007bff' }}>
+              <a href="/sign-up-client-provider" style={{ color: '#ffcc00' }}>
                 Don't have an account? Let's sign up
               </a>
             </div>
