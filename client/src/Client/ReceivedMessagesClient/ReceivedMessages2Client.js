@@ -130,7 +130,7 @@ function ReceivedMessages2Client() {
                   <MessageCard key={receivedMessage.message._id}>
                   {
                     receivedMessage.message.response === true? 
-                    <Card style={{'backgroundColor':'blue'}}>   <span style={{'backgroundColor':'black'}}><b style={{'color':'white'}}>{receivedMessage.message.message}</b></span></Card>
+                    <Card >   <span style={{'backgroundColor':'blue'}}><b style={{'color':'white'}}>{receivedMessage.message.message}</b></span></Card>
                   :
                     <span ><b style={{'color':'white'}}>{receivedMessage.message.message}</b></span> 
                   }
