@@ -775,6 +775,26 @@ export const sendProviderToClientMessage = async(req, res) => {
       {new: true}
 
     )
+
+    let message = JSON.stringify(req.body.message)
+    message = message.replace(/"/g, "")
+    let id = JSON.stringify(req.body._id)
+    id = id.replace(/"/g, "")
+    await ProviderModel.findByIdAndUpdate(
+      providerId,
+      { $push: { messages: {
+        message:
+        {
+          _id: id,
+          providerId: providerOrClientId,
+          clientId: req.params.id,
+          name: null,
+          message: message,
+          response: true
+        }
+      } } }, // Push the message object into messages array directly
+      { new: true } // Return the updated document
+    );
   }else{
     await ClientModel.findByIdAndUpdate(
       clientId,
@@ -791,6 +811,25 @@ export const sendProviderToClientMessage = async(req, res) => {
       { new: true } // Return the updated document
     );
 
+    let message = JSON.stringify(req.body.message)
+    message = message.replace(/"/g, "")
+    let id = JSON.stringify(req.body._id)
+    id = id.replace(/"/g, "")
+    await ProviderModel.findByIdAndUpdate(
+      providerId,
+      { $push: { messages: {
+        message:
+        {
+          _id: id,
+          providerId: providerOrClientId,
+          clientId: req.params.id,
+          name: null,
+          message: message,
+          response: true
+        }
+      } } }, // Push the message object into messages array directly
+      { new: true } // Return the updated document
+    );
     await ClientModel.findByIdAndUpdate(
       clientId,
       {
@@ -1107,7 +1146,7 @@ export const deleteProviderMessage = async(req, res) => {
    await provider.save();
 
 }
-sendProviderToClientMessage
+
 export const deleteClientMessage = async(req, res) => {
   const messageId = req.params.id
 
@@ -1571,26 +1610,6 @@ export const getReport4Client = async(req, res) => {
 
 }
 
-export const sendProviderToProvider = async(req, res) => {
-  let message = JSON.stringify(req.body.message)
-  message = message.replace(/"/g, "")
-  let id = JSON.stringify(req.body._id)
-  id = id.replace(/"/g, "")
-  await ProviderModel.findByIdAndUpdate(
-    providerId,
-    { $push: { messages: {
-      message:
-      {
-        _id: id,
-        providerId: providerOrClientId,
-        clientId: req.params.id,
-        name: null,
-        message: message,
-        response: true
-      }
-    } } }, // Push the message object into messages array directly
-    { new: true } // Return the updated document
-  );
-}
 
 
+sendProviderToClientMessage

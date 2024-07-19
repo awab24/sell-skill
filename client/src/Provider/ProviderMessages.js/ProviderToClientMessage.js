@@ -65,7 +65,7 @@ function ProviderToClientMessage() {
 
   const handleProviderToClientMessage = async () => {
     await axios.post(`https://sell-skill.com/api/endpoints/sendProviderToClientMessage/${clientID}`, { _id: uuidv4(), message: messageContent });
-    await axios.post(`https://sell-skill.com/api/endpoints/sendProviderToProvider/${clientID}`, {_id: uuidv4(), message: messageContent})
+   
   };
 
   useEffect(() => {
