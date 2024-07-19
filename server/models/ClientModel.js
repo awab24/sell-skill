@@ -45,7 +45,7 @@ const ClientSchema = new schema({
  }}  ],
  newProposal: Boolean,
    proposals: [{
-
+    _id: String,
     proposalId: String,
     proposal: String,
 }],

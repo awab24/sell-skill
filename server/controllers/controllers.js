@@ -639,8 +639,8 @@ export const submitProposal = async(req, res) => {
 
 export const getProposals = async(req, res)=>{
   const client = await ClientModel.findById(providerOrClientId)
-  const proposals = client?.proposals
-
+  const proposals = client.proposals
+  
   res.send(proposals)
 }
 
@@ -746,7 +746,7 @@ export const sendProviderToClientMessage = async(req, res) => {
    clientId = clientId.replace(/"/g, "")
    providerId = providerOrClientId
   const provider = await ProviderModel.findById(providerOrClientId)
-  const providerName = provider.name
+  const providerName = provider?.name
   const client = await ClientModel.findById(clientId)
   client?.messages?.map((message) => providerName === message.message.name ? NameExist = true : null)
   if(!NameExist){

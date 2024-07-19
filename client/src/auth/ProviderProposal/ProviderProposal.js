@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function ProviderProposal() {
   const [proposal, setProposal] = useState('');
   const handleProposalSubmit = async () => {
+    navigate('/provider')
     await axios.post('https://sell-skill.com/api/endpoints/submitProposal', { proposal });
   };
 
