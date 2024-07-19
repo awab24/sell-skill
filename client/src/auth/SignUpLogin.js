@@ -6,7 +6,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeAuth, setProviderId, setProviderOrClientId } from '../reducers/reducers';
-import ImgSlider from './ImgSlider';
+import ImgSlider from '../Client/ClientHome/ImgSlider';
 
 function SignUpLogin() {
   const dispatch = useDispatch();
