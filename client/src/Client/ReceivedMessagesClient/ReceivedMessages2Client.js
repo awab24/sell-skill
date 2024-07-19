@@ -86,7 +86,7 @@ function ReceivedMessages2Client() {
 
       await axios.post(`https://sell-skill.com/api/endpoints/sendMessageFromClientToProvider/${providerId}`, { message });
       setMessageContent('');
-      console.log('providerId==========================================> ',providerId,' <===========================providerId')
+    
     } catch (error) {
       console.error('Error sending message:', error);
     }
