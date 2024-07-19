@@ -38,6 +38,18 @@ const MessageCard = styled(Card)`
   align-items: center;
 `;
 
+const ResponseMessage = styled.span`
+  background-color: #ffffff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #000;
+`;
+
+const IncomingMessage = styled.span`
+  color: #ffffff;
+  font-weight: bold;
+`;
+
 const SignUpContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -65,7 +77,7 @@ function ProviderToClientMessage() {
 
   const handleProviderToClientMessage = async () => {
     await axios.post(`https://sell-skill.com/api/endpoints/sendProviderToClientMessage/${clientID}`, { _id: uuidv4(), message: messageContent });
-   
+    setMessageContent('')
   };
 
   useEffect(() => {
@@ -116,14 +128,12 @@ function ProviderToClientMessage() {
                     <MessageCard key={message._id}>
                       {message.message.clientId === clientID && (
                         <>
-                        {
-                          message.message.response === true? 
-                          <span style={{'backgroundColor':'white'}}>{message.message.message}</span>
-                          :  <span><b style={{'color':'white'}}>{message.message.message}</b></span>
-                        }
-
-
-                          <Button variant="danger" onClick={() => deleteProviderMessage(message._id)} style={{'position':'relative', 'left':'200px'}}>
+                          {message.message.response === true ? (
+                            <ResponseMessage>{message.message.message}</ResponseMessage>
+                          ) : (
+                            <IncomingMessage>{message.message.message}</IncomingMessage>
+                          )}
+                          <Button variant="danger" onClick={() => deleteProviderMessage(message._id)} style={{'position':'relative', 'left':'300px'}}>
                             <FaTrash /> 
                           </Button>
                         </>
