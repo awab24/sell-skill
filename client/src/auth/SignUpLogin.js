@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Button, Alert, Card, Form, Container, Row, Col } from 'react-bootstrap';
+import { Button, Alert, Card, Form, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeAuth, setProviderId, setProviderOrClientId } from '../reducers/reducers';
-import ImgSlider from '../Client/ClientHome/ImgSlider';
 
 function SignUpLogin() {
   const dispatch = useDispatch();
@@ -28,15 +27,14 @@ function SignUpLogin() {
     console.log('email => ' + email);
 
     try {
-      responseClient = await axios.post('https://sell-skill.com/api/endpoints/clientSignIn', { email: email, password: '' });
+      responseClient = await axios.post('https://sell-skill.com/api/endpoints/clientSignIn', { email, password: '' });
       clientToken = responseClient.data;
-
       localStorage.setItem('clientToken', JSON.stringify(clientToken));
       responseClient && navigate('/Client');
     } catch (error) {
       setClientResult(false);
       try {
-        responseProvider = await axios.post('https://sell-skill.com/api/endpoints/providerSignIn', { email: email, password: '' });
+        responseProvider = await axios.post('https://sell-skill.com/api/endpoints/providerSignIn', { email, password: '' });
         providerToken = responseProvider.data;
         localStorage.setItem('providerToken', JSON.stringify(providerToken));
         responseProvider && navigate('/provider');
@@ -86,12 +84,13 @@ function SignUpLogin() {
   };
 
   return (
-    <div style={{ height: '100vh', backgroundColor: '#007bff' }}>
-    <ImgSlider />
-      <Container className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#007bff', padding: '1rem' }}>
+      <Container className="d-flex flex-column justify-content-center align-items-center" style={{ minHeight: '100%' }}>
+        <h1 className="text-white text-center mb-4">SELL-SKILL</h1>
+        <h5 className="text-white text-center mb-4">share, act, and interact</h5>
         <Card style={{ width: '100%', maxWidth: '500px', backgroundColor: '#000', color: '#007bff', borderRadius: '20px' }}>
           <Card.Body>
-            <Card.Title className="text-center" style={{ color: '#fff', fontSize: '24px' }}>
+            <Card.Title className="text-center text-white mb-4" style={{ fontSize: '24px' }}>
               <b>Login</b>
             </Card.Title>
             <Form>
@@ -125,6 +124,12 @@ function SignUpLogin() {
             )}
           </Card.Body>
         </Card>
+        <div className="text-white text-center mt-4">
+          <h5><b>What is Sell-Skill?</b></h5>
+          <p>
+            Sell-Skill is a platform that connects clients with providers. Sign up as a client to get help with your issues from certified and experienced providers. Or sign up as a provider and start sharing your knowledge.
+          </p>
+        </div>
       </Container>
     </div>
   );
