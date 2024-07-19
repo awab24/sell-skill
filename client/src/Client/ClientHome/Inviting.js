@@ -39,7 +39,7 @@ function Inviting() {
   };
 
   const handleInvite = async () => {
-    navigate('/provider');
+    navigate('/client');
     await axios.post(
       'https://sell-skill.com/api/endpoints/sendInvite',
       { providerEmail: providerEmail, message: invitationMessage }
