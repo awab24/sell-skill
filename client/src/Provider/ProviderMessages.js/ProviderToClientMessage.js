@@ -119,7 +119,8 @@ function ProviderToClientMessage() {
                         <>
                         {
                           message.message.response === true? 
-                          <span style={{'backgroundColor':'white'}}>{message.message.message}</span>
+                          <Card style={{'backgroundColor':'blue'}}> <span style={{'backgroundColor':'white'}}>{message.message.message}</span></Card>
+                         
                           :  <span><b style={{'color':'white'}}>{message.message.message}</b></span>
                         }
 

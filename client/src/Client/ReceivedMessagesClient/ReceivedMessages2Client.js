@@ -128,7 +128,13 @@ function ReceivedMessages2Client() {
               receivedMessages.map((receivedMessage) => (
                 receivedMessage.message.providerId === providerId && (
                   <MessageCard key={receivedMessage.message._id}>
-                    <span>{receivedMessage.message.message}</span>
+                  {
+                    receivedMessage.message.response === true? 
+                    <Card style={{'backgroundColor':'blue'}}>   <span style={{'backgroundColor':'black'}}><b style={{'color':'white'}}>{receivedMessage.message.message}</b></span></Card>
+                  :
+                    <span ><b style={{'color':'white'}}>{receivedMessage.message.message}</b></span> 
+                  }
+
                     <Button onClick={() => deleteClientMessage(receivedMessage.message._id)} variant="danger" style={{'position':'relative', 'left':'300px'}}> 
                       <FaTrash />
                     </Button>

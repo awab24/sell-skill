@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { json } from "express";
+import { json, response } from "express";
 import { ClientModel } from "../models/ClientModel.js"
 import { PostsModel } from "../models/PostsModel.js";
 import { ProviderModel } from "../models/ProviderModel.js"
@@ -680,6 +680,25 @@ await ProviderModel.findByIdAndUpdate(
          // Push the message object into messages array directly
         { new: true } // Return the updated document
       );
+      await ClientModel.findByIdAndUpdate(
+        providerOrClientId,
+        {
+          $push: {
+            messages: {
+              message: {
+                _id: message.messageId,
+                providerId: providerId, 
+                clientId: providerOrClientId,
+
+                message: message.message,
+                response: true
+              }
+            }
+          }
+        },
+        {new: true}
+        
+      )
       await ProviderModel.findByIdAndUpdate(
         providerId,
         {
@@ -705,6 +724,42 @@ await ProviderModel.findByIdAndUpdate(
         } } }, // Push the message object into messages array directly
         { new: true } // Return the updated document
       );
+
+      await ProviderModel.findByIdAndUpdate(
+        providerId,
+        { $push: { messages: { 
+          message:
+          {
+            _id: message.messageId,
+            providerId: providerId, 
+            clientId: providerOrClientId,
+            name: clientName,
+            message: message.message,
+            response: false
+          }
+        } } },
+         // Push the message object into messages array directly
+        { new: true } // Return the updated document
+      );
+      await ClientModel.findByIdAndUpdate(
+        providerOrClientId,
+        {
+          $push: {
+            messages: {
+              message: {
+                _id: message.messageId,
+                providerId: providerId, 
+                clientId: providerOrClientId,
+
+                message: message.message,
+                response: true
+              }
+            }
+          }
+        },
+        {new: true}
+        
+      )
 
       await ProviderModel.findByIdAndUpdate(
         providerId,
@@ -752,14 +807,16 @@ export const sendProviderToClientMessage = async(req, res) => {
   if(!NameExist){
     await ClientModel.findByIdAndUpdate(
       clientId,
-      { $push: { messages: {
+      { $push: { messages: { 
         message:
         { 
           _id: id,
           providerId: providerOrClientId,
           clientId: clientId,
           name: providerName,
-          message: message
+          message: message,
+          response: false
+          
         }
       } } }, // Push the message object into messages array directly
       { new: true } // Return the updated document
