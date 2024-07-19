@@ -6,6 +6,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeAuth, setProviderId, setProviderOrClientId } from '../reducers/reducers';
+import ImgSlider from './ImgSlider';
 
 function SignUpLogin() {
   const dispatch = useDispatch();
@@ -86,6 +87,7 @@ function SignUpLogin() {
 
   return (
     <div style={{ height: '100vh', backgroundColor: '#007bff' }}>
+    <ImgSlider />
       <Container className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
         <Card style={{ width: '100%', maxWidth: '500px', backgroundColor: '#000', color: '#007bff', borderRadius: '20px' }}>
           <Card.Body>
