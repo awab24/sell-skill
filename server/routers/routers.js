@@ -86,7 +86,7 @@ router.get('/api/endpoints/getBlog4Client/:id', cors(), getBlog4Client)
 router.get('/api/endpoints/getProfileData4Client/:id', cors(), getProfileData4Client)
 router.get('/api/endpoints/getProfilePicture4Client/:id', cors(), getProfilePicture4Client)
 router.get('/api/endpoints/getReport4Client/:id', cors(), getReport4Client)
-router.post('https://sell-skill.com/api/endpoints/inserInviteAcceptance/:id', cors(),  insertInviteAcceptance)
+router.post('/api/endpoints/inserInviteAcceptance/:id', cors(),  insertInviteAcceptance)
 
 
 export default router;
