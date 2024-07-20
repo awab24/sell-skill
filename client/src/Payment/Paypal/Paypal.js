@@ -22,6 +22,7 @@ const PayPalCheckout = ({ description, onSuccess }) => {
     currency: 'USD',
   };
 
+  const providerId = useSelector((state) => state.allow.proposalId)
   useEffect(() => {
     const fetchPermission = async () => {
       const response = await axios.get('https://sell-skill.com/api/endpoints/verifyClient', {
@@ -59,7 +60,7 @@ const PayPalCheckout = ({ description, onSuccess }) => {
                 const details = await actions.order.capture();
                 setPaid(true);
                 setCompleted(true);
-                await axios.post('https://sell-skill.com/api/endpoints/payProvider', {
+                await axios.post(`https://sell-skill.com/api/endpoints/payProvider/${providerId}`, {
                   providerAmount: (amount * 70) / 100
                 });
                 onSuccess(details);

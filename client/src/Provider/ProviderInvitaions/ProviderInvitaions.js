@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { setInvitationId } from '../../reducers/reducers';
+import { setClientId, setInvitationId } from '../../reducers/reducers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProviderInvitations() {
@@ -17,8 +17,9 @@ function ProviderInvitations() {
     getInvitations();
   }, []);
 
-  const goToChoosenInvitation = async (e) => {
+  const goToChoosenInvitation = async (e, clientId) => {
     navigate('/choosen-invitation');
+    dispatchEvent(setClientId(clientId))
     await axios.post(`https://sell-skill.com/api/endpoints/sendChoosenId/${e}`);
   };
 
@@ -41,7 +42,7 @@ function ProviderInvitations() {
                     You have an invitation from{' '}
                     <strong>{invitation.invitaion.invitorClientName}</strong>
                   </Card.Text>
-                  <Button variant="primary" onClick={() => goToChoosenInvitation(invitation._id)}>
+                  <Button variant="primary" onClick={() => goToChoosenInvitation(invitation._id, invitation.clientId)}>
                     View Invitation
                   </Button>
                 </Card.Body>

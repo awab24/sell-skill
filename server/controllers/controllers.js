@@ -1008,7 +1008,7 @@ const client = new paypal1.core.PayPalHttpClient(environment);
 
 export const payProvider = async function createPayout(req, res) {
   const providerShare = req.body.providerAmount
-
+  const provider = await ProviderModel.findById(req.params)
   const request = new paypal1.payouts.PayoutsPostRequest();
   request.requestBody({
     sender_batch_header: {
@@ -1022,7 +1022,7 @@ export const payProvider = async function createPayout(req, res) {
         value: providerShare,
         currency: 'USD'
       },
-      receiver: 'sb-43ezdo31471362@business.example.com', // Replace with the recipient's email address.
+      receiver: provider.paypal_email, // Replace with the recipient's email address.
       note: 'Thank you!',
       sender_item_id: 'item_1'
     }]
@@ -1211,7 +1211,7 @@ export const deleteClientMessage = async(req, res) => {
   client.messages = client.messages.filter((message) => message.message._id !== messageId)
   await client.save()
 }
-
+  
 export const sendInvite = async(req, res) => {
   const providerEmail = req.body.providerEmail
  
@@ -1269,7 +1269,7 @@ export const sendChoosenInvitationId = async(req, res) => {
 
 }
 
-
+payProvider
 
 export const insertReport = async (req, res) => {
   try {
@@ -1668,3 +1668,22 @@ export const getReport4Client = async(req, res) => {
 }
 
 
+export const insertInviteAcceptance = async(req, res) =>{
+  const provider = await ProviderModel.findById(providerOrClientId)
+  await ClientModel.findByIdAndUpdate(
+    req.params,
+    {
+      $push: {
+        invitationAcceptances : {
+          invitationAcceptance: {
+            providerId: providerOrClientId,
+            providerName: provider.name,
+            providerEmail: provider.email,
+            clientId: req.params
+          }
+        }
+      }
+    },
+    {new: true}
+  )
+}

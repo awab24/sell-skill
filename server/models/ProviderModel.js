@@ -17,6 +17,7 @@ const ProviderSchema = new schema({
     paypal_email:   String , 
     invitaions: [{
       invitaion: {
+        clientId: String,
         invitorClientName: String,
         invitaionContent: String 
       }

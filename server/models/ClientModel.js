@@ -30,6 +30,15 @@ const ClientSchema = new schema({
         message: String,
         response: Boolean
       }}],
+      invitationAcceptances: 
+      [{
+        invitationAcceptane: {
+          providerId: String,
+          clientId: String
+        }
+      }
+
+      ],
    incomingProviders:[
  {  incomingProvider:{
   _id: String,

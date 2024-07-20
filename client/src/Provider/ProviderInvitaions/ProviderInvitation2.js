@@ -1,10 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function ProviderInvitation2() {
   const [choosenInvitation, setChoosenInvitation] = useState([]);
+  const navigate = useNavigate()
+  const clientId = useSelector((state) => state.allow.clientId)
 
   useEffect(() => {
     const getChoosenInvitation = async () => {
@@ -13,6 +17,10 @@ function ProviderInvitation2() {
     };
     getChoosenInvitation();
   }, []);
+  const handleInviteAccept = async() => {
+    navigate('/provider')
+    await axios.post(`https://sell-skill.com/api/endpoints/inserInviteAcceptance/${clientId}`)
+  }
 
   return (
     <Container fluid className="py-5">
@@ -27,6 +35,10 @@ function ProviderInvitation2() {
                   </Card.Text>
                 </Card.Body>
               </Card>
+              <Button onClick={handleInviteAccept}>
+                Accept
+              </Button>
+
             </Col>
           ))
         ) : (

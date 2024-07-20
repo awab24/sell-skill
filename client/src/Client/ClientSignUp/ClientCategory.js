@@ -41,7 +41,7 @@ function TypeOfWork() {
               <b>Which category are you interested in?</b>
             </Card.Title>
             <div style={styles.buttonsContainer}>
-              {['Coding', 'AI', 'Medicne', 'Health & fitness', 'Legal & financial advice', 'Languages', 'Hobbies & skills', 'Cryptocurrecny', 'Home improvement & DIY', 'Creative services', 'Education & tutoring', 'Entertainment & Leisure', 'Dropshipping', 'Pet services'].map((cat) => (
+              {['Affiliate markting','Digital markting','Coding', 'AI', 'Medicne', 'Health & fitness', 'Legal & financial advice', 'Languages', 'Hobbies & skills', 'Cryptocurrecny', 'Home improvement & DIY', 'Creative services', 'Education & tutoring', 'Entertainment & Leisure', 'Dropshipping', 'Pet services'].map((cat) => (
                 <Button
                   key={cat}
                   style={category.includes(cat) ? styles.selectedButton : styles.button}

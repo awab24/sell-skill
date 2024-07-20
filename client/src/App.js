@@ -52,6 +52,7 @@ import ClientProfilePicture from './Client/ClientSignUp/ClientProfilePicture.js'
 import ClientCategory from './Client/ClientSignUp/ClientCategory.js';
 import ProviderReports from './Provider/ProviderReports/ProviderReports.js';
 import CertainProvider from './Client/CertainProvider/CertainProvider.js';
+import InvitationAcceptance from './Client/InvitationAcceptance/InvitationAcceptance.js';
 
 
 
@@ -131,6 +132,7 @@ function App() {
       <Route path="/payment-register" element={<PaymentRegister/>}/>
       <Route path="/my-reports" element={<ProviderReports/>}/>
       <Route path="/certain-provider" element={<CertainProvider/>}/>
+      <Route path="invitation-acceptance" element={<InvitationAcceptance/>}/>
     </Routes>
 
    
