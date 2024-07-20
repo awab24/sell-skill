@@ -1228,6 +1228,7 @@ export const sendInvite = async(req, res) => {
   if (provider && !nameExist){
     provider.invitaions.push({
       invitaion: {
+        clientId: providerOrClientId,
         invitorClientName: client.name,
         invitaionContent: req.body.message
       }
@@ -1673,14 +1674,14 @@ export const getReport4Client = async(req, res) => {
   res.send(reports)
 
 }
-
+sendInvite
 
 export const insertInviteAcceptance = async(req, res) =>{
-  console.log('clientID ====================================================================================================================================================================================>   '+req.params+" <====================================================================================================================================================================================");
+  console.log('clientID ====================================================================================================================================================================================>   '+req.params.id+" <====================================================================================================================================================================================");
   const provider = await ProviderModel.findById(providerOrClientId)
  
   await ClientModel.findByIdAndUpdate(
-    req.params,
+    req.params.id,
     {
       $push: {
         invitationAcceptances : {
