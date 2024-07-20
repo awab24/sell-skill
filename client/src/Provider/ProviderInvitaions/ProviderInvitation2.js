@@ -18,8 +18,13 @@ function ProviderInvitation2() {
     getChoosenInvitation();
   }, []);
   const handleInviteAccept = async() => {
+ try {
+  await axios.post(`https://sell-skill.com/api/endpoints/inserInviteAcceptance/${clientId}`)
+ } catch (error) {
+  
+ }
+
     navigate('/provider')
-    await axios.post(`https://sell-skill.com/api/endpoints/inserInviteAcceptance/${clientId}`)
   }
 
   return (
