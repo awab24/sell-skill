@@ -1682,6 +1682,8 @@ sendInvite
 export const insertInviteAcceptance = async(req, res) =>{
   clientId = req.params.id
   clientId = clientId.replace(/"/g, "")
+
+  console.log('clientId ===========================================>  ',clientId, 'clientId < ========================================================================clientId')
   const provider = await ProviderModel.findById(providerOrClientId)
   await ClientModel.findByIdAndUpdate(
     clientId,
