@@ -1219,7 +1219,7 @@ export const sendInvite = async(req, res) => {
   const client = await ClientModel.findById(providerOrClientId)
 
   const provider = await ProviderModel.findOne({email: providerEmail})
-  provider.invitaions.map((invitation) => 
+  provider?.invitaions.map((invitation) => 
     invitation.invitorClientName === client.name ?
     
       nameExist =true
@@ -1501,7 +1501,7 @@ export const getRelatedProviders = async(req, res) => {
   const client = await ClientModel.findById(providerOrClientId)
   const allProviders = await ProviderModel.find()
  allProviders.map((provider) => 
-  provider.categories.map((providerCategory) => client.categories.map((clientCategory) => 
+  provider?.categories.map((providerCategory) => client.categories.map((clientCategory) => 
   
     clientCategory === providerCategory && !relatedProviders.includes(provider) &&
   
