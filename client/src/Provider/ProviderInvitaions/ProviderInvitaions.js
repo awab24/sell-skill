@@ -22,7 +22,7 @@ function ProviderInvitations() {
   const goToChoosenInvitation = async (e) => {
     console.log('eeeeeeeeee=============================================> ',e)
     navigate('/choosen-invitation');
-    dispatch(setClientId(e.clientId))
+    dispatch(setClientId(e.clientID))
     await axios.post(`https://sell-skill.com/api/endpoints/sendChoosenId/${e.invitationId}`);
   };
 
@@ -45,7 +45,7 @@ function ProviderInvitations() {
                     You have an invitation from{' '}
                     <strong>{invitation.invitaion.invitorClientName}</strong>
                   </Card.Text>
-                  <Button variant="primary" onClick={() => goToChoosenInvitation({invitationId: invitation._id, clientId: invitation.clientId} )}>
+                  <Button variant="primary" onClick={() => goToChoosenInvitation({invitationId: invitation._id, clientID: invitation.clientId} )}>
                     View Invitation
                   </Button>
                 </Card.Body>
