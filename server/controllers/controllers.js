@@ -1273,7 +1273,10 @@ export const getInvitationContent = async(req, res) => {
 }
 
 export const sendChoosenInvitationId = async(req, res) => {
-    choosenInvitationId = req.params.id
+    choosenInvitationId = req.params.invitaionId
+    clientId = req.params.clientID
+
+    console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee==============================>  ', req.params, '  <=================================================eeeeeeeeeeeeeeeeeeeeeeeee')
 
 }
 
@@ -1681,7 +1684,7 @@ export const insertInviteAcceptance = async(req, res) =>{
   const provider = await ProviderModel.findById(providerOrClientId)
  
   await ClientModel.findByIdAndUpdate(
-    req.params.id,
+    clientId,
     {
       $push: {
         invitationAcceptances : {

@@ -22,8 +22,8 @@ function ProviderInvitations() {
   const goToChoosenInvitation = async (e) => {
     console.log('eeeeeeeeee=============================================> ',e)
     navigate('/choosen-invitation');
-    dispatch(setClientId(e.clientID))
-    await axios.post(`https://sell-skill.com/api/endpoints/sendChoosenId/${e.invitationId}`);
+
+    await axios.post(`https://sell-skill.com/api/endpoints/sendChoosenId/${e}`);
   };
 
   useEffect(() => {
