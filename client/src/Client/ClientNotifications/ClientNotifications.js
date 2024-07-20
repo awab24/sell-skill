@@ -74,7 +74,7 @@ function ClientNotifications() {
                                         <Card.Body>
                                             <Card.Title style={{ color: 'black' }}>
                                                 You got a proposal from
-                                            </Card.Title>
+                                            </Card.Title> 
                                             <Card.Text>
                                                 <strong>Name:</strong> {proposal.incomingProvider.providerName} <br />
                                                 <strong>Email:</strong> {proposal.incomingProvider.providerEmail}

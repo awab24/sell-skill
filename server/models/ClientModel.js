@@ -34,6 +34,8 @@ const ClientSchema = new schema({
       [{
         invitationAcceptane: {
           providerId: String,
+          providerName: String,
+          providerEmail: String,
           clientId: String
         }
       }
