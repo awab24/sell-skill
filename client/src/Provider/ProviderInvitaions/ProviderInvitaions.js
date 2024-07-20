@@ -4,10 +4,12 @@ import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { setClientId, setInvitationId } from '../../reducers/reducers';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useDispatch } from 'react-redux';
 
 function ProviderInvitations() {
   const [invitations, setInvitations] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getInvitations = async () => {
@@ -19,7 +21,7 @@ function ProviderInvitations() {
 
   const goToChoosenInvitation = async (e) => {
     navigate('/choosen-invitation');
-    dispatchEvent(setClientId(e.clientId))
+    dispatch(setClientId(e.clientId))
     await axios.post(`https://sell-skill.com/api/endpoints/sendChoosenId/${e.invitationId}`);
   };
 

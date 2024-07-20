@@ -1213,12 +1213,19 @@ export const deleteClientMessage = async(req, res) => {
 }
   
 export const sendInvite = async(req, res) => {
+  let nameExist =false;
   const providerEmail = req.body.providerEmail
  
   const client = await ClientModel.findById(providerOrClientId)
 
   const provider = await ProviderModel.findOne({email: providerEmail})
-  if (provider){
+  provider.invitaions.map((invitation) => 
+    invitation.invitorClientName === client.name ?
+    
+      nameExist =true
+    : null
+  )
+  if (provider && !nameExist){
     provider.invitaions.push({
       invitaion: {
         invitorClientName: client.name,
@@ -1689,3 +1696,5 @@ export const insertInviteAcceptance = async(req, res) =>{
     {new: true}
   )
 }
+
+sendInvite
