@@ -1670,6 +1670,7 @@ export const getReport4Client = async(req, res) => {
 
 export const insertInviteAcceptance = async(req, res) =>{
   const provider = await ProviderModel.findById(providerOrClientId)
+  console.log('clientID =================================>   '+req.params)
   await ClientModel.findByIdAndUpdate(
     req.params,
     {
