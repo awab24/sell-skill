@@ -1680,14 +1680,31 @@ export const getReport4Client = async(req, res) => {
 sendInvite
 
 export const insertInviteAcceptance = async(req, res) =>{
-  console.log('clientID ====================================================================================================================================================================================>   '+req.params.id+" <====================================================================================================================================================================================");
+  clientId = req.params.id
+  clientId = clientId.replace(/"/g, "")
   const provider = await ProviderModel.findById(providerOrClientId)
- 
-  provider.invitaions =  provider.invitaions.map((invitation) => {
-    if(JSON.stringify(invitation._id) === JSON.stringify(choosenInvitationId)){
-      invitation.acceptance = true
-    }
-   })
+  await ClientModel.findByIdAndUpdate(
+    clientId,
+    {
+      $push: {
 
-   provider.save()
+        invitationAcceptances: {
+          invitationAcceptance: {
+            clientId: clientId,
+            providerId: providerOrClientId,
+            providerName: provider.name,
+            providerEmail: provider.email
+          }
+        }
+
+      }
+    },
+    {new: true}
+  )
 }
+
+export const getInvitationAcceptance = async(req, res) => {
+  let invitationAcceptance = [];
+
+}
+

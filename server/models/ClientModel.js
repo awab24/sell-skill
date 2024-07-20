@@ -33,10 +33,11 @@ const ClientSchema = new schema({
       invitationAcceptances: 
       [{
         invitationAcceptane: {
+          clientId: String,
           providerId: String,
           providerName: String,
           providerEmail: String,
-          clientId: String
+  
         }
       }
 

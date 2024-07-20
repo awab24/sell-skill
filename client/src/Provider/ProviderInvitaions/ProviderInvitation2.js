@@ -10,7 +10,7 @@ function ProviderInvitation2() {
   const navigate = useNavigate()
   const clientId = useSelector((state) => state.allow.clientId)
 
-  useEffect(() => {
+  useEffect(() => { 
     const getChoosenInvitation = async () => {
       const response = await axios.get('https://sell-skill.com/api/endpoints/getInvitationContent');
       setChoosenInvitation(response.data);
@@ -19,10 +19,10 @@ function ProviderInvitation2() {
   }, []);
 
 
-  const handleInviteAccept = async() => {
+  const handleInviteAccept = async(clientID) => {
  try {
-  console.log('clientId ======================================>     > > > '+clientId)
-  await axios.post(`https://sell-skill.com/api/endpoints/insertInviteAcceptance/${clientId}`)
+  console.log('clientId ======================================>     > > > '+clientID)
+  await axios.post(`https://sell-skill.com/api/endpoints/insertInviteAcceptance/${clientID}`)
  } catch (error) {
   
  }
@@ -43,7 +43,7 @@ function ProviderInvitation2() {
                   </Card.Text>
                 </Card.Body>
               </Card>
-              <Button onClick={handleInviteAccept}>
+              <Button onClick={() => handleInviteAccept(invitation.clientId)}>
                 Accept
               </Button>
 
