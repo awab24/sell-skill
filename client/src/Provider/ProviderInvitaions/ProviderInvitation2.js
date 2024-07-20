@@ -19,7 +19,7 @@ function ProviderInvitation2() {
   }, []);
   const handleInviteAccept = async() => {
  try {
-  await axios.post(`https://sell-skill.com/api/endpoints/inserInviteAcceptance/${clientId}`)
+  await axios.post(`https://sell-skill.com/api/endpoints/insertInviteAcceptance/${clientId}`)
  } catch (error) {
   
  }
