@@ -45,7 +45,7 @@ function ProviderInvitations() {
                     You have an invitation from{' '}
                     <strong>{invitation.invitaion.invitorClientName}</strong>
                   </Card.Text>
-                  <Button variant="primary" onClick={() => goToChoosenInvitation({invitationId: invitation._id, clientID: invitation.clientId} )}>
+                  <Button variant="primary" onClick={() => goToChoosenInvitation(invitation._id )}>
                     View Invitation
                   </Button>
                 </Card.Body>

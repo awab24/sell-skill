@@ -1273,14 +1273,14 @@ export const getInvitationContent = async(req, res) => {
 }
 
 export const sendChoosenInvitationId = async(req, res) => {
-    choosenInvitationId = req.params.invitaionId
-    clientId = req.params.clientID
+    choosenInvitationId = req.params.id
+
 
     console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee==============================>  ', req.params, '  <=================================================eeeeeeeeeeeeeeeeeeeeeeeee')
 
 }
 
-payProvider
+
 
 export const insertReport = async (req, res) => {
   try {
@@ -1683,22 +1683,11 @@ export const insertInviteAcceptance = async(req, res) =>{
   console.log('clientID ====================================================================================================================================================================================>   '+req.params.id+" <====================================================================================================================================================================================");
   const provider = await ProviderModel.findById(providerOrClientId)
  
-  await ClientModel.findByIdAndUpdate(
-    clientId,
-    {
-      $push: {
-        invitationAcceptances : {
-          invitationAcceptance: {
-            providerId: providerOrClientId,
-            providerName: provider.name,
-            providerEmail: provider.email,
-            clientId: req.params
-          }
-        }
-      }
-    },
-    {new: true}
-  )
-}
+  provider.invitaions =  provider.invitaions.map((invitation) => {
+    if(JSON.stringify(invitation._id) === JSON.stringify(choosenInvitationId)){
+      invitation.acceptance = true
+    }
+   })
 
-sendInvite
+   provider.save()
+}

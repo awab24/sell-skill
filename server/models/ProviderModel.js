@@ -19,7 +19,8 @@ const ProviderSchema = new schema({
       invitaion: {
         clientId: String,
         invitorClientName: String,
-        invitaionContent: String 
+        invitaionContent: String,
+        acceptance: Boolean,
       }
     }
 
