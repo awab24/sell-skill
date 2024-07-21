@@ -35,7 +35,7 @@ function TopBar() {
     };
     checkNewProposal();
   }, []);
-
+  
   useEffect(() => {
     fetch('https://sell-skill.com/api/endpoints/getClientProfileData')
       .then(response => response.json())

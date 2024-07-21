@@ -1699,6 +1699,9 @@ export const insertInviteAcceptance = async(req, res) =>{
           }
         }
 
+      },
+      $set: {
+        newInvitationAcceptance: true
       }
     },
 
@@ -1713,18 +1716,10 @@ export const insertInviteAcceptance = async(req, res) =>{
 
 export const getInvitationAcceptance = async(req, res) => {
 
-  await ClientModel.findByIdAndUpdate(
-    providerOrClientId,
-    {
-      $set: {
-        newInvitationAcceptance: false
-      }
-    },
-    {new: true}
-  )
+
   const client =await ClientModel.findById(providerOrClientId)
 
-  res.send(client.invitationAcceptances)
+  res.send(client?.invitationAcceptances)
 
 }
 
