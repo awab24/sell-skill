@@ -72,7 +72,7 @@ function TopBar() {
         <NavLink href="/invitation-acceptance" style={{'color':'black', 'position':'relative', 'padding-right':'20px'}}>Invitation acceptance</NavLink>
       </NavLinks>
 
-      <ProfileCard style={{'position':'relative', 'right':'300px'}}>
+      <ProfileCard style={{'position':'relative', 'right':'250px'}}>
         <Card.Title>{name}</Card.Title>
         {
           profilePictureSrc && 
