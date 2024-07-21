@@ -21,7 +21,8 @@ function InvitationAcceptance() {
             const result = await axios.get('https://sell-skill.com/api/endpoints/getInvitationAcceptance')
             setInvitationAcceptances(result.data)
             console.log('result data ====================================================> ', result.data, '  <===================================================================result data')
-
+          invitationAcceptances.map((InvitationAcceptance) => 
+          console.log('invitationAcceptance.invitationAcceptance  ==============================================================>  ',InvitationAcceptance.InvitationAcceptance,'  <<====================================================invitationAccepatance.invitationAcceptance'))
         };
         fetchInvitationsAcceptances()
     }, [])
