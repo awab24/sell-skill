@@ -1263,7 +1263,7 @@ export const getInvitationContent = async(req, res) => {
 
   
   const provider = await ProviderModel.findById(providerOrClientId)
-   const choosenInvitation = await provider.invitaions.map((invitation) => {
+   const choosenInvitation = await provider?.invitaions.map((invitation) => {
     if(JSON.stringify(invitation._id) === JSON.stringify(choosenInvitationId)){
       return invitation
     }

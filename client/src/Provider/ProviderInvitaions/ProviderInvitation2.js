@@ -43,7 +43,7 @@ function ProviderInvitation2() {
                   </Card.Text>
                 </Card.Body>
               </Card>
-              <Button onClick={() => handleInviteAccept(invitation.clientId)}>
+              <Button onClick={() => handleInviteAccept(invitation.invitaion.clientId)}>
                 Accept
               </Button>
 
