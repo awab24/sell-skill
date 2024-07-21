@@ -60,7 +60,7 @@ function TopBar() {
         <NavLink href="/notifications">Notifications & Providers</NavLink>
         <NavLink href="/client-received-messages">Messages</NavLink>
         <NavLink href="/client-posts">My Posts</NavLink>
-        <NavLink href="invitation-acceptance" >Invitation acceptance</NavLink>
+        <NavLink href="/invitation-acceptance" >Invitation acceptance</NavLink>
       </NavLinks>
 
       <ProfileCard>

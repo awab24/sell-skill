@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { handleClientSignIn, handleClientSignUp, handleProviderSignUp, verify, insertPost, getPosts, insertCategory, insertLetter, insertPicture,  addRate, addCourse, getProfileData, getProfilePicture, insertImageCertificate, insertPdfCertificate, getProfileIMAGE, getProfilePDF, handleProviderSignIn, insertPdfExperience, insertImageExperience, getImageExperience, getPdfExperience, insertProviderToClient, getProviderData, submitProposal, getProposals, getProposalId,  sendMessageFromClientToProvider, getMessagesFromClientIntoProvider, sendProviderIdToFront,  sendProviderToClientMessage, getProviderToClientMessagesInClient,  payProvider, createPayment, executePayment, deleteImageCertificate, deletePdfCertificate, deletePdfExperience, deleteImageExperience, showClientPosts, sendProviderOrClientId, deletePost, deleteProviderMessage, deleteClientMessage, sendInvite, getInvitations, getInvitationContent, sendChoosenInvitationId, getReport, insertReport, deleteBlog, getBlog, addBlog, checkClientNewMessages, cancelClientNewMessages, checkProviderNewMessages, cancelProviderNewMessages, cancelProviderNewInvites, checkProviderNewInvites, checkClientNewProposals, cancelClientNewProposals, insertClientPicture, getClientProfilePicture, getClientProfileData, insertClientCategory, getRelatedProviders, insertPaypalEmail, getProfilePDF4Client, getExperienceIMAGE4Client, getBlog4Client, getProfileData4Client, getProfilePicture4Client, getReport4Client, insertInviteAcceptance} from '../controllers/controllers.js'
+import { handleClientSignIn, handleClientSignUp, handleProviderSignUp, verify, insertPost, getPosts, insertCategory, insertLetter, insertPicture,  addRate, addCourse, getProfileData, getProfilePicture, insertImageCertificate, insertPdfCertificate, getProfileIMAGE, getProfilePDF, handleProviderSignIn, insertPdfExperience, insertImageExperience, getImageExperience, getPdfExperience, insertProviderToClient, getProviderData, submitProposal, getProposals, getProposalId,  sendMessageFromClientToProvider, getMessagesFromClientIntoProvider, sendProviderIdToFront,  sendProviderToClientMessage, getProviderToClientMessagesInClient,  payProvider, createPayment, executePayment, deleteImageCertificate, deletePdfCertificate, deletePdfExperience, deleteImageExperience, showClientPosts, sendProviderOrClientId, deletePost, deleteProviderMessage, deleteClientMessage, sendInvite, getInvitations, getInvitationContent, sendChoosenInvitationId, getReport, insertReport, deleteBlog, getBlog, addBlog, checkClientNewMessages, cancelClientNewMessages, checkProviderNewMessages, cancelProviderNewMessages, cancelProviderNewInvites, checkProviderNewInvites, checkClientNewProposals, cancelClientNewProposals, insertClientPicture, getClientProfilePicture, getClientProfileData, insertClientCategory, getRelatedProviders, insertPaypalEmail, getProfilePDF4Client, getExperienceIMAGE4Client, getBlog4Client, getProfileData4Client, getProfilePicture4Client, getReport4Client, insertInviteAcceptance, getInvitationAcceptance} from '../controllers/controllers.js'
 import upload from '../middlewares/upload.js'
 
 
@@ -60,7 +60,7 @@ router.get('/api/endpoints/getInvitations', cors(),getInvitations)
 router.get('/api/endpoints/getInvitationContent', cors(), getInvitationContent)
 router.post('/api/endpoints/sendChoosenId/:id',cors(), sendChoosenInvitationId)
 router.post('/api/endpoints/insertReport', cors(), insertReport)
-router.get('/api/endpoints/getReport', cors(), getReport)
+router.get('/api/endpoints/getReport', cors(), getReport) 
 router.patch('/api/endpoints/deleteBlog', cors(), deleteBlog)
 router.get('/api/endpoints/checkClientNewMessage', cors(), checkClientNewMessages)
 router.patch('/api/endpoints/cancelClientNewMessages', cors(), cancelClientNewMessages)
@@ -87,7 +87,7 @@ router.get('/api/endpoints/getProfileData4Client/:id', cors(), getProfileData4Cl
 router.get('/api/endpoints/getProfilePicture4Client/:id', cors(), getProfilePicture4Client)
 router.get('/api/endpoints/getReport4Client/:id', cors(), getReport4Client)
 router.post('/api/endpoints/insertInviteAcceptance/:id', cors(),  insertInviteAcceptance)
-
+router.get('/api/endpoints/getInvitationAcceptance', cors(), getInvitationAcceptance)
 
 export default router;
 

@@ -10,7 +10,7 @@ function InvitationAcceptance() {
 
     useEffect(() => {
         const fetchInvitationsAcceptances = async() => {
-            const result = await axios.get('')
+            const result = await axios.get('https://sell-skill.com/api/endpoints/getInvitationAcceptance')
             setInvitationAcceptances(result.data)
 
         };
@@ -28,15 +28,15 @@ function InvitationAcceptance() {
         {
             invitationAcceptances.length > 0 ?
             invitationAcceptances.map((InvitationAcceptance) => 
-            (<div>{InvitationAcceptance.name}</div>)
+            (<div>{InvitationAcceptance.name+' '}has accepted your inivtation</div>)
 
             ): (<div>No invitation Acceptance</div>)
         }
       invitation acceptance
-      <Button onClick={() => handleGoToPayment(InvitationAcceptance.providerId)}>
+      <Button onClick={() => handleGoToPayment(InvitationAcceptance.InvitationAcceptance.providerId)}>
         go to payment
       </Button>
-      <Button onClick={() => handleGoToMessage2(InvitationAcceptance.providerId)}>
+      <Button onClick={() => handleGoToMessage2(InvitationAcceptance.InvitationAcceptance.providerId)}>
         Message
       </Button>
     </div>

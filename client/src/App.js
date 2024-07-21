@@ -132,7 +132,7 @@ function App() {
       <Route path="/payment-register" element={<PaymentRegister/>}/>
       <Route path="/my-reports" element={<ProviderReports/>}/>
       <Route path="/certain-provider" element={<CertainProvider/>}/>
-      <Route path="invitation-acceptance" element={<InvitationAcceptance/>}/>
+      <Route path="/invitation-acceptance" element={<InvitationAcceptance/>}/>
     </Routes>
 
    
