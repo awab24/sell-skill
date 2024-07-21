@@ -1503,8 +1503,8 @@ export const getRelatedProviders = async(req, res) => {
   let relatedProviders = [];
   const client = await ClientModel.findById(providerOrClientId)
   const allProviders = await ProviderModel.find()
- allProviders.map((provider) => 
-  provider?.categories.map((providerCategory) => client.categories.map((clientCategory) => 
+ allProviders?.map((provider) => 
+  provider?.categories?.map((providerCategory) => client?.categories?.map((clientCategory) => 
   
     clientCategory === providerCategory && !relatedProviders.includes(provider) &&
   
