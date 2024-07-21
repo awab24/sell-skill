@@ -1701,12 +1701,46 @@ export const insertInviteAcceptance = async(req, res) =>{
 
       }
     },
+
+    {
+      $set: {
+        newInvitationAcceptance: true
+      }
+    },
     {new: true}
   )
 }
 
 export const getInvitationAcceptance = async(req, res) => {
-  let invitationAcceptance = [];
+
+  await ClientModel.findByIdAndUpdate(
+    providerOrClientId,
+    {
+      $set: {
+        newInvitationAcceptance: false
+      }
+    },
+    {new: true}
+  )
+  const client =await ClientModel.findById(providerOrClientId)
+
+  res.send(client.invitationAcceptances)
 
 }
 
+export const checkNewInvitationAcceptanceState = async(req, res) => {
+  const client = await ClientModel.findById(providerOrClientId)
+  res.send(client?.newInvitationAcceptance)
+}
+
+export const killNewInvitationAcceptanceNotification = async(req, res) => {
+  await ClientModel.findByIdAndUpdate(
+    providerOrClientId,
+    {
+      $set: {
+        newInvitationAcceptance: false
+      }
+    },
+    {new: true}
+  )
+}

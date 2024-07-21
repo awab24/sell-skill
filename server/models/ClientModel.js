@@ -32,16 +32,17 @@ const ClientSchema = new schema({
       }}],
       invitationAcceptances: 
       [{
-        invitationAcceptane: {
+        invitationAcceptance: {
           clientId: String,
           providerId: String,
           providerName: String,
           providerEmail: String,
-  
+
         }
       }
-
+      
       ],
+      newInvitationAcceptance: Boolean,
    incomingProviders:[
  {  incomingProvider:{
   _id: String,

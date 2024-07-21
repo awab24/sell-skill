@@ -9,6 +9,12 @@ function InvitationAcceptance() {
     const [invitationAcceptances, setInvitationAcceptances] = useState([])
 
     useEffect(() => {
+      const killNewInvitationAcceptanceNotification = async() => {
+        await axios.patch('https://sell-skill.com/api/endpoints/killNewInvitationAcceptanceNotification')
+      }
+      killNewInvitationAcceptanceNotification();
+    }, [])
+    useEffect(() => {
         const fetchInvitationsAcceptances = async() => {
             const result = await axios.get('https://sell-skill.com/api/endpoints/getInvitationAcceptance')
             setInvitationAcceptances(result.data)

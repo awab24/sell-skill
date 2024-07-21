@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 function TopBar() {
   const [checkNewMessages, setCheckNewMessages] = useState(false);
+  const [checkNewInvitationAcceptance, setCheckNewInvitationAcceptance] = useState(false)
   const [newProposals, setNewProposals] = useState(false);
   const [profilePictureSrc, setProfilePictureSrc] = useState('');
   const [name, setName] = useState('');
@@ -19,6 +20,14 @@ function TopBar() {
     fetchCheckClientNewMessage();
   }, []);
 
+
+  useEffect(() => {
+    const fetchCheckNewInvitationAcceptance = async() => {
+      const response = await axios.get('https://sell-skill.com/api/endpoints/getNewInvitationAcceptanceState')
+      setCheckNewInvitationAcceptance(response.data)
+    };
+    fetchCheckNewInvitationAcceptance();
+  }, [])
   useEffect(() => {
     const checkNewProposal = async () => {
       const response = await axios.get('https://sell-skill.com/api/endpoints/checkClientNewProposals');
@@ -54,7 +63,7 @@ function TopBar() {
     <TopBarContainer>
       {checkNewMessages && <Alert variant="danger">You have new messages!</Alert>}
       {newProposals && <Alert variant="danger">You have got proposal!</Alert>}
-
+    {checkNewInvitationAcceptance && <Alert variant="danger">your invitation was accepted!</Alert>}
       <NavLinks>
         <NavLink href="/report">Make Report</NavLink>
         <NavLink href="/notifications">Notifications & Providers</NavLink>
