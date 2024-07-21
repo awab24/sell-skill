@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setProposalId, setProviderId } from '../../reducers/reducers';
@@ -20,6 +20,7 @@ function InvitationAcceptance() {
         const fetchInvitationsAcceptances = async() => {
             const result = await axios.get('https://sell-skill.com/api/endpoints/getInvitationAcceptance')
             setInvitationAcceptances(result.data)
+            console.log('result data ====================================================> ', result.data, '  <===================================================================result data')
 
         };
         fetchInvitationsAcceptances()
@@ -39,17 +40,21 @@ function InvitationAcceptance() {
         {
             invitationAcceptances.length > 0 ?
             invitationAcceptances.map((InvitationAcceptance) => 
-            (<div>{InvitationAcceptance.InvitationAcceptance.name+' '}has accepted your inivtation</div>)
-
-            ): (<div>No invitation Acceptance</div>)
-        }
-      invitation acceptance
-      <Button onClick={() => handleGoToPayment(InvitationAcceptance.InvitationAcceptance.providerId)}>
+            (
+            <>
+            <Card>{InvitationAcceptance.InvitationAcceptance.providerName+' '}has accepted your inivtation</Card>
+            <Button onClick={() => handleGoToPayment(InvitationAcceptance.InvitationAcceptance.providerId)}>
         go to payment
       </Button>
       <Button onClick={() => handleGoToMessage2(InvitationAcceptance.InvitationAcceptance.providerId)}>
         Message
       </Button>
+            </>)
+
+            ): (<div>No invitation Acceptance</div>)
+        }
+      invitation acceptance
+
     </div>
   )
 }
