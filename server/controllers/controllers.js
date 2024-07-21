@@ -1680,7 +1680,7 @@ export const getReport4Client = async(req, res) => {
 sendInvite
 
 export const insertInviteAcceptance = async(req, res) =>{
-  clientId = req.params
+  clientId = req.params.id
 
 
   console.log('clientId ===========================================>  ',clientId, 'clientId < ========================================================================clientId')
