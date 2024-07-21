@@ -37,7 +37,7 @@ function MainHome() {
     <MainContainer>
       {permission ? (
         <>
-          <TopBar/>
+          <TopBar />
           <ImgSlider />
           <CallInviteBlocks />
           <RelatedTeachers />
