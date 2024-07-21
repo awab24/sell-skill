@@ -42,11 +42,11 @@ function InvitationAcceptance() {
             invitationAcceptances.map((InvitationAcceptance) => 
             (
             <>
-            <Card>{InvitationAcceptance.InvitationAcceptance.providerName+' '}has accepted your inivtation</Card>
-            <Button onClick={() => handleGoToPayment(InvitationAcceptance.InvitationAcceptance.providerId)}>
+            <Card>{InvitationAcceptance.providerName+' '}has accepted your inivtation</Card>
+            <Button onClick={() => handleGoToPayment(InvitationAcceptance.providerId)}>
         go to payment
       </Button>
-      <Button onClick={() => handleGoToMessage2(InvitationAcceptance.InvitationAcceptance.providerId)}>
+      <Button onClick={() => handleGoToMessage2(InvitationAcceptance.providerId)}>
         Message
       </Button>
             </>)
