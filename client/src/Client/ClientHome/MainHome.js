@@ -37,7 +37,7 @@ function MainHome() {
     <MainContainer>
       {permission ? (
         <>
-          <TopBar style={{'position':'relative', 'right':'300px'}}/>
+          <TopBar/>
           <ImgSlider />
           <CallInviteBlocks />
           <RelatedTeachers />

@@ -65,14 +65,14 @@ function TopBar() {
       {newProposals && <Alert variant="danger">You have got proposal!</Alert>}
     {checkNewInvitationAcceptance && <Alert variant="danger">your invitation was accepted!</Alert>}
       <NavLinks>
-        <NavLink href="/report">Make Report</NavLink>
-        <NavLink href="/notifications">Notifications & Providers</NavLink>
-        <NavLink href="/client-received-messages">Messages</NavLink>
-        <NavLink href="/client-posts">My Posts</NavLink>
-        <NavLink href="/invitation-acceptance" >Invitation acceptance</NavLink>
+        <NavLink href="/report" style={{'color':'black', 'position':'relative', 'padding-right':'10px'}}>Make Report</NavLink>
+        <NavLink href="/notifications" style={{'color':'black', 'position':'relative', 'padding-right':'10px'}}>Notifications & Providers</NavLink>
+        <NavLink href="/client-received-messages" style={{'color':'black', 'position':'relative', 'padding-right':'10px'}}>Messages</NavLink>
+        <NavLink href="/client-posts" style={{'color':'black', 'position':'relative', 'padding-right':'10px'}}>My Posts</NavLink>
+        <NavLink href="/invitation-acceptance" style={{'color':'black', 'position':'relative', 'padding-right':'10px'}}>Invitation acceptance</NavLink>
       </NavLinks>
 
-      <ProfileCard>
+      <ProfileCard style={{'position':'relative', 'right':'50px'}}>
         <Card.Title>{name}</Card.Title>
         {
           profilePictureSrc && 
