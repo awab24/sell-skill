@@ -47,6 +47,7 @@ const LoadingSpinner = styled(Spinner)`
 
 function ProviderReports() {
   const [reports, setReports] = useState([]);
+  
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -57,6 +58,12 @@ function ProviderReports() {
     fetchReports();
   }, []);
 
+  useEffect(() => {
+    const killNewReportNotification = async() => {
+      await axios.patch('/api/endpoints/killNewReportNotification')
+    }
+    killNewReportNotification()
+  }, [])
   return (
     <>
       <GlobalStyle />

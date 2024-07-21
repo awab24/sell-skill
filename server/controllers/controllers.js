@@ -202,8 +202,8 @@ export const insertPost = async(req, res)=>{
     scope: req.body.scope,
     experience: req.body.experience,
     pudget: req.body.pudget,
-
-    description: req.body.description
+    description: req.body.description,
+    
   })
 } 
 
@@ -1305,6 +1305,9 @@ if(provider){
           },
         },
       },
+      $set: {
+        newReportNotification: true
+      }
     },
     { new: true }
   );
@@ -1332,7 +1335,7 @@ export const getReport = async(req, res) => {
     res.send(reports)
 }
 
-
+insertPost
 export const deleteBlog = async (req, res) => {
   await ProviderModel.findByIdAndUpdate(
     providerOrClientId,
@@ -1515,7 +1518,7 @@ export const getRelatedProviders = async(req, res) => {
 
   await res.send(relatedProviders)
 }
-getProfilePDF
+
 export const insertPaypalEmail = async(req, res) => {
   const paypalEmail= req.body.paypalEmail
 
@@ -1734,6 +1737,24 @@ export const killNewInvitationAcceptanceNotification = async(req, res) => {
     {
       $set: {
         newInvitationAcceptance: false
+      }
+    },
+    {new: true}
+  )
+}
+insertReport
+
+export const checkNewReportNotification = async(req, res) => {
+  const provider = await ProviderModel.findById(providerOrClientId)
+  res.send(provider.newReportNotification)
+}
+
+export const killNewReportNotification = async(req, res) => {
+  await ProviderModel.findByIdAndUpdate(
+    providerOrClientId,
+    {
+      $set: {
+        newReportNotification: false
       }
     },
     {new: true}

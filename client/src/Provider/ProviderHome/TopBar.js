@@ -11,6 +11,7 @@ function TopBar() {
   const [name, setName] = useState(null);
   const [newMessages, setNewMessages] = useState(false);
   const [newInvites, setNewInvites] = useState(false);
+  const [newReport, setNewReport] = useState(false)
 
   const dispatch = useDispatch();
 
@@ -53,10 +54,19 @@ function TopBar() {
     fetchImage();
   }, [name]);
 
+  useEffect(() => {
+    const checkNewReport = async() => {
+    const result =   await axios.get('/api/endpoints/checkNewReportNotification')
+    setNewReport(result.data)
+    }
+    checkNewReport();
+  }, [])
+
   return (
     <Container fluid className="p-3">
       {newMessages && <Alert variant="danger">You have new messages!</Alert>}
       {newInvites && <Alert variant="danger">You have new invites!</Alert>}
+      {newReport && <Alert variant="danger">You got new Report about you!</Alert>}
 
       <Row className="align-items-center mb-3">
         <Col xs={12} md={4} className="d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">

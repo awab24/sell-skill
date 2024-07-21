@@ -37,7 +37,7 @@ function ClientPosts() {
                             <Card className="text-center" style={{ backgroundColor: 'black', color: 'blue' }}>
                                 <Card.Body>
                                     <Card.Title style={{ color: 'black' }}>{post.title || 'Untitled Post'}</Card.Title>
-                                    <Card.Text>{post.content || 'No content available.'}</Card.Text>
+                                    <Card.Text>{post.description || 'No content available.'}</Card.Text>
                                     <Button onClick={() => deletePost(post._id)} variant="danger">
                                         <FaTrash /> Delete Post
                                     </Button>

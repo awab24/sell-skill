@@ -34,6 +34,7 @@ const ProviderSchema = new schema({
         }
       }
     ],
+    newReportNotification: Boolean,
     newInvite: Boolean,
     newMessage: Boolean,
     messages: [{

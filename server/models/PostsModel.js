@@ -7,12 +7,13 @@ postId: String,
 clientId: String,
    term: String,
    title: String,
+   description: String,
    skills: Array,
    scope: String,
    experience: String,
    pudget: Number,
 
-   category: [String]
+
 })
 
 export const PostsModel = mongoose.model('post', PostSchema)
